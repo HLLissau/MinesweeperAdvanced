@@ -3,13 +3,13 @@ import java.util.ArrayList;
 
 //Model class containing game
 public class MinesweeperModel{
-	public int[][] knownGameState;
+	public char[][] knownGameState;
 	private int[][] gameState;
 	private int m;
 	private int n;
 	private int bombAmount;
 	private int isGameStarted;
-	private int clickedFields;
+	public  int[][] clickedFields;
 	private ArrayList<Point> availableFields;
 	private int endCondition;
 	
@@ -21,11 +21,11 @@ public class MinesweeperModel{
 	 * Input: Game board size given as m by n, along with amount of bombs.
 	 */
 	public MinesweeperModel(int m, int n, int bombAmount) {
-		this.knownGameState = new int[m][n] ;
+		this.knownGameState = new char[m][n] ;
 		this.gameState = new int[m][n];
 		this.m=m;
 		this.n=n;
-		this.clickedFields=0;
+		this.clickedFields = new int[m][n];
 		this.bombAmount= bombAmount;
 		isGameStarted=1;
 		
@@ -50,8 +50,8 @@ public class MinesweeperModel{
 			
 		}
 		
-		this.knownGameState[nextPos.x][nextPos.y]=this.gameState[nextPos.x][nextPos.y];
-		clickedFields += 1;
+		this.knownGameState[nextPos.x][nextPos.y]=(char) this.gameState[nextPos.x][nextPos.y];
+		clickedFields[nextPos.x][nextPos.y]=1;
 		int cell = this.knownGameState[nextPos.x][nextPos.y];
 		
 		testConditions(nextPos);
@@ -129,7 +129,7 @@ public class MinesweeperModel{
 	 * output: Boolean value.
 	 */
 	private boolean victoryCondition() {
-		return ((this.m*this.n)-this.bombAmount == this.clickedFields);
+		return ((this.m*this.n)-this.bombAmount == getAmountClickedFields());
 	}
 	/*
 	 * Defeat condition are met, 
@@ -154,7 +154,16 @@ public class MinesweeperModel{
 	}
 	
 	public int getAmountClickedFields() {
-		return this.clickedFields;
+		int clicked =0;
+		for (int i=0; i<this.n;i++) {
+			for (int j=0; j<this.m;j++) {
+				if (this.clickedFields[j][i]==1) {
+					clicked++;
+				}
+			}
+		}
+		System.out.println(clicked);
+		return clicked;
 	}
 	
 	
