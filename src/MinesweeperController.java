@@ -13,11 +13,19 @@ public class MinesweeperController {
 	//children is an array which contains a map of buttons and images for JavaFX
 	ObservableList<Node> children;
 	GridPane grid;
+	private int m;
+	private int bombAmount;
+	private int n;
+	
 	
 	//Import model and view to controller through constructor
-	public MinesweeperController(MinesweeperModel model, MinesweeperView view) {
+	public MinesweeperController(MinesweeperModel model, MinesweeperView view, int m, int n, int bombAmount) {
 		this.view = view;
 		this.model = model;
+		this.m =m;
+		this.n = n;
+		this.bombAmount = bombAmount;
+		
 	}
 	
 	/*
@@ -65,8 +73,8 @@ public class MinesweeperController {
 	 */
 	public GridPane getGrid() {
 		grid = new GridPane();
-		for (int i =0; i<model.getm(); i++) {
-			for (int j =0; j<model.getn(); j++) {
+		for (int i =0; i<this.n; i++) {
+			for (int j =0; j<this.m; j++) {
 				MinesweeperButton button = new MinesweeperButton(j,i);
 				button.setText("  ");
 				
@@ -78,11 +86,11 @@ public class MinesweeperController {
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
 						if (button.flag) {
-							button.setText("");
-							button.setGraphic(new ImageView(view.images[10]));
-						} else {
-							button.setGraphic(new ImageView(view.images[11]));
-						}
+                            button.setText("");
+                            button.setGraphic(new ImageView(view.images[10]));
+                        } else {
+                            button.setGraphic(new ImageView(view.images[0]));
+                        }
 					}
 				});
 				
@@ -95,7 +103,7 @@ public class MinesweeperController {
 		
 		for (int i=0;i<children.size();i++) {
 			MinesweeperButton button = (MinesweeperButton) children.get(i);
-			button.setNeighbours(model.getm(),model.getn(),children);
+			button.setNeighbours(this.m,this.n,children);
 		}
 		
 		return grid;
@@ -106,17 +114,20 @@ public class MinesweeperController {
 	 * Input: Stage
 	 */
 	public void gotoNewGame(Stage thisStage) {
-		model = new MinesweeperModel(model.getm(),model.getn(),model.getBombAmount());
+		model = new MinesweeperModel(this.m,this.n,bombAmount);
 	}
 	
-	public void gotoNewGame() {
-		model = new MinesweeperModel(model.getm(),model.getn(),model.getBombAmount());
+	public void gotoNewGame(int m, int n, int bombAmount) {
+		this.m =m;
+		this.n = n;
+		this.bombAmount =bombAmount;
+		model = new MinesweeperModel(m,n,bombAmount);
 		view.basicGame();
 	}
 
 	
 	public void gotoMainMenu() {
-		model = new MinesweeperModel(model.getm(),model.getn(),model.getBombAmount());
+		model = new MinesweeperModel(this.m,this.n,bombAmount);
 		view.mainMenu();
 	}
 	
@@ -124,7 +135,7 @@ public class MinesweeperController {
 	 * Remaining buttons are deactivated 
 	 */
 	public void clearButtonAction() {
-		for (int i =0; i< ((model.getm()*model.getn())-model.getAmountClickedFields()); i++) {
+		for (int i =0; i< ((this.m*this.n)-model.getAmountClickedFields()); i++) {
 			MinesweeperButton temp =(MinesweeperButton) children.get(i);
 			temp.setOnAction(null);
 		}
@@ -148,8 +159,17 @@ public class MinesweeperController {
 		}
 	
 	}
-	public void editFlag() {
-		
+	
+	public int getm() {
+		return this.m;
+	}
+	
+	public int getn() {
+		return this.n;
+	}
+	
+	public int getBombAmount() {
+		return this.bombAmount;
 	}
 }	
 

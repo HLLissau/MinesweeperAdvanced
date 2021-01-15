@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class MinesweeperModel{
 	public char[][] knownGameState;
 	private int[][] gameState;
-	private int m;
-	private int n;
-	private int bombAmount;
 	private int isGameStarted;
 	public  int[][] clickedFields;
 	private ArrayList<Point> availableFields;
 	private int endCondition;
+	private int m;
+	private int bombAmount;
+	private int n;
 	
 	/*
 	 * Creates a standard (n x m) game where bombAmount specifies 
@@ -141,17 +141,7 @@ public class MinesweeperModel{
 	}
 
 	//The remaining functions are used to get game parameters
-	public int getm() {
-		return this.m;
-	}
 	
-	public int getn() {
-		return this.n;
-	}
-	
-	public int getBombAmount() {
-		return this.bombAmount;
-	}
 	
 	public int getAmountClickedFields() {
 		int clicked =0;

@@ -37,7 +37,7 @@ public class startMinesweeper extends Application {
 		
 		view = new MinesweeperView();
 		model = new MinesweeperModel(m,n,bombs);
-		controller = new MinesweeperController(model, view);
+		controller = new MinesweeperController(model, view, m,n,bombs);
 		
 		view.SetOptions(topLevelStage, controller, "Minesweeper");
 		topLevelStage = view.mainMenu();
