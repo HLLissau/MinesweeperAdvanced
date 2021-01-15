@@ -50,13 +50,34 @@ public class MinesweeperView {
 		return images[x];
 	}
 	
+	//Main menu Stage
+	public Stage mainMenu() {
+		this.stage.setTitle("Minesweeper");
+		
+		
+		//New game button
+		Button newGameButton = new Button();
+		newGameButton.setText("New game");
+		newGameButton.setOnAction(e -> controller.gotoNewGame());
+		
+			
+		
+		StackPane layout = new StackPane();
+		layout.getChildren().add(newGameButton);
+		
+		Scene scene = new Scene(layout, 800, 600);
+		stage.setScene(scene);
+		return stage;
+	}
+	
 	
 	//Sets the stage
 	public Stage basicGame() {
 		this.stage.setTitle(title);
 		StackPane layout = new StackPane();
 		layout.getChildren().add(controller.getGrid());
-		Scene scene = new Scene(layout, 23*controller.model.getm(), 25*controller.model.getn());
+		Scene scene = new Scene(layout, 800, 600);
+		//Scene scene = new Scene(layout, 23*controller.model.getm(), 25*controller.model.getn());
 		stage.setScene(scene);
 		return stage;
 	}
@@ -71,7 +92,7 @@ public class MinesweeperView {
 		//controller.clearButtonAction();
 		Stage window = new Stage();
 		window.setTitle(title);
-		window.setOnCloseRequest(e -> controller.gotoNewGame());
+		window.setOnCloseRequest(e -> controller.gotoMainMenu());
 		//Force user to interact with window
 		window.initModality(Modality.APPLICATION_MODAL);
 		
@@ -81,9 +102,9 @@ public class MinesweeperView {
 		
 		//button (Begin new game)
 		Button button = new Button();
-		button.setText("New game");
+		button.setText("Main Menu");
 		button.setOnAction(e -> {
-			controller.gotoNewGame();
+			controller.gotoMainMenu();
 			window.close();
 		});
 		
