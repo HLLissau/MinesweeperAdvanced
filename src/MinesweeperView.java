@@ -1,3 +1,5 @@
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MinesweeperView {
 	MinesweeperController controller;
@@ -60,6 +63,8 @@ public class MinesweeperView {
 	//Main menu Stage
 	public Stage mainMenu() {
 		this.stage.setTitle("Minesweeper");
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
 		
 		
 		//New game button
@@ -75,8 +80,9 @@ public class MinesweeperView {
 		VBox layout = new VBox();
 		layout.getChildren().addAll(newGameButton, highScore);
 		layout.setPadding(new Insets(200,400,300,300));
+		layout.setBackground(background);
+		Scene scene = new Scene(layout, 1000, 750);
 		
-		Scene scene = new Scene(layout, 800, 600);
 		stage.setScene(scene);
 		return stage;
 	}
