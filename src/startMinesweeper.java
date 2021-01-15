@@ -40,7 +40,8 @@ public class startMinesweeper extends Application {
 		controller = new MinesweeperController(model, view);
 		
 		view.SetOptions(topLevelStage, controller, "Minesweeper");
-		topLevelStage = view.basicGame();
+		topLevelStage = view.mainMenu();
+		//topLevelStage = view.basicGame();
 		topLevelStage.show();
 		
 		

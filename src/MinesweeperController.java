@@ -69,6 +69,7 @@ public class MinesweeperController {
 			for (int j =0; j<model.getn(); j++) {
 				MinesweeperButton button = new MinesweeperButton(j,i);
 				button.setText("  ");
+				
 				button.setOnMouseClicked(event -> {
 					System.out.println();
 					if  (event.getButton()== MouseButton.PRIMARY) {
@@ -76,7 +77,6 @@ public class MinesweeperController {
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
-						System.out.println("flag :" + button.flag);
 						if (button.flag) {
 							button.setText("");
 							button.setGraphic(new ImageView(view.images[10]));
@@ -108,13 +108,18 @@ public class MinesweeperController {
 	public void gotoNewGame(Stage thisStage) {
 		model = new MinesweeperModel(model.getm(),model.getn(),model.getBombAmount());
 	}
-		public void gotoNewGame() {
+	
+	public void gotoNewGame() {
 		model = new MinesweeperModel(model.getm(),model.getn(),model.getBombAmount());
 		view.basicGame();
-		
-		
-		}
+	}
 
+	
+	public void gotoMainMenu() {
+		model = new MinesweeperModel(model.getm(),model.getn(),model.getBombAmount());
+		view.mainMenu();
+	}
+	
 	/*
 	 * Remaining buttons are deactivated 
 	 */
