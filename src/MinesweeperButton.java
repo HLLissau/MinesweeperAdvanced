@@ -5,14 +5,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
+
 public class MinesweeperButton extends Button{
 	private Point position;
 	private ArrayList<MinesweeperButton> neightbours;
+	public Boolean flag;
 
 	public MinesweeperButton(int x, int y) {
 		this.position = new Point(x,y);
 		neightbours = new ArrayList<MinesweeperButton>() ;
-	
+		this.flag = false;
 	}
 	
 	public Point getPos() {
@@ -21,6 +23,15 @@ public class MinesweeperButton extends Button{
 	
 	public ArrayList<MinesweeperButton> getneighbours() {
 		return this.neightbours;
+	}
+	
+	public void changeFlag() {
+		if (flag) {
+			this.flag = false ;
+		} else {
+			this.flag = true;
+		}
+		
 	}
 	
 	public void setNeighbours(int x, int y, ObservableList<Node> list) {

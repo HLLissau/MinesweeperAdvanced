@@ -1,7 +1,10 @@
+import java.awt.event.MouseEvent;
+
 import java.awt.Point;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -64,9 +67,21 @@ public class MinesweeperController {
 			for (int j =0; j<model.getn(); j++) {
 				MinesweeperButton button = new MinesweeperButton(j,i);
 				button.setText("  ");
-				button.setOnAction(e->buttonPressed(button));
+				button.setOnMouseClicked(event -> {
+					System.out.println();
+					if  (event.getButton()== MouseButton.PRIMARY) {
+						if (!(button.flag)) {
+							buttonPressed(button);
+						}
+					} else if (event.getButton()== MouseButton.SECONDARY) {
+						button.changeFlag();
+						System.out.println("flag :" + button.flag);
+					}
+				});
+				
 				grid.add(button, j, i);
 			}
+		
 		}
 		
 		children = grid.getChildren();
@@ -121,7 +136,9 @@ public class MinesweeperController {
 		}
 	
 	}
-	
+	public void editFlag() {
+		
+	}
 }	
 
 	

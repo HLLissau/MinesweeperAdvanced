@@ -1,5 +1,8 @@
+
+
 import java.util.List;
 import javafx.application.Application;
+
 import javafx.stage.Stage;
 
 public class startMinesweeper extends Application {
@@ -39,6 +42,10 @@ public class startMinesweeper extends Application {
 		view.SetOptions(topLevelStage, controller, "Minesweeper");
 		topLevelStage = view.basicGame();
 		topLevelStage.show();
+		
+		
+		
+    
 	}
 	
 	/* 
@@ -58,4 +65,5 @@ public class startMinesweeper extends Application {
 		}
 		return intParams;
 	}
+	   
 }	
