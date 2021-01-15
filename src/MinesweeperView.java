@@ -88,7 +88,8 @@ public class MinesweeperView {
 	}
 	public void mainSetup() {
 		this.stage.setTitle("Minesweeper (Setup Game)");
-		
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
 		
 		//Easy button
 		Button easyButton = new Button();
@@ -118,7 +119,9 @@ public class MinesweeperView {
 		VBox layout = new VBox(50);
 		layout.getChildren().addAll(easyButton, mediumButton, hardButton,customButton);
 		layout.setPadding(new Insets(200,400,300,300));
-		Scene scene = new Scene(layout, 800, 600);
+		layout.setBackground(background);
+		
+		Scene scene = new Scene(layout, 1000, 750);
 		stage.setScene(scene);
 		
 	}
@@ -128,11 +131,15 @@ public class MinesweeperView {
 	
 	//Sets the stage
 	public void basicGame() {
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
 		this.stage.setTitle(title);
+		
+		
 		StackPane layout = new StackPane();
 		layout.getChildren().add(controller.getGrid());
-		
-		Scene scene = new Scene(layout, 800, 600);
+		layout.setBackground(background);
+		Scene scene = new Scene(layout, 1000, 750);
 		
 		stage.setScene(scene);
 		
@@ -179,6 +186,11 @@ public class MinesweeperView {
 	}
 
 	public void customizeGame() {
+		this.stage.setTitle("Minesweeper");
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
+		
+		
 		this.stage.setTitle("Minesweeper (Custom Game)");
 		
 		IntegerField n = new IntegerField();
@@ -197,13 +209,18 @@ public class MinesweeperView {
 		VBox layout = new VBox();
 		layout.getChildren().addAll(n,m,bombs,newGameButton);
 		layout.setPadding(new Insets(200,400,300,300));
-		
-		Scene scene = new Scene(layout, 800, 600);
+		layout.setBackground(background);
+		Scene scene = new Scene(layout, 1000, 750);
 		stage.setScene(scene);
 		
 	}
 
 	public void highScore() {
+		this.stage.setTitle("Minesweeper");
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
+		
+		
 		Label label = new Label();
 		label.setText("Harald the Champ!");
 		
@@ -215,8 +232,8 @@ public class MinesweeperView {
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label, returnButton);
 		layout.setPadding(new Insets(200,400,300,300));
-		Scene scene = new Scene(layout, 800, 600);
-		
+		Scene scene = new Scene(layout, 1000, 750);
+		layout.setBackground(background);
 		stage.setScene(scene);
 		
 	}
