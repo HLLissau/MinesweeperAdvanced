@@ -1,5 +1,5 @@
 import java.awt.event.MouseEvent;
-
+import java.util.ArrayList;
 import java.awt.Point;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -37,23 +37,26 @@ public class MinesweeperController {
 	 *Input: MinesweeperButton.
 	 */
 	public void buttonPressed(MinesweeperButton pressedButton) {
-		grid.getChildren().remove(pressedButton);
-		int cell = getNext(pressedButton.getPos());
-		grid.add(new ImageView(view.getPicture(cell)), pressedButton.getPos().x, pressedButton.getPos().y);
-		
-		/*
-		int gameState = model.testConditions(button.getPos());
-		childrens = grid.getChildren();
-		
-		if (cell==0) {
-			ArrayList<MinesweeperButton> temp = pressedButton.getneighbours();
-			while (temp.size()>0) {
+		if (!(pressedButton.flag)) {
+			grid.getChildren().remove(pressedButton);
+			int cell = getNext(pressedButton.getPos());
+			grid.add(new ImageView(view.getPicture(cell)), pressedButton.getPos().x, pressedButton.getPos().y);
+			
+			
+			/*int gameState = model.testConditions(button.getPos());
+			childrens = grid.getChildren(); */
+			
+			if (cell==0) {
 				
-				buttonPressed(temp.remove(0));
+				ArrayList<MinesweeperButton> temp = pressedButton.getneighbours();
+				while (temp.size()>0) {
+					
+					buttonPressed(temp.remove(0));
+				}
 			}
+			
+			checkEndCondition(model, pressedButton.getPos());
 		}
-		*/
-		checkEndCondition(model, pressedButton.getPos());
 		
 	}
 	
@@ -70,9 +73,7 @@ public class MinesweeperController {
 				button.setOnMouseClicked(event -> {
 					System.out.println();
 					if  (event.getButton()== MouseButton.PRIMARY) {
-						if (!(button.flag)) {
-							buttonPressed(button);
-						}
+						buttonPressed(button);
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
 						System.out.println("flag :" + button.flag);

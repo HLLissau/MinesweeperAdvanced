@@ -30,6 +30,7 @@ public class MinesweeperButton extends Button{
 			this.flag = false ;
 		} else {
 			this.flag = true;
+			
 		}
 		
 	}
