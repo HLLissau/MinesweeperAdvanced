@@ -4,14 +4,18 @@ import java.util.ArrayList;
 //Model class containing game
 public class MinesweeperModel{
 	public char[][] knownGameState;
-	private int[][] gameState;
-	private int isGameStarted;
+	private char[][] gameState;
+	private Boolean isGameStarted;
 	public  int[][] clickedFields;
 	private ArrayList<Point> availableFields;
 	private int endCondition;
 	private int m;
 	private int bombAmount;
 	private int n;
+	private final int MINGRIDSIZE = 4;
+	private final int MAXGRIDSIZE = 30;
+	
+	
 	
 	/*
 	 * Creates a standard (n x m) game where bombAmount specifies 
@@ -21,20 +25,23 @@ public class MinesweeperModel{
 	 * Input: Game board size given as m by n, along with amount of bombs.
 	 */
 	public MinesweeperModel(int m, int n, int bombAmount) {
+		
+		if (m > MAXGRIDSIZE) m = MAXGRIDSIZE;
+		else if (m < MINGRIDSIZE) m = MINGRIDSIZE;
+		if (n > MAXGRIDSIZE) n = MAXGRIDSIZE;
+		else if (n < MINGRIDSIZE) n = MINGRIDSIZE;
+		if (bombAmount >= m*n) bombAmount = m*n-1;
+		else if (bombAmount < 1) bombAmount = 1;
+		
 		this.knownGameState = new char[m][n] ;
-		this.gameState = new int[m][n];
+		this.gameState = new char[m][n];
 		this.m=m;
 		this.n=n;
 		this.clickedFields = new int[m][n];
 		this.bombAmount= bombAmount;
-		isGameStarted=1;
+		isGameStarted= false;
 		
-		if (m > 100) m = 100;
-		else if (m < 4) m = 4;
-		if (n > 100) n = 100;
-		else if (n < 4) n = 4;
-		if (bombAmount >= m*n) bombAmount = m*n-1;
-		else if (bombAmount < 1) bombAmount = 1;
+		
 	}
 	
 	/*
@@ -43,8 +50,8 @@ public class MinesweeperModel{
 	 * Output: number of neighbors (9 = bombs).
 	 */
 	public int getPos( Point nextPos) {
-		if (isGameStarted ==1) {
-			isGameStarted =0;
+		if (!isGameStarted) {
+			isGameStarted = true;
 			randomBombGenerator(bombAmount, nextPos );
 			nearBombs();
 			
@@ -141,6 +148,17 @@ public class MinesweeperModel{
 	}
 
 	//The remaining functions are used to get game parameters
+	public int getm() {
+		return this.m;
+	}
+	
+	public int getn() {
+		return this.n;
+	}
+	
+	public int getBombAmount() {
+		return this.bombAmount;
+	}
 	
 	
 	public int getAmountClickedFields() {

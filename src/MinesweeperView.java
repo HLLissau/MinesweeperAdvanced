@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 import com.sun.javafx.scene.control.IntegerField;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -66,16 +67,20 @@ public class MinesweeperView {
 		newGameButton.setText("New game");
 		newGameButton.setOnAction(e -> mainSetup());
 		
+		Button highScore = new Button();
+		highScore.setText("Highscore");
+		highScore.setOnAction(e ->highScore());
 			
 		
-		StackPane layout = new StackPane();
-		layout.getChildren().add(newGameButton);
+		VBox layout = new VBox();
+		layout.getChildren().addAll(newGameButton, highScore);
+		layout.setPadding(new Insets(200,400,300,300));
 		
 		Scene scene = new Scene(layout, 800, 600);
 		stage.setScene(scene);
 		return stage;
 	}
-	public Stage mainSetup() {
+	public void mainSetup() {
 		this.stage.setTitle("Minesweeper (Setup Game)");
 		
 		
@@ -104,26 +109,26 @@ public class MinesweeperView {
 		
 									
 		
-		VBox layout = new VBox();
+		VBox layout = new VBox(50);
 		layout.getChildren().addAll(easyButton, mediumButton, hardButton,customButton);
-		
+		layout.setPadding(new Insets(200,400,300,300));
 		Scene scene = new Scene(layout, 800, 600);
 		stage.setScene(scene);
-		return stage;
+		
 	}
 	
 	
 	
 	
 	//Sets the stage
-	public Stage basicGame() {
+	public void basicGame() {
 		this.stage.setTitle(title);
 		StackPane layout = new StackPane();
 		layout.getChildren().add(controller.getGrid());
 		Scene scene = new Scene(layout, 800, 600);
-		//Scene scene = new Scene(layout, 23*controller.model.getm(), 25*controller.model.getn());
+		
 		stage.setScene(scene);
-		return stage;
+		
 	}
 	
 	/*
@@ -166,12 +171,15 @@ public class MinesweeperView {
 		
 	}
 
-	public Stage customizeGame() {
+	public void customizeGame() {
 		this.stage.setTitle("Minesweeper (Custom Game)");
 		
 		IntegerField n = new IntegerField();
+		n.setValue(10);
 		IntegerField m = new IntegerField();
+		m.setValue(10);
 		IntegerField bombs = new IntegerField();
+		bombs.setValue(10);
 		
 		//New game button
 		Button newGameButton = new Button();
@@ -181,12 +189,37 @@ public class MinesweeperView {
 		
 		VBox layout = new VBox();
 		layout.getChildren().addAll(n,m,bombs,newGameButton);
+		layout.setPadding(new Insets(200,400,300,300));
 		
 		Scene scene = new Scene(layout, 800, 600);
 		stage.setScene(scene);
-		return stage;
+		
 	}
 
-
+	public void highScore() {
+		Label label = new Label();
+		label.setText("Harald the Champ!");
+		
+		
+		Button returnButton = new Button();
+		returnButton.setText("Return");
+		returnButton.setOnAction(e -> mainMenu());
+		
+		VBox layout = new VBox();
+		layout.getChildren().addAll(label, returnButton);
+		layout.setPadding(new Insets(200,400,300,300));
+		Scene scene = new Scene(layout, 800, 600);
+		
+		stage.setScene(scene);
+		
+	}
 }
+
+
+
+
+
+
+
+
 	

@@ -72,6 +72,7 @@ public class MinesweeperController {
 	 * Output: New GridPane
 	 */
 	public GridPane getGrid() {
+		
 		grid = new GridPane();
 		for (int i =0; i<this.n; i++) {
 			for (int j =0; j<this.m; j++) {
@@ -118,10 +119,11 @@ public class MinesweeperController {
 	}
 	
 	public void gotoNewGame(int m, int n, int bombAmount) {
-		this.m =m;
-		this.n = n;
-		this.bombAmount =bombAmount;
 		model = new MinesweeperModel(m,n,bombAmount);
+		this.n = model.getn();
+		this.m = model.getm();
+		this.bombAmount = model.getBombAmount();
+		
 		view.basicGame();
 	}
 
@@ -160,17 +162,7 @@ public class MinesweeperController {
 	
 	}
 	
-	public int getm() {
-		return this.m;
-	}
-	
-	public int getn() {
-		return this.n;
-	}
-	
-	public int getBombAmount() {
-		return this.bombAmount;
-	}
+
 }	
 
 	
