@@ -9,7 +9,7 @@ public class MinesweeperModel{
 	private int n;
 	private int bombAmount;
 	private int isGameStarted;
-	private int[][] clickedFields;
+	public  int[][] clickedFields;
 	private ArrayList<Point> availableFields;
 	private int endCondition;
 	

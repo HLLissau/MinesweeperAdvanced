@@ -50,15 +50,15 @@ public class MinesweeperController {
 				
 				ArrayList<MinesweeperButton> temp = pressedButton.getneighbours();
 				while (temp.size()>0) {
-					
 					buttonPressed(temp.remove(0));
 				}
 			}
+		}
 			
 			checkEndCondition(model, pressedButton.getPos());
-		}
-		
 	}
+		
+	
 	
 	/*
 	 * Creates GridPane and inserts buttons. Updates children, with list of buttons.
@@ -74,9 +74,14 @@ public class MinesweeperController {
 					System.out.println();
 					if  (event.getButton()== MouseButton.PRIMARY) {
 						buttonPressed(button);
+						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
-						System.out.println("flag :" + button.flag);
+						if (button.flag) {
+							button.setText("f ");
+						} else {
+							button.setText("  ");
+						}
 					}
 				});
 				
