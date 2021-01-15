@@ -28,9 +28,9 @@ public class MinesweeperView {
 	
 	//Load pictures to images array
 	public void setPictures() {
-		this.images = new Image[10];
+		this.images = new Image[11];
 		
-		for(int i = 0; i<10; i++) {
+		for(int i = 0; i<11; i++) {
 			String name ="images/" + i + ".png";
 			images[i] = new Image(name);
 			

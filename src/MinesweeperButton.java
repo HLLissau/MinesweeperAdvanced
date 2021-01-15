@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 
 
 public class MinesweeperButton extends Button{
@@ -24,6 +26,7 @@ public class MinesweeperButton extends Button{
 	public ArrayList<MinesweeperButton> getneighbours() {
 		return this.neightbours;
 	}
+    
 	
 	public void changeFlag() {
 		if (flag) {
