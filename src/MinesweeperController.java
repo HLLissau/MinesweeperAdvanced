@@ -90,7 +90,7 @@ public class MinesweeperController {
                             button.setText("");
                             button.setGraphic(new ImageView(view.images[10]));
                         } else {
-                            button.setGraphic(new ImageView(view.images[0]));
+                            button.setGraphic(new ImageView(view.images[11]));
                         }
 					}
 				});
