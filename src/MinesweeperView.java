@@ -125,6 +125,7 @@ public class MinesweeperView {
 		this.stage.setTitle(title);
 		StackPane layout = new StackPane();
 		layout.getChildren().add(controller.getGrid());
+		
 		Scene scene = new Scene(layout, 800, 600);
 		
 		stage.setScene(scene);
