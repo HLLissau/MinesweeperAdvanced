@@ -1,9 +1,7 @@
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.Point;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
@@ -83,7 +81,7 @@ public class MinesweeperController {
 							button.setText("");
 							button.setGraphic(new ImageView(view.images[10]));
 						} else {
-							button.setGraphic(new ImageView(view.images[0]));
+							button.setGraphic(new ImageView(view.images[11]));
 						}
 					}
 				});

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-
 
 public class MinesweeperButton extends Button{
 	private Point position;
@@ -17,6 +14,10 @@ public class MinesweeperButton extends Button{
 		this.position = new Point(x,y);
 		neightbours = new ArrayList<MinesweeperButton>() ;
 		this.flag = false;
+		this.setMinWidth(23.0);
+		this.setMaxWidth(23.0);
+		this.setMinHeight(25.0);
+		this.setMaxHeight(25.0);
 	}
 	
 	public Point getPos() {
