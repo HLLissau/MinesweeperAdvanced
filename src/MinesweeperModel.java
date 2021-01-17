@@ -1,6 +1,9 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+
 //Model class containing game
 public class MinesweeperModel{
 	public char[][] knownGameState;
@@ -14,6 +17,7 @@ public class MinesweeperModel{
 	private int n;
 	private final int MINGRIDSIZE = 4;
 	private final int MAXGRIDSIZE = 30;
+	private int shape;
 	
 	
 	
@@ -40,6 +44,7 @@ public class MinesweeperModel{
 		this.clickedFields = new int[m][n];
 		this.bombAmount= bombAmount;
 		isGameStarted= false;
+		shape=4;
 		
 		
 	}
@@ -51,10 +56,14 @@ public class MinesweeperModel{
 	 */
 	public int getPos( Point nextPos) {
 		if (!isGameStarted) {
-			isGameStarted = true;
-			randomBombGenerator(bombAmount, nextPos );
-			nearBombs();
-			
+			if (shape==4) {
+				isGameStarted = true;
+				randomBombGenerator(bombAmount, nextPos );
+				nearBombs();
+			}	else if (shape==3) {
+				randomBombGenerator(bombAmount, nextPos );
+				nearTriangleBombs();
+			}
 		}
 		
 		this.knownGameState[nextPos.x][nextPos.y]=(char) this.gameState[nextPos.x][nextPos.y];
@@ -146,7 +155,65 @@ public class MinesweeperModel{
 	private boolean defeatCondition(Point nextTile) {
 		return gameState[nextTile.x][nextTile.y] == 9;
 	}
-
+	
+	public void setNeighbours(MinesweeperButton button, int x, int y, ObservableList<Node> list) {
+		for (int k = -1; k <= 1; k++) {
+			for (int l =-1; l <= 1; l++) {
+				if (k!=0 || l!=0) {
+					if (button.getPos().y+k >= 0 && button.getPos().y+k < y && button.getPos().x+l >=0 && button.getPos().x+l < x) {
+						MinesweeperButton temp = (MinesweeperButton) list.get(((button.getPos().x+l)+((button.getPos().y+k)*x)));
+						button.setNeighbours(temp);
+						
+					}
+				}
+			}
+		}
+	}
+	
+	public void setTriangleNeighbours(MinesweeperButton button, ObservableList<Node> list) {
+		for (int k = -1; k <= 1; k++) {
+			for (int l =-1; l <= 1; l++) {
+				if (k!=0 || l!=0) {
+					if (button.getPos().y+k >= 0 && button.getPos().y+k < this.n && button.getPos().x+l >=0 && button.getPos().x+l < this.m) {
+						MinesweeperButton temp = (MinesweeperButton) list.get(((button.getPos().x+l)+((button.getPos().y+k)*this.m)));
+						if ((button.getPos().x+button.getPos().y)%2==0 && (!(k==1))){
+							button.setNeighbours(temp);
+						} else if((button.getPos().x+button.getPos().y)%2==1 && (!(k==-1))) {
+							button.setNeighbours(temp);
+						}
+						
+					}
+				}
+			}
+		}
+	}
+	public void nearTriangleBombs() {
+		for (int i = 0; i < this.n; i++) {
+			for (int j = 0; j < this.m; j++) {
+				if (gameState[j][i] == 9) {
+					for (int k = -1; k <= 1; k++) {
+						for (int l =-1; l <= 1; l++) { 
+							//The following if statement ensures that the program stays within the array
+							if (i+k >= 0 && i+k < this.n && j+l >=0 && j+l < this.m) {
+								if ((i+j)%2==0 && (!(k==1))){
+									gameState[j+l][i+k] += 1;
+									if (gameState[j+l][i+k] > 9) {
+										gameState[j+l][i+k] = 9;
+									}
+								}else if ((i+j)%2==1 && (!(k==-1))){
+									gameState[j+l][i+k] += 1;
+									if (gameState[j+l][i+k] > 9) {
+										gameState[j+l][i+k] = 9;
+									}	
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	//The remaining functions are used to get game parameters
 	public int getm() {
 		return this.m;

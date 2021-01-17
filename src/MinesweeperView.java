@@ -1,21 +1,21 @@
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import com.sun.javafx.scene.control.IntegerField;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 
 public class MinesweeperView {
 	MinesweeperController controller;
@@ -144,6 +144,22 @@ public class MinesweeperView {
 		stage.setScene(scene);
 		
 	}
+	public void basicGameTriangle() {
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
+		this.stage.setTitle(title);
+		
+		
+		StackPane layout = new StackPane();
+		layout.getChildren().add(controller.getTriangleGrid());
+		layout.setBackground(background);
+		Scene scene = new Scene(layout, 1000, 750);
+		
+		stage.setScene(scene);
+		
+	}
+	
+	
 	
 	/*
 	 * Open game over window.
@@ -200,6 +216,18 @@ public class MinesweeperView {
 		IntegerField bombs = new IntegerField();
 		bombs.setValue(10);
 		
+
+		//New game button
+		MinesweeperButtonTriangle hex = new MinesweeperButtonTriangle();
+		hex.setTriangle();
+		//newGameButton.setOnAction(e ->  controller.gotoNewGame(n.getValue(),m.getValue(),bombs.getValue()));
+									
+		//New game button
+		MinesweeperButton triangle = new MinesweeperButton();
+		triangle.setOnAction(e ->  controller.gotoNewGame(n.getValue(),m.getValue(),bombs.getValue()));
+		triangle.setInverseTriangle();							
+				
+		
 		//New game button
 		Button newGameButton = new Button();
 		newGameButton.setText("Start game");
@@ -207,7 +235,7 @@ public class MinesweeperView {
 									
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(n,m,bombs,newGameButton);
+		layout.getChildren().addAll(hex,triangle, n,m,bombs,newGameButton);
 		layout.setPadding(new Insets(200,400,300,300));
 		layout.setBackground(background);
 		Scene scene = new Scene(layout, 1000, 750);

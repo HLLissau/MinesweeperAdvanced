@@ -104,7 +104,7 @@ public class MinesweeperController {
 		
 		for (int i=0;i<children.size();i++) {
 			MinesweeperButton button = (MinesweeperButton) children.get(i);
-			button.setNeighbours(this.m,this.n,children);
+			model.setNeighbours(button,this.m,this.n,children);
 		}
 		
 		return grid;
@@ -124,7 +124,7 @@ public class MinesweeperController {
 		this.m = model.getm();
 		this.bombAmount = model.getBombAmount();
 		
-		view.basicGame();
+		view.basicGameTriangle();
 	}
 
 	
@@ -161,7 +161,49 @@ public class MinesweeperController {
 		}
 	
 	}
-	
+public GridPane getTriangleGrid() {
+		
+		grid = new GridPane();
+		for (int i =0; i<this.n; i++) {
+			for (int j =0; j<this.m; j++) {
+				MinesweeperButton button = new MinesweeperButton(j,i);
+				button.setText("  ");
+				if ((i+j)%2==0) {
+					button.setTriangle();
+				} else {
+					button.setInverseTriangle();
+				}
+				
+				button.setOnMouseClicked(event -> {
+					System.out.println();
+					if  (event.getButton()== MouseButton.PRIMARY) {
+						buttonPressed(button);
+						
+					} else if (event.getButton()== MouseButton.SECONDARY) {
+						button.changeFlag();
+						if (button.flag) {
+                            button.setText("");
+                            button.setGraphic(new ImageView(view.images[10]));
+                        } else {
+                            button.setGraphic(new ImageView(view.images[11]));
+                        }
+					}
+				});
+				
+				grid.add(button, j, i);
+			}
+		
+		}
+		
+		children = grid.getChildren();
+		
+		for (int i=0;i<children.size();i++) {
+			MinesweeperButton  button = (MinesweeperButton) children.get(i);
+			model.setTriangleNeighbours(button,children);
+		}
+		
+		return grid;
+	}
 
 }	
 
