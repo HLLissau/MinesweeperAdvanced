@@ -127,7 +127,7 @@ public class MinesweeperController {
 		this.m = model.getm();
 		this.bombAmount = model.getBombAmount();
 		
-		view.basicGame();
+		view.gameWindow();
 	}
 
 	
