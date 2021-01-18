@@ -90,10 +90,16 @@ public class MinesweeperView {
 		highScoreButton.setStyle("-fx-background-color: transparent;");
 		highScoreButton.setGraphic(new ImageView(new Image("images/highscore.png")));
 		highScoreButton.setOnAction(e ->highScore());
+		
+		//Exit button
+		Button exitButton = new Button();
+		exitButton.setGraphic(new ImageView(new Image("images/exit.png")));
+		exitButton.setStyle("-fx-background-color: transparent;");
+		exitButton.setOnAction(e -> mainMenu());
 			
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(newGameButton, highScoreButton);
+		layout.getChildren().addAll(newGameButton, highScoreButton, exitButton);
 		layout.setPadding(new Insets(300,400,300,300));
 		layout.setBackground(background);
 		Scene scene = new Scene(layout, 1000, 750);
@@ -109,13 +115,15 @@ public class MinesweeperView {
 		//Easy button
 		Button easyButton = new Button();
 		easyButton.setText("Easy");
-		
+		easyButton.setGraphic(new ImageView(new Image("images/easy.png")));
+		easyButton.setStyle("-fx-background-color: transparent;");
 		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10));
 		
 	   
-		//Medion button
+		//Medium button
 		Button mediumButton = new Button();
 		mediumButton.setText("Medium");
+		mediumButton.setGraphic(new ImageView(new Image("images/medium.png")));
 		mediumButton.setStyle("-fx-background-color: transparent;");
 		mediumButton.setOnAction(e -> controller.gotoNewGame(16,16,40));
 	   
@@ -123,13 +131,15 @@ public class MinesweeperView {
 		//Hard button
 		Button hardButton = new Button();
 		hardButton.setText("Hard");
+		hardButton.setGraphic(new ImageView(new Image("images/hard.png")));
 		hardButton.setStyle("-fx-background-color: transparent;");
 		hardButton.setOnAction(e -> controller.gotoNewGame(30,16,99));
 	   
 		
-		//Hard button
+		//Custom button
 		Button customButton = new Button();
 		customButton.setText("Custom");
+		customButton.setGraphic(new ImageView(new Image("images/custom.png")));
 		customButton.setStyle("-fx-background-color: transparent;");
 		customButton.setOnAction(e -> customizeGame());
 		
@@ -252,11 +262,18 @@ public class MinesweeperView {
 		//New game button
 		Button newGameButton = new Button();
 		newGameButton.setText("Start game");
+		newGameButton.setGraphic(new ImageView(new Image("images/startgame.png")));
+		newGameButton.setStyle("-fx-background-color: transparent;");
 		newGameButton.setOnAction(e ->  controller.gotoNewGame(n.getValue(),m.getValue(),bombs.getValue()));
+		
+		Button leaveButton = new Button();
+		leaveButton.setGraphic(new ImageView(new Image("images/back.png")));
+		leaveButton.setStyle("-fx-background-color: transparent;");
+		leaveButton.setOnAction(e -> mainMenu());
 									
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(n,m,bombs,newGameButton);
+		layout.getChildren().addAll(n,m,bombs,newGameButton, leaveButton);
 		layout.setPadding(new Insets(200,400,300,300));
 		layout.setBackground(background);
 		Scene scene = new Scene(layout, 1000, 750);
@@ -281,7 +298,8 @@ public class MinesweeperView {
 		
 		
 		Button returnButton = new Button();
-		returnButton.setText("Return");
+		returnButton.setGraphic(new ImageView(new Image("images/back.png")));
+		returnButton.setStyle("-fx-background-color: transparent;");
 		returnButton.setOnAction(e -> mainMenu());
 		
 		VBox layout = new VBox();
