@@ -6,7 +6,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 
+
 public class MinesweeperButtonTriangle extends Button{
+	
 	private Point position;
 	private ArrayList<MinesweeperButtonTriangle> neightbours;
 	public Boolean flag;
