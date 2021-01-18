@@ -7,12 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-
-import java.util.Timer;
-
 import com.sun.javafx.scene.control.IntegerField;
-import com.sun.prism.paint.Color;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,8 +26,7 @@ public class MinesweeperView {
 	Image[] images;
 	Label counter;
 	Label highscore;
-	Timer timer;
-	int time;
+	Label timer;
 
 	
 	//MinesweeperView initiates constructor to make view
@@ -109,7 +103,7 @@ public class MinesweeperView {
 		//Easy button
 		Button easyButton = new Button();
 		easyButton.setText("Easy");
-		
+		easyButton.setStyle("-fx-background-color: transparent;");
 		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10));
 		
 	   
@@ -157,9 +151,7 @@ public class MinesweeperView {
 	//Sets the stage
 
 	public void gameWindow() {
-		timer= new Timer();
-		
-		
+			
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		
@@ -169,14 +161,16 @@ public class MinesweeperView {
 		HBox menuBar = new HBox();
 		counter = new Label(Integer.toString(controller.model.getBombAmount()));
 		
-		//timer. each second adds 1 too time.
+		//timer.
+		
+		timer = new Label();
+		timer.setText("0");
 		
 		
 		
 		
 		
-		
-		menuBar.getChildren().addAll(this.highscore,counter);
+		menuBar.getChildren().addAll(this.highscore,counter,timer);
 		menuBar.setPadding(new Insets(50,400,0,300));
 				
 		//full game window

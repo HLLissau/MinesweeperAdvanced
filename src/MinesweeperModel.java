@@ -188,5 +188,7 @@ public class MinesweeperModel{
 	public int getEndCondition() {
 		return this.endCondition;
 	}
-	
+	public boolean isGAmeStarted() {
+		return this.isGameStarted;
+	}
 }
