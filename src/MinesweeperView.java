@@ -86,15 +86,22 @@ public class MinesweeperView {
 		highScoreButton.setGraphic(new ImageView(new Image("images/highscore.png")));
 		highScoreButton.setOnAction(e ->highScore());
 		
+
+		
 		//Exit button
 		Button exitButton = new Button();
 		exitButton.setGraphic(new ImageView(new Image("images/exit.png")));
 		exitButton.setStyle("-fx-background-color: transparent;");
 		exitButton.setOnAction(e -> Platform.exit());
+		exitButton.setOnAction(e -> mainMenu());
 			
 		
 		VBox layout = new VBox();
+
+		
+
 		layout.getChildren().addAll(newGameButton, highScoreButton, exitButton);
+
 		layout.setPadding(new Insets(300,400,300,300));
 		layout.setBackground(background);
 		Scene scene = new Scene(layout, 1000, 750);
@@ -167,19 +174,17 @@ public class MinesweeperView {
 		
 		this.stage.setTitle(title);
 		
-		//top Menu bar
+		
 		HBox menuBar = new HBox();
 		counter = new Label(Integer.toString(controller.model.getBombAmount()));
-		
-		//timer.
-		
+		counter.setPadding(new Insets(50,100,50,100));
+		//highscore
+		highscore.setPadding(new Insets(50,100,50,100));
+		//timer
 		timer = new Label();
 		timer.setText("0");
-		
-		
-		
-		
-		
+		timer.setPadding(new Insets(50,100,50,100));
+		//top Menu bar		
 		menuBar.getChildren().addAll(this.highscore,counter,timer);
 		menuBar.setPadding(new Insets(50,400,0,300));
 				
@@ -281,14 +286,22 @@ public class MinesweeperView {
 		Background background = new Background(backgroundfill);
 		
 		
-		Label label = new Label();
-		label.setText("HAR");
+		//easy
+		VBox highscoreNumberList = new VBox();
+		for (int i=0; i<10;i++) {
+			Label temp = new Label();
+			temp.setText(controller.highscore[i]);
+			highscoreNumberList.getChildren().add(temp);
+		}
+		VBox highscoreNameList = new VBox();
+		for (int i=30; i<40;i++) {
+			Label temp = new Label();
+			temp.setText(controller.highscore[i]);
+			highscoreNameList.getChildren().add(temp);
+		}
 		
-		Label label1 = new Label();
-		label1.setText("ANT");
-		
-		Label label2 = new Label();
-		label2.setText("ERI");
+		HBox highscores = new HBox();
+		highscores.getChildren().addAll(highscoreNumberList,highscoreNameList);
 		
 		
 		Button returnButton = new Button();
@@ -297,13 +310,14 @@ public class MinesweeperView {
 		returnButton.setOnAction(e -> mainMenu());
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(label, label1, label2, returnButton);
+		layout.getChildren().addAll(highscores, returnButton);
 		layout.setPadding(new Insets(200,400,300,300));
 		Scene scene = new Scene(layout, 1000, 750);
 		layout.setBackground(background);
 		stage.setScene(scene);
 		
 	}
+	
 	public int[] getGrapicInt(int number) {
 		int[] image= new int[3];
 		image[0] = number/100;
@@ -311,6 +325,8 @@ public class MinesweeperView {
 		image[2] = number;
 		return image;
 	}
+	
+	
 	
 }
 
