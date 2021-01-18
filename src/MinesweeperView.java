@@ -1,23 +1,27 @@
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+
+import java.util.Timer;
 
 import com.sun.javafx.scene.control.IntegerField;
+
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 
 public class MinesweeperView {
 	MinesweeperController controller;
@@ -26,7 +30,8 @@ public class MinesweeperView {
 	Image[] images;
 	Label counter;
 	Label highscore;
-	Label timer;
+	Timer timer;
+	int time;
 
 	
 	//MinesweeperView initiates constructor to make view
@@ -138,6 +143,8 @@ public class MinesweeperView {
 	//Sets the stage
 
 	public void gameWindow() {
+		time=0;
+		
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		
@@ -146,15 +153,26 @@ public class MinesweeperView {
 		//top Menu bar
 		HBox menuBar = new HBox();
 		counter = new Label(Integer.toString(controller.model.getBombAmount()));
+		
+		//timer. each second adds 1 too time.
+		
+		
+		
+		
+		
+		
 		menuBar.getChildren().addAll(this.highscore,counter);
-		
+		menuBar.setPadding(new Insets(50,400,0,300));
+				
 		//full game window
-		StackPane layout = new StackPane();
+		BorderPane layout = new BorderPane();
 		
-		layout.getChildren().addAll(menuBar,controller.getGrid());
+		GridPane grid = controller.getGrid();
+		grid.setPadding(new Insets(200,200,200,200));
+		
 		layout.setBackground(background);
-		layout.setAlignment(menuBar, Pos.TOP_CENTER);
-		layout.setAlignment(layout, null);
+		layout.setTop(menuBar);
+		layout.setCenter(grid);
 		Scene scene = new Scene(layout, 1000, 750);
 		
 		stage.setScene(scene);

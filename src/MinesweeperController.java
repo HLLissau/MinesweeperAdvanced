@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.awt.Point;
+
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 
 public class MinesweeperController {
 	MinesweeperModel model;
@@ -164,8 +167,6 @@ public class MinesweeperController {
 		}
 	
 	}
-	
-
 }	
 
 	
