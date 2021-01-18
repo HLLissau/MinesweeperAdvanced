@@ -25,6 +25,8 @@ public class MinesweeperView {
 	String title;
 	Image[] images;
 	Label counter;
+	Label highscore;
+	Label timer;
 
 	
 	//MinesweeperView initiates constructor to make view
@@ -37,6 +39,7 @@ public class MinesweeperView {
 		this.stage = topLevelStage;
 		this.controller = controller;
 		this.title = title;
+		this.highscore = new Label(Integer.toString(77));
 	}
 	
 	//Load pictures to images array
@@ -133,18 +136,25 @@ public class MinesweeperView {
 	
 	
 	//Sets the stage
-	public void basicGame() {
+
+	public void gameWindow() {
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
+		
 		this.stage.setTitle(title);
 		
-		
+		//top Menu bar
+		HBox menuBar = new HBox();
 		counter = new Label(Integer.toString(controller.model.getBombAmount()));
+		menuBar.getChildren().addAll(this.highscore,counter);
 		
+		//full game window
 		StackPane layout = new StackPane();
-		layout.getChildren().addAll(counter,controller.getGrid());
+		
+		layout.getChildren().addAll(menuBar,controller.getGrid());
 		layout.setBackground(background);
-		layout.setAlignment(Pos.CENTER);
+		layout.setAlignment(menuBar, Pos.TOP_CENTER);
+		layout.setAlignment(layout, null);
 		Scene scene = new Scene(layout, 1000, 750);
 		
 		stage.setScene(scene);
