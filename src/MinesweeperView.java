@@ -325,7 +325,9 @@ public class MinesweeperView {
 		return image;
 	}
 	
-	
+	public Image getNumberAsImage(int number);
+	String image = "images/" + number + ".png"
+	return new Image()
 	
 }
 
