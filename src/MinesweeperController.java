@@ -112,9 +112,11 @@ public class MinesweeperController  {
                         } else {
                             button.setGraphic(new ImageView(view.images[12]));
                             model.removeflag();
+                            updateViewflags();
                         }
+						
 					}
-					view.counter.setText(Integer.toString(model.getBombAmount()- model.getFlagPlaced()));
+					
 				});
 				
 				grid.add(button, j, i);
@@ -185,6 +187,15 @@ public class MinesweeperController  {
 			timeline.stop();
 		}
 	
+	}
+	public void updateViewflags() {
+		int temp = model.getFlagPlaced();
+		view.counter[0]= view.getNumberAsImage(temp/100);
+		temp=temp%100;
+		view.counter[1]= view.getNumberAsImage(temp/10);
+		temp=temp%10;
+		view.counter[2]= view.getNumberAsImage(temp);
+		
 	}
 	
 	 public void startTimer() {

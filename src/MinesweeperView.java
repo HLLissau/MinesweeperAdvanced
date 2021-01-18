@@ -25,7 +25,7 @@ public class MinesweeperView {
 	Stage stage;
 	String title;
 	Image[] images;
-	Label counter;
+	Image[] counter;
 	Label highscore;
 	Label timer;
 
@@ -176,17 +176,28 @@ public class MinesweeperView {
 		
 		
 		HBox menuBar = new HBox();
-		counter = new Label(Integer.toString(controller.model.getBombAmount()));
-		counter.setPadding(new Insets(50,100,50,100));
+		
+		HBox counterLabel = getstringHBox("Time");
+		
+		counter = new Image[3];
+		counter[0] = getNumberAsImage(0);
+		counter[1] = getNumberAsImage(0);
+		counter[2] = getNumberAsImage(0);
+		HBox time = new HBox();
+		time.getChildren().addAll(new ImageView (counter[0]),new ImageView (counter[1]),new ImageView (counter[2]));
+		HBox counterbox = new HBox();
+		counterbox.getChildren().addAll(counterLabel,time);
+		
+		
 		//highscore
 		highscore.setPadding(new Insets(50,100,50,100));
 		//timer
 		timer = new Label();
 		timer.setText("0");
-		timer.setPadding(new Insets(50,100,50,100));
+		
 		//top Menu bar		
-		menuBar.getChildren().addAll(this.highscore,counter,timer);
-		menuBar.setPadding(new Insets(50,400,0,300));
+		menuBar.getChildren().addAll(this.highscore,counterbox,timer);
+		
 				
 		//full game window
 		BorderPane layout = new BorderPane();
@@ -287,93 +298,29 @@ public class MinesweeperView {
 		
 		
 		//dificulty list
-		HBox dificulty = new HBox();
+		HBox dificulty = new HBox(150);
 		dificulty.getChildren().add(new ImageView(new Image("images/easy.png")));
 		dificulty.getChildren().add(new ImageView(new Image("images/medium.png")));
 		dificulty.getChildren().add(new ImageView(new Image("images/hard.png")));
+		dificulty.setPadding(new Insets(50,50,50,50));
 		
 		//easy
-		VBox easy = new VBox();
-		
-		
-		
-		for (int i=0; i<5;i++) {
-			HBox easyplayer = new HBox();
-			HBox numbers = new HBox();
-			int temp = (Integer.parseInt(controller.highscore[i]));
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/100)));
-			temp= temp%100;
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/10)));
-			temp= temp%10;
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp)));
-		
-		
-		
-		
-			HBox letters = new HBox();
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
-			easyplayer.getChildren().addAll(numbers,letters);
-			easy.getChildren().add(easyplayer);
-		}
+		VBox easy = getScoreVBox(0);
 		
 		//medium
-		VBox medium = new VBox();
+		VBox medium = getScoreVBox(5);
 		
-		
-		for (int i=5; i<10;i++) {
-			HBox easyplayer = new HBox();
-			HBox numbers = new HBox();
-			int temp = (Integer.parseInt(controller.highscore[i]));
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/100)));
-			temp= temp%100;
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/10)));
-			temp= temp%10;
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp)));
-		
-		
-		
-		
-			HBox letters = new HBox();
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
-			easyplayer.getChildren().addAll(numbers,letters);
-			medium.getChildren().add(easyplayer);
-		}
 		
 		//hard
-		VBox hard = new VBox();
-		
-		
-		for (int i=10; i<15;i++) {
-			HBox easyplayer = new HBox();
-			HBox numbers = new HBox();
-			int temp = (Integer.parseInt(controller.highscore[i]));
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/100)));
-			temp= temp%100;
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/10)));
-			temp= temp%10;
-			numbers.getChildren().add(new ImageView(getNumberAsImage(temp)));
-		
-		
-			
-			
-			HBox letters = new HBox();
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
-			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
-			easyplayer.getChildren().addAll(numbers,letters);
-			hard.getChildren().add(easyplayer);
-		}
+		VBox hard = getScoreVBox(10);
 		
 		
 		
 		
 		// all scores
-		HBox highscores = new HBox();
+		HBox highscores = new HBox(40);
 		highscores.getChildren().addAll(easy,medium,hard);
+		highscores.setPadding(new Insets(0,0,0,40));
 		
 		
 		//return button
@@ -381,12 +328,12 @@ public class MinesweeperView {
 		returnButton.setGraphic(new ImageView(new Image("images/back.png")));
 		returnButton.setStyle("-fx-background-color: transparent;");
 		returnButton.setOnAction(e -> mainMenu());
-		returnButton.setPadding(new Insets(50,50,50,50));
+		returnButton.setPadding(new Insets(0,150,150,300));
 		
 		//all together now!
 		VBox layout = new VBox();
 		layout.getChildren().addAll(dificulty,highscores, returnButton);
-		layout.setPadding(new Insets(250,0,0,0));
+		layout.setPadding(new Insets(150,0,0,0));
 		Scene scene = new Scene(layout, 1000, 750);
 		layout.setBackground(background);
 		stage.setScene(scene);
@@ -406,10 +353,35 @@ public class MinesweeperView {
 	return new Image(name);
 	}
 	
+	public HBox getstringHBox(String input) {
+		HBox temp = new HBox();
+		for(int i=0; i<input.length(); i++ ) {
+			temp.getChildren().add(new ImageView(getStringAsImages(input.charAt(i))));
+		}
+		
+		return temp;
+	}
+	
 	public Image getStringAsImages(char input) {
 		
 		String name = "images/" + input + ".png";
 		return new Image(name); 
+	}
+	public VBox getScoreVBox(int x) {
+		VBox temp = new VBox();
+		temp.setPadding(new Insets(0,50,50,50));
+		
+		for (int i=0+x; i<5+x;i++) {
+			
+			HBox numbers = getstringHBox(controller.highscore[i]);
+			HBox letters = getstringHBox(controller.highscore[i+15]);
+			letters.setPadding(new Insets(2,2,2,2));
+			
+			HBox player = new HBox();
+			player.getChildren().addAll(numbers,letters);
+			temp.getChildren().add(player);
+		}
+	return temp;
 	}
 }
 
