@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 import java.awt.Point;
 
-
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class MinesweeperController {
@@ -19,7 +22,8 @@ public class MinesweeperController {
 	private int m;
 	private int bombAmount;
 	private int n;
-	
+	Timeline timeline;
+	int time;
 	
 	//Import model and view to controller through constructor
 	public MinesweeperController(MinesweeperModel model, MinesweeperView view, int m, int n, int bombAmount) {
@@ -84,10 +88,13 @@ public class MinesweeperController {
 				button.setGraphic(new ImageView(view.images[12]));
 				button.setOnMouseClicked(event -> {
 					//System.out.println();
-					
+					if (!(model.isGAmeStarted())) {
+							startTimer();
+						}
 					if  (event.getButton()== MouseButton.PRIMARY) {
 						buttonPressed(button);
 						
+							
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
@@ -162,12 +169,28 @@ public class MinesweeperController {
 		int condition =model.getEndCondition();
 		if (condition == 8) {
 			view.alertBox("Victory", "Congratulations. You won!");
+			
+			timeline.stop();
 		}
 		if (condition == 9) {
 			view.alertBox("Game over", "You lost!");
+			timeline.stop();
 		}
 	
 	}
+	 public void startTimer() {
+	        timeline = new Timeline(
+	            new KeyFrame(Duration.seconds(0),
+	                e ->ticToc()),
+	            new KeyFrame(Duration.seconds(1)));
+	        timeline.setCycleCount(Animation.INDEFINITE);
+	        timeline.play();
+	    }
+	 public void ticToc() {
+		 this.time++;
+		 view.timer.setText(Integer.toString(time));
+		 System.out.println("test");
+	 }
 }	
 
 	
