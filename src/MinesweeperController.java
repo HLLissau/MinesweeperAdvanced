@@ -63,6 +63,7 @@ public class MinesweeperController {
 		}
 			
 			checkEndCondition(model, pressedButton.getPos());
+			
 	}
 		
 	
@@ -77,22 +78,24 @@ public class MinesweeperController {
 		for (int i =0; i<this.n; i++) {
 			for (int j =0; j<this.m; j++) {
 				MinesweeperButton button = new MinesweeperButton(j,i);
-				button.setText("  ");
-				
 				button.setOnMouseClicked(event -> {
-					System.out.println();
+					//System.out.println();
+					
 					if  (event.getButton()== MouseButton.PRIMARY) {
 						buttonPressed(button);
+						
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
 						if (button.flag) {
-                            button.setText("");
                             button.setGraphic(new ImageView(view.images[10]));
+                            model.placeflag();
                         } else {
                             button.setGraphic(new ImageView(view.images[11]));
+                            model.removeflag();
                         }
 					}
+					view.counter.setText(Integer.toString(model.getBombAmount()- model.getFlagPlaced()));
 				});
 				
 				grid.add(button, j, i);

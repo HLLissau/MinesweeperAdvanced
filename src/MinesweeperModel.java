@@ -14,6 +14,7 @@ public class MinesweeperModel{
 	private int n;
 	private final int MINGRIDSIZE = 4;
 	private final int MAXGRIDSIZE = 30;
+	private int flagsplaced;
 	
 	
 	
@@ -39,6 +40,7 @@ public class MinesweeperModel{
 		this.n=n;
 		this.clickedFields = new int[m][n];
 		this.bombAmount= bombAmount;
+		this.flagsplaced=0;
 		isGameStarted= false;
 		
 		
@@ -170,10 +172,18 @@ public class MinesweeperModel{
 				}
 			}
 		}
-		System.out.println(clicked);
+		
 		return clicked;
 	}
-	
+	public void placeflag() {
+		this.flagsplaced++;
+	}
+	public void removeflag() {
+		this.flagsplaced--;
+	}
+	public int getFlagPlaced() {
+		return this.flagsplaced;
+	}
 	
 	public int getEndCondition() {
 		return this.endCondition;
