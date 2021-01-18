@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -204,11 +206,20 @@ public class MinesweeperController  {
 		 Scanner file = new Scanner(new File("src/highscore.txt"));
 		 for (int i=0; i<30;i++) {
 			 loadedhighscore[i] = file.next();
-			 System.out.println(loadedhighscore[i]);
-		 }
+	     }
 		
 		 return loadedhighscore;
 	 } 
+	 public void saveHighScore() throws FileNotFoundException {
+		 
+		 PrintWriter pw = new PrintWriter("src/highscore.txt");
+		 for(int i=0; i<30; i++ ) {
+			 pw.write(highscore[i]);
+		 }
+		 pw.close();
+	 }
+	 
+	 
 }	
 
 	

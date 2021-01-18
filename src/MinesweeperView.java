@@ -286,22 +286,31 @@ public class MinesweeperView {
 		Background background = new Background(backgroundfill);
 		
 		
+		//dificulty list
+		HBox dificulty = new HBox();
+		dificulty.getChildren().add(new ImageView(new Image("images/easy.png")));
+		dificulty.getChildren().add(new ImageView(new Image("images/medium.png")));
+		dificulty.getChildren().add(new ImageView(new Image("images/hard.png")));
+		
 		//easy
 		VBox easy = new VBox();
+		
 		
 		
 		for (int i=0; i<5;i++) {
 			HBox easyplayer = new HBox();
 			HBox numbers = new HBox();
-			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/100))));
-			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/10))));
-			numbers.getChildren().add(new ImageView(getNumberAsImage(Integer.parseInt(controller.highscore[i]))));
+			int temp = (Integer.parseInt(controller.highscore[i]));
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/100)));
+			temp= temp%100;
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/10)));
+			temp= temp%10;
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp)));
 		
 		
 		
 		
 			HBox letters = new HBox();
-			System.out.println(controller.highscore[i].charAt(0));
 			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
 			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
 			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
@@ -309,18 +318,75 @@ public class MinesweeperView {
 			easy.getChildren().add(easyplayer);
 		}
 		
+		//medium
+		VBox medium = new VBox();
+		
+		
+		for (int i=5; i<10;i++) {
+			HBox easyplayer = new HBox();
+			HBox numbers = new HBox();
+			int temp = (Integer.parseInt(controller.highscore[i]));
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/100)));
+			temp= temp%100;
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/10)));
+			temp= temp%10;
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp)));
+		
+		
+		
+		
+			HBox letters = new HBox();
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
+			easyplayer.getChildren().addAll(numbers,letters);
+			medium.getChildren().add(easyplayer);
+		}
+		
+		//hard
+		VBox hard = new VBox();
+		
+		
+		for (int i=10; i<15;i++) {
+			HBox easyplayer = new HBox();
+			HBox numbers = new HBox();
+			int temp = (Integer.parseInt(controller.highscore[i]));
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/100)));
+			temp= temp%100;
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp/10)));
+			temp= temp%10;
+			numbers.getChildren().add(new ImageView(getNumberAsImage(temp)));
+		
+		
+			
+			
+			HBox letters = new HBox();
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
+			easyplayer.getChildren().addAll(numbers,letters);
+			hard.getChildren().add(easyplayer);
+		}
+		
+		
+		
+		
+		// all scores
 		HBox highscores = new HBox();
-		highscores.getChildren().addAll(easy);
+		highscores.getChildren().addAll(easy,medium,hard);
 		
 		
+		//return button
 		Button returnButton = new Button();
 		returnButton.setGraphic(new ImageView(new Image("images/back.png")));
 		returnButton.setStyle("-fx-background-color: transparent;");
 		returnButton.setOnAction(e -> mainMenu());
+		returnButton.setPadding(new Insets(50,50,50,50));
 		
+		//all together now!
 		VBox layout = new VBox();
-		layout.getChildren().addAll(highscores, returnButton);
-		layout.setPadding(new Insets(200,400,300,300));
+		layout.getChildren().addAll(dificulty,highscores, returnButton);
+		layout.setPadding(new Insets(250,0,0,0));
 		Scene scene = new Scene(layout, 1000, 750);
 		layout.setBackground(background);
 		stage.setScene(scene);
