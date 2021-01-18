@@ -93,7 +93,7 @@ public class MinesweeperView {
 		exitButton.setGraphic(new ImageView(new Image("images/exit.png")));
 		exitButton.setStyle("-fx-background-color: transparent;");
 		exitButton.setOnAction(e -> Platform.exit());
-		exitButton.setOnAction(e -> mainMenu());
+		
 			
 		
 		VBox layout = new VBox();
@@ -289,9 +289,13 @@ public class MinesweeperView {
 		//easy
 		VBox highscoreNumberList = new VBox();
 		for (int i=0; i<10;i++) {
-			Label temp = new Label();
-			temp.setText(controller.highscore[i]);
-			highscoreNumberList.getChildren().add(temp);
+			HBox numbers = new HBox();
+			System.out.println(Integer.parseInt(controller.highscore[i]));
+			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/100))));
+			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/10))));
+			numbers.getChildren().add(new ImageView(getNumberAsImage(Integer.parseInt(controller.highscore[i]))));
+			//numbers.getChildren().add(new ImageView(getNumberAsImage(1)));
+			highscoreNumberList.getChildren().add(numbers);
 		}
 		VBox highscoreNameList = new VBox();
 		for (int i=30; i<40;i++) {
@@ -326,8 +330,10 @@ public class MinesweeperView {
 		return image;
 	}
 	
-	
-	
+	public Image getNumberAsImage(int number) {
+	String name = "images/" + number + "num.png";
+	return new Image(name);
+	}
 }
 
 
