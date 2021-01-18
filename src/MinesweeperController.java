@@ -27,7 +27,7 @@ public class MinesweeperController  {
 	private int n;
 	Timeline timeline;
 	int time;
-	private int[] highscore;
+	public String[] highscore;
 	
 	//Import model and view to controller through constructor
 	public MinesweeperController(MinesweeperModel model, MinesweeperView view,
@@ -37,7 +37,7 @@ public class MinesweeperController  {
 		this.m =m;
 		this.n = n;
 		this.bombAmount = bombAmount;
-		//this.highscore = loadHighscore();
+		this.highscore = loadHighscore();
 	}
 	
 	/*
@@ -198,18 +198,15 @@ public class MinesweeperController  {
 		 
 	 }
 	 
-	/* public int[] loadHighscore() throws FileNotFoundException {
+	 public String[] loadHighscore() throws FileNotFoundException {
 		 String[] loadedhighscore= new String[60];
-		 Scanner file = new Scanner(new File("highscore.msw"));
-		 for (int i=0; i<30;i++) {
+		 Scanner file = new Scanner(new File("highscore.txt"));
+		 for (int i=0; i<60;i++) {
 			 loadedhighscore[i] = file.next();
 		 }
-		 for (int i=0; i<30;i++) {
-			 loadedhighscore[i] = file.nextInt();
-		 }
-		 
+		
 		 return loadedhighscore;
-	 } */
+	 } 
 }	
 
 	
