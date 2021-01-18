@@ -37,7 +37,7 @@ public class MinesweeperController  {
 		this.m =m;
 		this.n = n;
 		this.bombAmount = bombAmount;
-		this.highscore = loadHighscore();
+		//this.highscore = loadHighscore();
 	}
 	
 	/*
@@ -198,7 +198,7 @@ public class MinesweeperController  {
 		 
 	 }
 	 
-	 public int[] loadHighscore() throws FileNotFoundException {
+	/* public int[] loadHighscore() throws FileNotFoundException {
 		 String[] loadedhighscore= new String[60];
 		 Scanner file = new Scanner(new File("highscore.msw"));
 		 for (int i=0; i<30;i++) {
@@ -209,7 +209,7 @@ public class MinesweeperController  {
 		 }
 		 
 		 return loadedhighscore;
-	 }
+	 } */
 }	
 
 	
