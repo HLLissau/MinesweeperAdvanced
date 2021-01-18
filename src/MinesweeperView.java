@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.sun.javafx.scene.control.IntegerField;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -89,7 +90,7 @@ public class MinesweeperView {
 		Button exitButton = new Button();
 		exitButton.setGraphic(new ImageView(new Image("images/exit.png")));
 		exitButton.setStyle("-fx-background-color: transparent;");
-		exitButton.setOnAction(e -> mainMenu());
+		exitButton.setOnAction(e -> Platform.exit());
 			
 		
 		VBox layout = new VBox();
@@ -144,9 +145,9 @@ public class MinesweeperView {
 		
 									
 		
-		VBox layout = new VBox(50);
+		VBox layout = new VBox(5);
 		layout.getChildren().addAll(easyButton, mediumButton, hardButton,customButton, backButton);
-		layout.setPadding(new Insets(200,400,300,300));
+		layout.setPadding(new Insets(250,400,300,300));
 		layout.setBackground(background);
 		
 		Scene scene = new Scene(layout, 1000, 750);
