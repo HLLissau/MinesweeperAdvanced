@@ -6,6 +6,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 import com.sun.javafx.scene.control.IntegerField;
 
 import javafx.geometry.Insets;
@@ -22,6 +24,7 @@ public class MinesweeperView {
 	Stage stage;
 	String title;
 	Image[] images;
+	Label counter;
 
 	
 	//MinesweeperView initiates constructor to make view
@@ -136,9 +139,12 @@ public class MinesweeperView {
 		this.stage.setTitle(title);
 		
 		
+		counter = new Label(Integer.toString(controller.model.getBombAmount()));
+		
 		StackPane layout = new StackPane();
-		layout.getChildren().add(controller.getGrid());
+		layout.getChildren().addAll(counter,controller.getGrid());
 		layout.setBackground(background);
+		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout, 1000, 750);
 		
 		stage.setScene(scene);
@@ -237,6 +243,14 @@ public class MinesweeperView {
 		stage.setScene(scene);
 		
 	}
+	public int[] getGrapicInt(int number) {
+		int[] image= new int[3];
+		image[0] = number/100;
+		image[1] = number/10;
+		image[2] = number;
+		return image;
+	}
+	
 }
 
 
