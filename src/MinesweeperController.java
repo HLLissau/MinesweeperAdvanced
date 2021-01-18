@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.awt.Button;
 import java.util.Scanner;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -161,7 +162,7 @@ public class MinesweeperController  {
 			temp.setOnAction(null);
 		}
 	}
-
+	
 	/*
 	 * Checks for victory and defeat condition.
 	 * If endCondition value is 8, the user has won.

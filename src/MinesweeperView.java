@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.sun.javafx.scene.control.IntegerField;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -91,8 +92,8 @@ public class MinesweeperView {
 		Button exitButton = new Button();
 		exitButton.setGraphic(new ImageView(new Image("images/exit.png")));
 		exitButton.setStyle("-fx-background-color: transparent;");
-		exitButton.setOnAction(e -> mainMenu());
-
+		exitButton.setOnAction(e -> Platform.exit());
+		
 			
 		
 		VBox layout = new VBox();
@@ -151,9 +152,9 @@ public class MinesweeperView {
 		
 									
 		
-		VBox layout = new VBox(50);
+		VBox layout = new VBox(5);
 		layout.getChildren().addAll(easyButton, mediumButton, hardButton,customButton, backButton);
-		layout.setPadding(new Insets(200,400,300,300));
+		layout.setPadding(new Insets(250,400,300,300));
 		layout.setBackground(background);
 		
 		Scene scene = new Scene(layout, 1000, 750);
@@ -288,9 +289,13 @@ public class MinesweeperView {
 		//easy
 		VBox highscoreNumberList = new VBox();
 		for (int i=0; i<10;i++) {
-			Label temp = new Label();
-			temp.setText(controller.highscore[i]);
-			highscoreNumberList.getChildren().add(temp);
+			HBox numbers = new HBox();
+			System.out.println(Integer.parseInt(controller.highscore[i]));
+			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/100))));
+			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/10))));
+			numbers.getChildren().add(new ImageView(getNumberAsImage(Integer.parseInt(controller.highscore[i]))));
+			//numbers.getChildren().add(new ImageView(getNumberAsImage(1)));
+			highscoreNumberList.getChildren().add(numbers);
 		}
 		VBox highscoreNameList = new VBox();
 		for (int i=30; i<40;i++) {
@@ -325,10 +330,10 @@ public class MinesweeperView {
 		return image;
 	}
 	
-	public Image getNumberAsImage(int number);
-	String image = "images/" + number + ".png"
-	return new Image()
-	
+	public Image getNumberAsImage(int number) {
+	String name = "images/" + number + "num.png";
+	return new Image(name);
+	}
 }
 
 
