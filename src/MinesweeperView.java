@@ -136,11 +136,11 @@ public class MinesweeperView {
 	
 	
 	//Sets the stage
+
 	public void gameWindow() {
-		
-		//Background
-		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
+		
 		this.stage.setTitle(title);
 		
 		//top Menu bar
@@ -238,7 +238,13 @@ public class MinesweeperView {
 		
 		
 		Label label = new Label();
-		label.setText("Harald the Champ!");
+		label.setText("HAR");
+		
+		Label label1 = new Label();
+		label1.setText("ANT");
+		
+		Label label2 = new Label();
+		label2.setText("ERI");
 		
 		
 		Button returnButton = new Button();
@@ -246,7 +252,7 @@ public class MinesweeperView {
 		returnButton.setOnAction(e -> mainMenu());
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(label, returnButton);
+		layout.getChildren().addAll(label, label1, label2, returnButton);
 		layout.setPadding(new Insets(200,400,300,300));
 		Scene scene = new Scene(layout, 1000, 750);
 		layout.setBackground(background);
