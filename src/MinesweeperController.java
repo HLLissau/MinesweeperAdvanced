@@ -202,7 +202,7 @@ public class MinesweeperController  {
 	 public String[] loadHighscore() throws FileNotFoundException {
 		 String[] loadedhighscore= new String[60];
 		 Scanner file = new Scanner(new File("src/highscore.txt"));
-		 for (int i=0; i<60;i++) {
+		 for (int i=0; i<30;i++) {
 			 loadedhighscore[i] = file.next();
 			 System.out.println(loadedhighscore[i]);
 		 }

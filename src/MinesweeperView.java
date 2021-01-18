@@ -48,7 +48,7 @@ public class MinesweeperView {
 		this.images = new Image[13];
 		
 		for(int i = 0; i<12; i++) {
-			String name ="images/" + i + ".png";
+			String name ="images/" + i + "num.png";
 			images[i] = new Image(name);
 			
 		}
@@ -287,25 +287,30 @@ public class MinesweeperView {
 		
 		
 		//easy
-		VBox highscoreNumberList = new VBox();
-		for (int i=0; i<10;i++) {
+		VBox easy = new VBox();
+		
+		
+		for (int i=0; i<5;i++) {
+			HBox easyplayer = new HBox();
 			HBox numbers = new HBox();
-			System.out.println(Integer.parseInt(controller.highscore[i]));
 			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/100))));
 			numbers.getChildren().add(new ImageView(getNumberAsImage((Integer.parseInt(controller.highscore[i])/10))));
 			numbers.getChildren().add(new ImageView(getNumberAsImage(Integer.parseInt(controller.highscore[i]))));
-			//numbers.getChildren().add(new ImageView(getNumberAsImage(1)));
-			highscoreNumberList.getChildren().add(numbers);
-		}
-		VBox highscoreNameList = new VBox();
-		for (int i=30; i<40;i++) {
-			Label temp = new Label();
-			temp.setText(controller.highscore[i]);
-			highscoreNameList.getChildren().add(temp);
+		
+		
+		
+		
+			HBox letters = new HBox();
+			System.out.println(controller.highscore[i].charAt(0));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(0))));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(1))));
+			letters.getChildren().add(new ImageView(getStringAsImages(controller.highscore[i+15].charAt(2))));
+			easyplayer.getChildren().addAll(numbers,letters);
+			easy.getChildren().add(easyplayer);
 		}
 		
 		HBox highscores = new HBox();
-		highscores.getChildren().addAll(highscoreNumberList,highscoreNameList);
+		highscores.getChildren().addAll(easy);
 		
 		
 		Button returnButton = new Button();
@@ -331,8 +336,14 @@ public class MinesweeperView {
 	}
 	
 	public Image getNumberAsImage(int number) {
-	String name = "images/" + number + "num.png";
+	String name = "images/" + number + ".png";
 	return new Image(name);
+	}
+	
+	public Image getStringAsImages(char input) {
+		
+		String name = "images/" + input + ".png";
+		return new Image(name); 
 	}
 }
 
