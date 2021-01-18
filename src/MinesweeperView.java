@@ -74,6 +74,7 @@ public class MinesweeperView {
 		Background background = new Background(backgroundfill);
 		
 		
+		
 		//New game button
 		Button newGameButton = new Button();
 		newGameButton.setStyle("-fx-background-color: transparent;");
@@ -83,9 +84,8 @@ public class MinesweeperView {
 		Button highScoreButton = new Button();
 		highScoreButton.setStyle("-fx-background-color: transparent;");
 		highScoreButton.setGraphic(new ImageView(new Image("images/highscore.png")));
-		highScoreButton.setOnAction(e ->highScore());
+		//highScoreButton.setOnAction(e ->highScore());
 		
-
 		
 		//Exit button
 		Button exitButton = new Button();
@@ -93,7 +93,7 @@ public class MinesweeperView {
 		exitButton.setStyle("-fx-background-color: transparent;");
 		exitButton.setOnAction(e -> mainMenu());
 
-			
+		
 		
 		VBox layout = new VBox();
 
@@ -278,7 +278,7 @@ public class MinesweeperView {
 		stage.setScene(scene);
 		
 	}
-
+	/*
 	public void highScore() {
 		this.stage.setTitle("Minesweeper");
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
@@ -315,7 +315,8 @@ public class MinesweeperView {
 		layout.setBackground(background);
 		stage.setScene(scene);
 		
-	}
+	} */
+	
 	
 	public int[] getGrapicInt(int number) {
 		int[] image= new int[3];
