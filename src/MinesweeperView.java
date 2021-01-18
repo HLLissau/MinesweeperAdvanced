@@ -84,10 +84,17 @@ public class MinesweeperView {
 		highScoreButton.setStyle("-fx-background-color: transparent;");
 		highScoreButton.setGraphic(new ImageView(new Image("images/highscore.png")));
 		highScoreButton.setOnAction(e ->highScore());
+		
+		
+		//Button quitButton = new Button();
+		//quitButton.setStyle("-fx-background-color: transparent;");
+		//quitButton.setGraphic(new ImageView(new Image("images/quit.png")));
+		//quitButton.setOnAction(e ->highScore());
+		
 			
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(newGameButton, highScoreButton);
+		layout.getChildren().addAll(newGameButton, highScoreButton/*quitButton*/);
 		layout.setPadding(new Insets(300,400,300,300));
 		layout.setBackground(background);
 		Scene scene = new Scene(layout, 1000, 750);
@@ -157,19 +164,17 @@ public class MinesweeperView {
 		
 		this.stage.setTitle(title);
 		
-		//top Menu bar
+		
 		HBox menuBar = new HBox();
 		counter = new Label(Integer.toString(controller.model.getBombAmount()));
-		
-		//timer.
-		
+		counter.setPadding(new Insets(50,100,50,100));
+		//highscore
+		highscore.setPadding(new Insets(50,100,50,100));
+		//timer
 		timer = new Label();
 		timer.setText("0");
-		
-		
-		
-		
-		
+		timer.setPadding(new Insets(50,100,50,100));
+		//top Menu bar		
 		menuBar.getChildren().addAll(this.highscore,counter,timer);
 		menuBar.setPadding(new Insets(50,400,0,300));
 				

@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -13,7 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class MinesweeperController {
+public class MinesweeperController  {
 	MinesweeperModel model;
 	MinesweeperView view;
 	//children is an array which contains a map of buttons and images for JavaFX
@@ -24,15 +27,17 @@ public class MinesweeperController {
 	private int n;
 	Timeline timeline;
 	int time;
+	private int[] highscore;
 	
 	//Import model and view to controller through constructor
-	public MinesweeperController(MinesweeperModel model, MinesweeperView view, int m, int n, int bombAmount) {
+	public MinesweeperController(MinesweeperModel model, MinesweeperView view,
+								 int m, int n, int bombAmount) throws FileNotFoundException{
 		this.view = view;
 		this.model = model;
 		this.m =m;
 		this.n = n;
 		this.bombAmount = bombAmount;
-		
+		this.highscore = loadHighscore();
 	}
 	
 	/*
@@ -178,6 +183,7 @@ public class MinesweeperController {
 		}
 	
 	}
+	
 	 public void startTimer() {
 	        timeline = new Timeline(
 	            new KeyFrame(Duration.seconds(0),
@@ -189,7 +195,20 @@ public class MinesweeperController {
 	 public void ticToc() {
 		 this.time++;
 		 view.timer.setText(Integer.toString(time));
-		 System.out.println("test");
+		 
+	 }
+	 
+	 public int[] loadHighscore() throws FileNotFoundException {
+		 String[] loadedhighscore= new String[60];
+		 Scanner file = new Scanner(new File("highscore.msw"));
+		 for (int i=0; i<30;i++) {
+			 loadedhighscore[i] = file.next();
+		 }
+		 for (int i=0; i<30;i++) {
+			 loadedhighscore[i] = file.nextInt();
+		 }
+		 
+		 return loadedhighscore;
 	 }
 }	
 
