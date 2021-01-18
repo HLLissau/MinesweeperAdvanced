@@ -81,6 +81,7 @@ public class MinesweeperController {
 		for (int i =0; i<this.n; i++) {
 			for (int j =0; j<this.m; j++) {
 				MinesweeperButton button = new MinesweeperButton(j,i);
+				button.setGraphic(new ImageView(view.images[12]));
 				button.setOnMouseClicked(event -> {
 					//System.out.println();
 					
@@ -94,7 +95,7 @@ public class MinesweeperController {
                             button.setGraphic(new ImageView(view.images[10]));
                             model.placeflag();
                         } else {
-                            button.setGraphic(new ImageView(view.images[11]));
+                            button.setGraphic(new ImageView(view.images[12]));
                             model.removeflag();
                         }
 					}
