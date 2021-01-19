@@ -258,7 +258,13 @@ public class MinesweeperController  {
 		;
 		saveHighScore();
 	}
-	
+	public void resetHighScore() {
+		this.highscore.clear();
+		for (int i=0; i<15;i++) {
+			
+		}
+		
+	}
 	
 	 
 		 

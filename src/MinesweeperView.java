@@ -373,7 +373,10 @@ public class MinesweeperView {
 		Button resetButton = new Button();
 		resetButton.setGraphic(getstringHBox("reset"));
 		resetButton.setStyle("-fx-background-color: transparent;");
-		//resetButton.setOnAction(e -> mainMenu());
+		resetButton.setOnAction(e ->{
+		controller.resetHighScore();	
+		mainMenu();
+	    });
 		resetButton.setPadding(new Insets(0,300,300,400));
 				
 		HBox buttons = new HBox();
