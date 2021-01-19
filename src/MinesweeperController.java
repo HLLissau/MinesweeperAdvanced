@@ -30,7 +30,8 @@ public class MinesweeperController  {
 	private int n;
 	Timeline timeline;
 	int time;
-	public String[] highscore;
+	public ArrayList<String> highscore;
+	private int dificulty; // 0 is easy, 1 is advance, 2 is hard, 3 is custon.
 	
 	//Import model and view to controller through constructor
 	public MinesweeperController(MinesweeperModel model, MinesweeperView view,
@@ -139,15 +140,17 @@ public class MinesweeperController  {
 	 * Input: Stage
 	 */
 	public void gotoNewGame(Stage thisStage) {
+		this.time=0;
 		model = new MinesweeperModel(this.m,this.n,bombAmount);
 	}
 	
-	public void gotoNewGame(int m, int n, int bombAmount) {
+	public void gotoNewGame(int m, int n, int bombAmount, int dificulty) {
 		model = new MinesweeperModel(m,n,bombAmount);
+		this.time=0;
 		this.n = model.getn();
 		this.m = model.getm();
 		this.bombAmount = model.getBombAmount();
-		
+		this.dificulty= dificulty;
 		view.gameWindow();
 	}
 
@@ -189,7 +192,6 @@ public class MinesweeperController  {
 	
 	}
 	public void updateViewflags() {
-		System.out.println("update");
 		int temp = model.getFlagPlaced();
 		view.bombs.setGraphic(view.getIntHBox(temp));
 	}
@@ -208,11 +210,11 @@ public class MinesweeperController  {
 		 
 	 }
 	 
-	 public String[] loadHighscore() throws FileNotFoundException {
-		 String[] loadedhighscore= new String[60];
+	 public ArrayList<String> loadHighscore() throws FileNotFoundException {
+		 ArrayList<String> loadedhighscore= new ArrayList<String>();
 		 Scanner file = new Scanner(new File("src/highscore.txt"));
 		 for (int i=0; i<30;i++) {
-			 loadedhighscore[i] = file.next();
+			 loadedhighscore.add(file.next());
 	     }
 		
 		 return loadedhighscore;
@@ -221,11 +223,42 @@ public class MinesweeperController  {
 		 
 		 PrintWriter pw = new PrintWriter("src/highscore.txt");
 		 for(int i=0; i<30; i++ ) {
-			 pw.write(highscore[i]);
+			 pw.write(highscore.get(i)+" ");
 		 }
 		 pw.close();
 	 }
+	 public int getDificulty() {
+		 return this.dificulty;
+	 }
+	 public void checkHighScore() throws FileNotFoundException {
+		 System.out.println("checkscore");
+		 int updated =0;
+		 int list= this.dificulty*5;
+		 for (int i=list;i<list+5;i++) {
+			 if ((Integer.parseInt(this.highscore.get(i))>this.time) && updated==0) {
+				 System.out.println("checkscore, inner loop");
+				 updated=1;
+				 newHighscore(i);
+				 ;
+			 }
+		 }
+	 }	 
+		 
+	public void newHighscore(int place) throws FileNotFoundException {
+		
+		this.highscore.add(place, Integer.toString(time));
+		this.highscore.remove(15/(3-this.dificulty));
+		this.highscore.add(place+15,"Bos");
+		this.highscore.remove(15/(3-this.dificulty)+15);
+		
+		//this.highscore.add(place+15, view.getName());
+		saveHighScore();
+	}
+	
+	
 	 
+		 
+		 
 	 
 }	
 

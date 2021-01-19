@@ -7,6 +7,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+
 import com.sun.javafx.scene.control.IntegerField;
 
 import javafx.application.Platform;
@@ -41,7 +44,7 @@ public class MinesweeperView {
 		this.stage = topLevelStage;
 		this.controller = controller;
 		this.title = title;
-		this.highscore = getstringHBox(controller.highscore[1]);
+		this.highscore = getstringHBox(controller.highscore.get(1));
 	}
 	
 	//Load pictures to images array
@@ -119,7 +122,7 @@ public class MinesweeperView {
 		Button easyButton = new Button();
 		easyButton.setGraphic(new ImageView(new Image("images/easy.png")));
 		easyButton.setStyle("-fx-background-color: transparent;");
-		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10));
+		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10,0));
 		
 	   
 		//Medium button
@@ -127,7 +130,7 @@ public class MinesweeperView {
 		
 		mediumButton.setGraphic(new ImageView(new Image("images/medium.png")));
 		mediumButton.setStyle("-fx-background-color: transparent;");
-		mediumButton.setOnAction(e -> controller.gotoNewGame(16,16,40));
+		mediumButton.setOnAction(e -> controller.gotoNewGame(16,16,40,1));
 	   
 		
 		//Hard button
@@ -135,7 +138,7 @@ public class MinesweeperView {
 		
 		hardButton.setGraphic(new ImageView(new Image("images/hard.png")));
 		hardButton.setStyle("-fx-background-color: transparent;");
-		hardButton.setOnAction(e -> controller.gotoNewGame(30,16,99));
+		hardButton.setOnAction(e -> controller.gotoNewGame(30,16,99,2));
 	   
 		
 		//Custom button
@@ -230,7 +233,18 @@ public class MinesweeperView {
 		
 		window.sizeToScene();
 		
-		window.setOnCloseRequest(e -> controller.gotoMainMenu());
+		window.setOnCloseRequest(e -> {
+			//check for highscore. catch exeption error.
+			if (controller.getDificulty()<3) {
+				try {
+					controller.checkHighScore();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			controller.gotoMainMenu();
+		});
+		
 		//Force user to interact with window
 		window.initModality(Modality.APPLICATION_MODAL);
 		
@@ -246,8 +260,15 @@ public class MinesweeperView {
 		button.setStyle("-fx-background-color: transparent;");
 		button.setPadding(new Insets(50,50,50,50));
 		button.setOnAction(e -> {
-		controller.gotoMainMenu();
-		window.close();
+			if (controller.getDificulty()<3) {
+				try {
+					controller.checkHighScore();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}		
+			controller.gotoMainMenu();
+			window.close();
 		});
 		
 		//background
@@ -286,7 +307,7 @@ public class MinesweeperView {
 		newGameButton.setText("Start game");
 		newGameButton.setGraphic(new ImageView(new Image("images/startgame.png")));
 		newGameButton.setStyle("-fx-background-color: transparent;");
-		newGameButton.setOnAction(e ->  controller.gotoNewGame(n.getValue(),m.getValue(),bombs.getValue()));
+		newGameButton.setOnAction(e ->  controller.gotoNewGame(n.getValue(),m.getValue(),bombs.getValue(),3));
 		
 		Button leaveButton = new Button();
 		leaveButton.setGraphic(new ImageView(new Image("images/back.png")));
@@ -403,12 +424,12 @@ public class MinesweeperView {
 		
 		for (int i=0+x; i<5+x;i++) {
 			//gets number as graphic
-			int number = Integer.parseInt(controller.highscore[i]);
+			int number = Integer.parseInt(controller.highscore.get(i));
 			HBox numbers = getIntHBox(number);
 			
 			
 			//gets name
-			HBox letters = getstringHBox(controller.highscore[i+15]);
+			HBox letters = getstringHBox(controller.highscore.get(i+15));
 			letters.setPadding(new Insets(2,2,2,2));
 			
 			//boxed together
