@@ -124,7 +124,7 @@ public class MinesweeperView {
 		Button easyButton = new Button();
 		easyButton.setGraphic(new ImageView(new Image("images/easy.png")));
 		easyButton.setStyle("-fx-background-color: transparent;");
-		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,1,0));
+		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10,0));
 		
 	   
 		//Medium button
