@@ -208,7 +208,8 @@ public class MinesweeperController  {
 	    }
 	 public void ticToc() {
 		 this.time++;
-		 view.time.setGraphic(view.getstringHBox(Integer.toString(0)));
+		 System.out.println(this.time);
+		 view.time.setGraphic(view.getIntHBox(this.time));
 		 
 	 }
 	 

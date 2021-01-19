@@ -189,13 +189,16 @@ public class MinesweeperView {
 		highscore.setPadding(new Insets(50,100,50,100));
 		
 		//timer
-		HBox timebox = getstringHBox("Time");
-		timer = "0";
+		HBox timebox = new HBox();
+		HBox timer = getstringHBox("Time");
+		this.time= new Label();
+		time.setGraphic(getIntHBox(000));
+		timebox.getChildren().addAll(timer,time);
 		
 		
 		
 		//top Menu bar		
-		menuBar.getChildren().addAll(this.highscore,bombsBox,timebox,bombs);
+		menuBar.getChildren().addAll(this.highscore,bombsBox,timebox);
 		
 				
 		//full game window
@@ -368,6 +371,14 @@ public class MinesweeperView {
 	return new Image(name);
 	}
 	
+	public HBox getIntHBox(int input) {
+		HBox numbers = new HBox();
+		int[] numAsImage = getGrapicInt(input);
+		numbers.getChildren().addAll(new ImageView(getNumberAsImage(numAsImage[0])),new ImageView(getNumberAsImage(numAsImage[1])),new ImageView(getNumberAsImage(numAsImage[2])));
+		return numbers;
+	}
+	
+	
 	public HBox getstringHBox(String input) {
 		HBox temp = new HBox();
 		for(int i=0; i<input.length(); i++ ) {
@@ -391,11 +402,9 @@ public class MinesweeperView {
 		
 		for (int i=0+x; i<5+x;i++) {
 			//gets number as graphic
-			HBox numbers = new HBox();
 			int number = Integer.parseInt(controller.highscore[i]);
+			HBox numbers = getIntHBox(number);
 			
-			int[] numAsImage = getGrapicInt(number);
-			numbers.getChildren().addAll(new ImageView(getNumberAsImage(numAsImage[0])),new ImageView(getNumberAsImage(numAsImage[1])),new ImageView(getNumberAsImage(numAsImage[2])));
 			
 			//gets name
 			HBox letters = getstringHBox(controller.highscore[i+15]);
