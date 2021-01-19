@@ -185,7 +185,7 @@ public class MinesweeperView {
 		HBox counterLabel = getstringHBox("Bombs");
 		this.bombs = new Label();
 		this.bombs.setGraphic(getIntHBox(0));
-		HBox bombsBox = new HBox();
+		VBox bombsBox = new VBox();
 		bombsBox.getChildren().addAll(counterLabel,bombs);
 		
 				
@@ -193,7 +193,7 @@ public class MinesweeperView {
 		highscore.setPadding(new Insets(50,100,50,100));
 		
 		//timer
-		HBox timebox = new HBox();
+		VBox timebox = new VBox();
 		HBox timer = getstringHBox("Time");
 		this.time= new Label();
 		time.setGraphic(getIntHBox(000));
@@ -260,7 +260,9 @@ public class MinesweeperView {
 		button.setStyle("-fx-background-color: transparent;");
 		button.setPadding(new Insets(50,50,50,50));
 		button.setOnAction(e -> {
-			if (controller.getDificulty()<3) {
+			window.close();
+			//check if game is new,medium,hard and if game was won
+			if (controller.getDificulty()<3 && controller.model.getEndCondition()==8) {
 				try {
 					controller.checkHighScore();
 				} catch (FileNotFoundException e1) {
@@ -268,7 +270,7 @@ public class MinesweeperView {
 				}
 			}		
 			controller.gotoMainMenu();
-			window.close();
+			
 		});
 		
 		//background
@@ -339,7 +341,7 @@ public class MinesweeperView {
 		dificulty.getChildren().add(new ImageView(new Image("images/easy.png")));
 		dificulty.getChildren().add(new ImageView(new Image("images/medium.png")));
 		dificulty.getChildren().add(new ImageView(new Image("images/hard.png")));
-		dificulty.setPadding(new Insets(50,50,50,100));
+		dificulty.setPadding(new Insets(100,50,30,100));
 		
 		//easy
 		VBox easy = getScoreVBox(0);
@@ -365,11 +367,22 @@ public class MinesweeperView {
 		returnButton.setGraphic(new ImageView(new Image("images/back.png")));
 		returnButton.setStyle("-fx-background-color: transparent;");
 		returnButton.setOnAction(e -> mainMenu());
-		returnButton.setPadding(new Insets(0,300,300,400));
+		returnButton.setPadding(new Insets(0,110,200,100));
+		
+		//return button
+		Button resetButton = new Button();
+		resetButton.setGraphic(getstringHBox("reset"));
+		resetButton.setStyle("-fx-background-color: transparent;");
+		//resetButton.setOnAction(e -> mainMenu());
+		resetButton.setPadding(new Insets(0,300,300,400));
+				
+		HBox buttons = new HBox();
+		buttons.getChildren().addAll(returnButton,resetButton);
+		
 		
 		//all together now!
 		VBox layout = new VBox();
-		layout.getChildren().addAll(dificulty,highscores, returnButton);
+		layout.getChildren().addAll(dificulty,highscores,buttons);
 		layout.setPadding(new Insets(150,0,0,0));
 		Scene scene = new Scene(layout, 1000, 750);
 		layout.setBackground(background);
@@ -439,6 +452,85 @@ public class MinesweeperView {
 		}
 	return temp;
 	}
+	
+	/*  Window pressented when Highscore is beaten.
+	 *  input: Time used to win
+	 *  output: none.
+	 */
+	
+	
+	public void newHighScoreName(int timeUsed) {
+		//controller.clearButtonAction();
+		String text= "tex";		
+		Stage window = new Stage();
+		window.setTitle("New HighScore");
+		window.sizeToScene();
+		//Force user to interact with window
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setOnCloseRequest(e -> {
+			controller.newName= text;
+			//catch error(File not found)
+			try {
+				controller.newHighscore(timeUsed);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}		
+		});
+	
+		// insert name
+		Label message = new Label();
+		message.setGraphic(getstringHBox("Type name"));
+		message.setPadding(new Insets(50,50,50,50));
+		
+		// user input
+		Label label = new Label();
+		label.setGraphic(getstringHBox(text));
+		label.setPadding(new Insets(50,50,50,50));
+		label.setOnKeyTyped(e-> {
+			
+			if (controller.newName=="nul") {
+				controller.newName= e.getCharacter();
+				label.setGraphic(getstringHBox(controller.newName));
+			} else {
+				controller.newName= controller.newName+ e.getCharacter();
+			}
+			
+		});
+		//button (save)
+		Button button = new Button();
+		button.setGraphic(getstringHBox("save"));
+		button.setStyle("-fx-background-color: transparent;");
+		button.setPadding(new Insets(50,50,50,50));
+		button.setOnAction(e -> {
+			controller.newName = text;
+			//catch error(File not found)
+			try {
+				controller.newHighscore(timeUsed);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			window.close();	
+		});
+		
+		//background
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
+		
+		//Layout
+		VBox layout = new VBox(50);
+		layout.getChildren().addAll(message,label, button);
+		layout.setMinWidth(200);
+		layout.setAlignment(Pos.CENTER);
+		layout.setBackground(background);
+		Scene scene= new Scene(layout);
+		window.setScene(scene);
+		window.show();
+		// When window is closed. opens a new game.
+		
+	}
+	
+	
+	
 }
 
 

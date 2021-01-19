@@ -32,10 +32,10 @@ public class MinesweeperController  {
 	int time;
 	public ArrayList<String> highscore;
 	private int dificulty; // 0 is easy, 1 is advance, 2 is hard, 3 is custon.
-	
+	public String newName;
 	//Import model and view to controller through constructor
 	public MinesweeperController(MinesweeperModel model, MinesweeperView view,
-								 int m, int n, int bombAmount) throws FileNotFoundException{
+								int m, int n, int bombAmount) throws FileNotFoundException{
 		this.view = view;
 		this.model = model;
 		this.m =m;
@@ -206,6 +206,9 @@ public class MinesweeperController  {
 	    }
 	 public void ticToc() {
 		 this.time++;
+		 if (time>=1000) {
+			 time=999;
+		 }
 		 view.time.setGraphic(view.getIntHBox(this.time));
 		 
 	 }
@@ -231,27 +234,28 @@ public class MinesweeperController  {
 		 return this.dificulty;
 	 }
 	 public void checkHighScore() throws FileNotFoundException {
-		 System.out.println("checkscore");
 		 int updated =0;
 		 int list= this.dificulty*5;
 		 for (int i=list;i<list+5;i++) {
 			 if ((Integer.parseInt(this.highscore.get(i))>this.time) && updated==0) {
-				 System.out.println("checkscore, inner loop");
 				 updated=1;
-				 newHighscore(i);
+				 view.newHighScoreName(i);
+				 
 				 ;
 			 }
 		 }
+		 
 	 }	 
 		 
 	public void newHighscore(int place) throws FileNotFoundException {
-		
+		System.out.println("test");
 		this.highscore.add(place, Integer.toString(time));
 		this.highscore.remove(15/(3-this.dificulty));
-		this.highscore.add(place+15,"Bos");
+		//this.highscore.add(place+15,"Bos");
+		this.highscore.add(place+15, this.newName);
 		this.highscore.remove(15/(3-this.dificulty)+15);
 		
-		//this.highscore.add(place+15, view.getName());
+		;
 		saveHighScore();
 	}
 	
