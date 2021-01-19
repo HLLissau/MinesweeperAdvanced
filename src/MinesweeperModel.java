@@ -15,6 +15,7 @@ public class MinesweeperModel{
 	private final int MINGRIDSIZE = 4;
 	private final int MAXGRIDSIZE = 30;
 	private int flagsplaced;
+	private boolean gameStopped;
 	
 	
 	
@@ -42,7 +43,7 @@ public class MinesweeperModel{
 		this.bombAmount= bombAmount;
 		this.flagsplaced=0;
 		isGameStarted= false;
-		
+		gameStopped = false;
 		
 	}
 	
@@ -129,6 +130,7 @@ public class MinesweeperModel{
 			this.endCondition =9;
 		} else if (victoryCondition()) {
 			this.endCondition =8;
+			
 		}
 	}
 	
@@ -190,5 +192,11 @@ public class MinesweeperModel{
 	}
 	public boolean isGAmeStarted() {
 		return this.isGameStarted;
+	}
+	public boolean isGameStopped() {
+		return this.gameStopped;
+	}
+	public void stopGame() {
+		this.gameStopped=true;
 	}
 }

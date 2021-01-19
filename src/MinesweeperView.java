@@ -124,7 +124,7 @@ public class MinesweeperView {
 		Button easyButton = new Button();
 		easyButton.setGraphic(new ImageView(new Image("images/easy.png")));
 		easyButton.setStyle("-fx-background-color: transparent;");
-		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10,0));
+		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,1,0));
 		
 	   
 		//Medium button
@@ -475,7 +475,7 @@ public class MinesweeperView {
 		//Force user to interact with window
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setOnCloseRequest(e -> {
-			controller.newName= text;
+			
 			//catch error(File not found)
 			try {
 				controller.newHighscore(timeUsed);
@@ -500,7 +500,7 @@ public class MinesweeperView {
 		button.setStyle("-fx-background-color: transparent;");
 		button.setPadding(new Insets(50,50,50,50));
 		button.setOnAction(e -> {
-			controller.newName = text;
+			
 			//catch error(File not found)
 			try {
 				controller.newHighscore(timeUsed);
@@ -547,9 +547,8 @@ public class MinesweeperView {
 						controller.newName= nameEntered.substring(0, 3);
 						label.setGraphic(getstringHBox(controller.newName));
 					}
-					
 				
-				System.out.println(nameEntered);
+				
 				}
 		});
 		

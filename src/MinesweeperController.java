@@ -77,9 +77,10 @@ public class MinesweeperController  {
 				}
 			}
 		}
-			
-			checkEndCondition(model, pressedButton.getPos());
-			
+		
+			if (!(model.isGameStopped())){
+				checkEndCondition(model, pressedButton.getPos());
+			}
 	}
 		
 	
@@ -182,11 +183,12 @@ public class MinesweeperController  {
 		int condition =model.getEndCondition();
 		if (condition == 8) {
 			view.alertBox("Victory", "Congratulations. You won!");
-			
+			model.stopGame();
 			timeline.stop();
 		}
 		if (condition == 9) {
 			view.alertBox("Defeat", "game over");
+			model.stopGame();
 			timeline.stop();
 		}
 	
