@@ -1,1 +1,1 @@
-10 11 13 16 17 999 999 999 999 999 999 999 999 999 999 Bos nul tex Bos Bos a00 a01 a02 a03 a04 a00 a01 a02 a03 a04 
+16 999 999 999 999 999 999 999 999 999 999 999 999 999 999 TMP tmp tmp tmp tmp tmp tmp tmp tmp tmp tmp tmp tmp tmp tmp 

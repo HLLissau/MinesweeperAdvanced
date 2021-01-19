@@ -21,6 +21,8 @@ import javafx.scene.control.Label;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 
 public class MinesweeperView {
@@ -464,7 +466,9 @@ public class MinesweeperView {
 	
 	public void newHighScoreName(int timeUsed) {
 		//controller.clearButtonAction();
-		String text= "tex";		
+		
+		String text= "TMP";	
+		controller.newName=text;
 		Stage window = new Stage();
 		window.setTitle("New HighScore");
 		window.sizeToScene();
@@ -489,16 +493,7 @@ public class MinesweeperView {
 		Label label = new Label();
 		label.setGraphic(getstringHBox(text));
 		label.setPadding(new Insets(50,50,50,50));
-		label.setOnKeyTyped(e-> {
-			
-			if (controller.newName=="nul") {
-				controller.newName= e.getCharacter();
-				label.setGraphic(getstringHBox(controller.newName));
-			} else {
-				controller.newName= controller.newName+ e.getCharacter();
-			}
-			
-		});
+		
 		//button (save)
 		Button button = new Button();
 		button.setGraphic(getstringHBox("save"));
@@ -529,6 +524,34 @@ public class MinesweeperView {
 		window.setScene(scene);
 		window.show();
 		// When window is closed. opens a new game.
+		
+		layout.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+				if (controller.newName=="TMP") {
+					controller.newName="";
+				}
+			
+				if(key.getCode()== KeyCode.BACK_SPACE) {
+					String nameEntered = controller.newName;
+					int number =(nameEntered.length()-1);
+					if (number<=0) {
+						number=0;
+					}
+					controller.newName= nameEntered.substring(0, number);
+					label.setGraphic(getstringHBox(controller.newName));
+				}else {
+					String nameEntered = "";
+					controller.newName +=key.getCode();
+					label.setGraphic(getstringHBox(controller.newName));
+					nameEntered= controller.newName;
+					if (nameEntered.length()>=4) {
+						controller.newName= nameEntered.substring(0, 3);
+						label.setGraphic(getstringHBox(controller.newName));
+					}
+					
+				
+				System.out.println(nameEntered);
+				}
+		});
 		
 	}
 	

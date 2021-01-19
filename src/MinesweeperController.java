@@ -248,7 +248,6 @@ public class MinesweeperController  {
 	 }	 
 		 
 	public void newHighscore(int place) throws FileNotFoundException {
-		System.out.println("test");
 		this.highscore.add(place, Integer.toString(time));
 		this.highscore.remove(15/(3-this.dificulty));
 		//this.highscore.add(place+15,"Bos");
