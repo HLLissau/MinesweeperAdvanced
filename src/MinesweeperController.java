@@ -106,15 +106,15 @@ public class MinesweeperController  {
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
+						
 						if (button.flag) {
                             button.setGraphic(new ImageView(view.images[10]));
                             model.placeflag();
                         } else {
                             button.setGraphic(new ImageView(view.images[12]));
                             model.removeflag();
-                            updateViewflags();
                         }
-						
+						updateViewflags();
 					}
 					
 				});
@@ -189,13 +189,9 @@ public class MinesweeperController  {
 	
 	}
 	public void updateViewflags() {
+		System.out.println("update");
 		int temp = model.getFlagPlaced();
-		view.counter[0]= view.getNumberAsImage(temp/100);
-		temp=temp%100;
-		view.counter[1]= view.getNumberAsImage(temp/10);
-		temp=temp%10;
-		view.counter[2]= view.getNumberAsImage(temp);
-		
+		view.bombs.setGraphic(view.getIntHBox(temp));
 	}
 	
 	 public void startTimer() {
@@ -208,7 +204,6 @@ public class MinesweeperController  {
 	    }
 	 public void ticToc() {
 		 this.time++;
-		 System.out.println(this.time);
 		 view.time.setGraphic(view.getIntHBox(this.time));
 		 
 	 }

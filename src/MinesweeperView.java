@@ -25,9 +25,9 @@ public class MinesweeperView {
 	Stage stage;
 	String title;
 	Image[] images;
-	Image[] counter;
+	
 	HBox highscore;
-	String timer;
+	Label bombs;
 	Label time;
 
 	
@@ -180,7 +180,8 @@ public class MinesweeperView {
 		HBox menuBar = new HBox(20);
 		//bomb counter
 		HBox counterLabel = getstringHBox("Bombs");
-		HBox bombs = getstringHBox(Integer.toString(controller.model.getBombAmount()));
+		this.bombs = new Label();
+		this.bombs.setGraphic(getIntHBox(0));
 		HBox bombsBox = new HBox();
 		bombsBox.getChildren().addAll(counterLabel,bombs);
 		
