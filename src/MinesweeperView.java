@@ -314,7 +314,7 @@ public class MinesweeperView {
 		Button leaveButton = new Button();
 		leaveButton.setGraphic(new ImageView(new Image("images/back.png")));
 		leaveButton.setStyle("-fx-background-color: transparent;");
-		leaveButton.setOnAction(e -> mainMenu());
+		leaveButton.setOnAction(e -> mainSetup());
 									
 		
 		VBox layout = new VBox();
@@ -352,7 +352,7 @@ public class MinesweeperView {
 		
 		//hard
 		VBox hard = getScoreVBox(10);
-		hard.setPadding(new Insets(0,0,0,120));
+		//hard.setPadding(new Insets(0,0,0,120));
 		
 		
 		
