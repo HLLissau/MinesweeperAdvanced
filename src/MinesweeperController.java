@@ -183,7 +183,7 @@ public class MinesweeperController  {
 			timeline.stop();
 		}
 		if (condition == 9) {
-			view.alertBox("Game over", "You lost!");
+			view.alertBox("Defeat", "game over");
 			timeline.stop();
 		}
 	
@@ -208,7 +208,7 @@ public class MinesweeperController  {
 	    }
 	 public void ticToc() {
 		 this.time++;
-		 view.timer.setText(Integer.toString(time));
+		 view.time.setGraphic(view.getstringHBox(Integer.toString(0)));
 		 
 	 }
 	 
