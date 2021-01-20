@@ -282,7 +282,6 @@ public class MinesweeperController  {
 	}
 	
 	public void checkAmount() {
-		System.out.println("test "+ view.bombAmount+" "+view.nAmount+" "+view.mAmount);
 		if (view.bombAmount<=0) {
 			view.bombAmount=1;
 		}
