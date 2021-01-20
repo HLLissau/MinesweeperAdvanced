@@ -589,7 +589,7 @@ public class MinesweeperView {
 			
 			
 			//gets name
-			HBox letters = getstringHBox(controller.highscore.get(i+15));
+			HBox letters = getstringHBox(controller.highscore.get(i+20));
 			letters.setPadding(new Insets(2,2,2,2));
 			
 			//boxed together
