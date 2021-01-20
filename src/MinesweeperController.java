@@ -66,7 +66,9 @@ public class MinesweeperController  {
 			
 			//check if button got flag
 			if (!(pressedButton.flag)) {
-				
+				if (!(model.isGAmeStarted())) {
+							startTimer();
+				}
 				//Changes button to picture
 				grid.getChildren().remove(pressedButton);
 				int cell = getNext(pressedButton.getPos());
@@ -106,10 +108,6 @@ public class MinesweeperController  {
 					
 					if  (event.getButton()== MouseButton.PRIMARY) {
 						buttonPressed(button);
-						if (!(model.isGAmeStarted())) {
-							startTimer();
-						}
-							
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						button.changeFlag();
