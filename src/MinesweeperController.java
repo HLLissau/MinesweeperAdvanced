@@ -62,10 +62,12 @@ public class MinesweeperController  {
 	public void buttonPressed(MinesweeperButton pressedButton) {
 		//basiscase
 		if (!(model.buttonclicked(pressedButton.getPos()))) {
-			model.clickbutton(pressedButton.getPos());
+			
 			
 			//check if button got flag
 			if (!(pressedButton.flag)) {
+				model.clickbutton(pressedButton.getPos());
+				
 				if (!(model.isGAmeStarted())) {
 							startTimer();
 				}
@@ -111,15 +113,15 @@ public class MinesweeperController  {
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
 						if (model.isGAmeStarted()) {
-							button.changeFlag();
 							
-							if (button.flag) {
+							if (!(button.flag)) {
 								button.setGraphic(new ImageView(view.images[10]));
 								model.placeflag();
 							} else {
                         		button.setGraphic(new ImageView(view.images[12]));
 								model.removeflag();
 							}
+							button.changeFlag();
 							updateViewflags();
 						}
 					}
