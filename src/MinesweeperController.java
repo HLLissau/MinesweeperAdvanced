@@ -200,8 +200,9 @@ public class MinesweeperController  {
 	}
 	public void updateViewflags() {
 		int temp = model.getFlagPlaced();
-		view.bombs.setGraphic(view.getIntHBox(temp));
+		view.updatebombs(temp);
 	}
+	
 	
 	 public void startTimer() {
 	        timeline = new Timeline(
@@ -211,14 +212,21 @@ public class MinesweeperController  {
 	        timeline.setCycleCount(Animation.INDEFINITE);
 	        timeline.play();
 	    }
+	
+	 /*
+	  * action set to happen each second.
+	  * time variable updated and cannot exeed 999.
+	  * graphic for time label updated.
+	  */
 	 public void ticToc() {
 		 this.time++;
 		 if (time>=1000) {
 			 time=999;
 		 }
-		 view.time.setGraphic(view.getIntHBox(this.time));
+		 view.updateTime(time);
 		 
 	 }
+	 
 	 
 	 public ArrayList<String> loadHighscore() throws FileNotFoundException {
 		 ArrayList<String> loadedhighscore= new ArrayList<String>();
@@ -282,15 +290,7 @@ public class MinesweeperController  {
 	}
 	
 	public void checkAmount() {
-		if (view.bombAmount<=0) {
-			view.bombAmount=1;
-		}
-		if (view.bombAmount>=99 ) {
-			view.bombAmount=99;
-		}
-		if (view.bombAmount>=(view.mAmount*view.nAmount)) {
-			view.bombAmount=(view.mAmount*view.nAmount)-1;
-		}
+		
 		
 		if (view.mAmount<=model.MINGRIDSIZE){
 			view.mAmount=model.MINGRIDSIZE;
@@ -305,7 +305,15 @@ public class MinesweeperController  {
 			view.nAmount=model.MAXGRIDHEIGHT;
 		}
 		
-			
+		if (view.bombAmount<=0) {
+			view.bombAmount=1;
+		}
+		if (view.bombAmount>=99 ) {
+			view.bombAmount=99;
+		}
+		if (view.bombAmount>=(view.mAmount*view.nAmount)) {
+			view.bombAmount=(view.mAmount*view.nAmount)-1;
+		}
 			
 	}
 		 

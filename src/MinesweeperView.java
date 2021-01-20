@@ -31,9 +31,9 @@ public class MinesweeperView {
 	String title;
 	Image[] images;
 	
-	HBox highscore;
-	Label bombs;
-	Label time;
+	
+	private Label bombs;
+	private Label time;
 	int nAmount;
 	int mAmount;
 	int bombAmount;
@@ -49,7 +49,7 @@ public class MinesweeperView {
 		this.stage = topLevelStage;
 		this.controller = controller;
 		this.title = title;
-		this.highscore = getstringHBox(controller.highscore.get(1));
+		
 	}
 	
 	//Load pictures to images array
@@ -184,30 +184,54 @@ public class MinesweeperView {
 		this.stage.setTitle(title);
 		
 		
-		HBox menuBar = new HBox(20);
+		
 		//bomb counter
 		HBox counterLabel = getstringHBox("Bombs");
 		this.bombs = new Label();
 		this.bombs.setGraphic(getIntHBox(0));
+		this.bombs.setScaleX(1.5);
+		this.bombs.setScaleY(1.5);
+		this.bombs.setPadding(new Insets(20,0,0,70));
 		VBox bombsBox = new VBox();
 		bombsBox.getChildren().addAll(counterLabel,bombs);
 		
 				
 		//highscore
-		highscore.setPadding(new Insets(50,100,50,100));
+		VBox highscore = new VBox();
+		Label highscoreLabel = new Label();
+		highscoreLabel.setGraphic(getstringHBox("Highscore"));
+		HBox player = new HBox();
+		Label score = new Label();
+		int record = Integer.parseInt(controller.highscore.get(5*controller.getDificulty()));
+		score.setGraphic(getIntHBox(record));
+		score.setScaleX(1.5);
+		score.setScaleY(1.5);
+		score.setPadding(new Insets(10,0,0,0));
+		Label name = new Label();
+		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
+		name.setPadding(new Insets(0,20,20,20));
+		
+		player.getChildren().addAll(score,name);
+		player.setPadding(new Insets(20,0,0,100));
+		
+		highscore.getChildren().addAll(highscoreLabel,player);
+		
+		
 		
 		//timer
 		VBox timebox = new VBox();
 		HBox timer = getstringHBox("Time");
 		this.time= new Label();
-		time.setGraphic(getIntHBox(000));
+		this.time.setGraphic(getIntHBox(000));
+		this.time.setScaleX(1.5);
+		this.time.setScaleY(1.5);
+		this.time.setPadding(new Insets(20,0,0,70));
 		timebox.getChildren().addAll(timer,time);
 		
-		
-		
 		//top Menu bar		
-		menuBar.getChildren().addAll(this.highscore,bombsBox,timebox);
-		
+		HBox menuBar = new HBox(80);
+		menuBar.getChildren().addAll(highscore,bombsBox,timebox);
+		menuBar.setPadding(new Insets(10,0,0,0));
 				
 		//full game window
 		BorderPane layout = new BorderPane();
@@ -323,25 +347,29 @@ public class MinesweeperView {
 		//plus button
 		Button plusn = new Button();
 		plusn.setGraphic(new ImageView("images/plus.png"));
-		
+		plusn.setPadding(new Insets(20,0,0,10));
 		plusn.setBackground(null);
 		plusn.setOnAction(e -> {
 			nAmount++;
 			controller.checkAmount();
 			n.setGraphic(getIntHBox(nAmount));
+			bombs.setGraphic(getIntHBox(bombAmount));
 			
 		});
 		Button plusm = new Button();
 		plusm.setGraphic(new ImageView("images/plus.png"));
+		plusm.setPadding(new Insets(20,0,0,10));
 		plusm.setBackground(null);
 		plusm.setOnAction(e -> {
 			mAmount++;
 			controller.checkAmount();
 			m.setGraphic(getIntHBox(mAmount));
+			bombs.setGraphic(getIntHBox(bombAmount));
 			
 		});
 		Button plusb = new Button();
 		plusb.setGraphic(new ImageView("images/plus.png"));
+		plusb.setPadding(new Insets(20,0,0,10));
 		plusb.setBackground(null);
 		plusb.setOnAction(e -> {
 			bombAmount++;
@@ -353,23 +381,28 @@ public class MinesweeperView {
 		//minus button
 		Button minusn = new Button();
 		minusn.setBackground(null);
+		minusn.setPadding(new Insets(20,10,0,0));
 		minusn.setGraphic(new ImageView("images/minus.png"));
 		minusn.setOnAction(e -> {
 			nAmount--;
 			controller.checkAmount();
 			n.setGraphic(getIntHBox(nAmount));
+			bombs.setGraphic(getIntHBox(bombAmount));
 			
 		});
 		Button minusm = new Button();
 		minusm.setBackground(null);
 		minusm.setGraphic(new ImageView("images/minus.png"));
+		minusm.setPadding(new Insets(20,10,0,0));
 		minusm.setOnAction(e -> {
 			mAmount--;
 			controller.checkAmount();
 			m.setGraphic(getIntHBox(mAmount));
+			bombs.setGraphic(getIntHBox(bombAmount));
 			
 		});
 		Button minusb = new Button();
+		minusb.setPadding(new Insets(20,10,0,0));
 		minusb.setBackground(null);
 		minusb.setGraphic(new ImageView("images/minus.png"));
 		minusb.setOnAction(e -> {
@@ -666,7 +699,12 @@ public class MinesweeperView {
 		
 	}
 	
-	
+	public void updateTime(int update) {
+		this.time.setGraphic(getIntHBox(update));
+	}
+	public void updatebombs(int update) {
+		this.bombs.setGraphic(getIntHBox(update));
+	}
 	
 }
 
