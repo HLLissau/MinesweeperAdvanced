@@ -322,7 +322,7 @@ public class MinesweeperView {
 		
 		//plus button
 		Button plusn = new Button();
-		plusn.setGraphic(getstringHBox("P"));
+		plusn.setGraphic(new ImageView("images/plus.png"));
 		
 		plusn.setBackground(null);
 		plusn.setOnAction(e -> {
@@ -332,7 +332,7 @@ public class MinesweeperView {
 			
 		});
 		Button plusm = new Button();
-		plusm.setGraphic(getstringHBox("P"));
+		plusm.setGraphic(new ImageView("images/plus.png"));
 		plusm.setBackground(null);
 		plusm.setOnAction(e -> {
 			mAmount++;
@@ -341,7 +341,7 @@ public class MinesweeperView {
 			
 		});
 		Button plusb = new Button();
-		plusb.setGraphic(getstringHBox("P"));
+		plusb.setGraphic(new ImageView("images/plus.png"));
 		plusb.setBackground(null);
 		plusb.setOnAction(e -> {
 			bombAmount++;
@@ -353,7 +353,7 @@ public class MinesweeperView {
 		//minus button
 		Button minusn = new Button();
 		minusn.setBackground(null);
-		minusn.setGraphic(getstringHBox("M"));
+		minusn.setGraphic(new ImageView("images/minus.png"));
 		minusn.setOnAction(e -> {
 			nAmount--;
 			controller.checkAmount();
@@ -362,7 +362,7 @@ public class MinesweeperView {
 		});
 		Button minusm = new Button();
 		minusm.setBackground(null);
-		minusm.setGraphic(getstringHBox("M"));
+		minusm.setGraphic(new ImageView("images/minus.png"));
 		minusm.setOnAction(e -> {
 			mAmount--;
 			controller.checkAmount();
@@ -371,7 +371,7 @@ public class MinesweeperView {
 		});
 		Button minusb = new Button();
 		minusb.setBackground(null);
-		minusb.setGraphic(getstringHBox("M"));
+		minusb.setGraphic(new ImageView("images/minus.png"));
 		minusb.setOnAction(e -> {
 			bombAmount--;
 			controller.checkAmount();
@@ -465,7 +465,7 @@ public class MinesweeperView {
 		HBox highscores = new HBox(50);
 		highscores.getChildren().addAll(easy,medium,hard);
 		highscores.setPadding(new Insets(0,0,0,50));
-		
+		highscores.setScaleY(0.8);
 		
 		//return button
 		Button returnButton = new Button();
