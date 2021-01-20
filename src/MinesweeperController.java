@@ -103,12 +103,12 @@ public class MinesweeperController  {
 				button.setGraphic(new ImageView(view.images[12]));
 				button.setOnMouseClicked(event -> {
 					//System.out.println();
-					if (!(model.isGAmeStarted())) {
-							startTimer();
-						}
+					
 					if  (event.getButton()== MouseButton.PRIMARY) {
 						buttonPressed(button);
-						
+						if (!(model.isGAmeStarted())) {
+							startTimer();
+						}
 							
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
