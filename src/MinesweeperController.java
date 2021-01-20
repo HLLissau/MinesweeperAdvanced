@@ -117,8 +117,7 @@ public class MinesweeperController  {
 								button.setGraphic(new ImageView(view.images[10]));
 								model.placeflag();
 							} else {
-                        	
-								button.setGraphic(new ImageView(view.images[12]));
+                        		button.setGraphic(new ImageView(view.images[12]));
 								model.removeflag();
 							}
 							updateViewflags();
@@ -231,7 +230,7 @@ public class MinesweeperController  {
 	 public ArrayList<String> loadHighscore() throws FileNotFoundException {
 		 ArrayList<String> loadedhighscore= new ArrayList<String>();
 		 Scanner file = new Scanner(new File("highscore.mwp"));
-		 for (int i=0; i<30;i++) {
+		 for (int i=0; i<40;i++) {
 			 loadedhighscore.add(file.next());
 	     }
 		
@@ -240,7 +239,7 @@ public class MinesweeperController  {
 	 public void saveHighScore() throws FileNotFoundException {
 		 
 		 PrintWriter pw = new PrintWriter("highscore.mwp");
-		 for(int i=0; i<30; i++ ) {
+		 for(int i=0; i<40; i++ ) {
 			 pw.write(highscore.get(i)+" ");
 		 }
 		 pw.close();
@@ -264,10 +263,10 @@ public class MinesweeperController  {
 		 
 	public void newHighscore(int place) throws FileNotFoundException {
 		this.highscore.add(place, Integer.toString(time));
-		this.highscore.remove(15/(3-this.dificulty));
+		this.highscore.remove(20/(3-this.dificulty));
 		//this.highscore.add(place+15,"Bos");
-		this.highscore.add(place+15, this.newName);
-		this.highscore.remove(15/(3-this.dificulty)+15);
+		this.highscore.add(place+20, this.newName);
+		this.highscore.remove(20/(3-this.dificulty)+20);
 		
 		;
 		saveHighScore();

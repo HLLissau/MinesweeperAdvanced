@@ -32,8 +32,8 @@ public class MinesweeperView {
 	Image[] images;
 	
 	
-	private Label bombs;
-	private Label time;
+	Label bombs;
+	Label time;
 	int nAmount;
 	int mAmount;
 	int bombAmount;
@@ -195,19 +195,22 @@ public class MinesweeperView {
 		VBox bombsBox = new VBox();
 		bombsBox.getChildren().addAll(counterLabel,bombs);
 		
-				
+			
 		//highscore
 		VBox highscore = new VBox();
 		Label highscoreLabel = new Label();
 		highscoreLabel.setGraphic(getstringHBox("Highscore"));
 		HBox player = new HBox();
 		Label score = new Label();
-		int record = Integer.parseInt(controller.highscore.get(5*controller.getDificulty()));
+		int record = 0;
+		Label name = new Label();
+		record = Integer.parseInt(controller.highscore.get(5*controller.getDificulty()));
+		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
 		score.setGraphic(getIntHBox(record));
 		score.setScaleX(1.5);
 		score.setScaleY(1.5);
 		score.setPadding(new Insets(10,0,0,0));
-		Label name = new Label();
+		
 		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
 		name.setPadding(new Insets(0,20,20,20));
 		
@@ -215,7 +218,7 @@ public class MinesweeperView {
 		player.setPadding(new Insets(20,0,0,100));
 		
 		highscore.getChildren().addAll(highscoreLabel,player);
-		
+	
 		
 		
 		//timer
