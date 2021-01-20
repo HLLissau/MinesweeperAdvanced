@@ -60,28 +60,33 @@ public class MinesweeperController  {
 	 *Input: MinesweeperButton.
 	 */
 	public void buttonPressed(MinesweeperButton pressedButton) {
-		if (!(pressedButton.flag)) {
-			grid.getChildren().remove(pressedButton);
-			int cell = getNext(pressedButton.getPos());
-			grid.add(new ImageView(view.getPicture(cell)), pressedButton.getPos().x, pressedButton.getPos().y);
+		//basiscase
+		if (!(model.buttonclicked(pressedButton.getPos()))) {
+			model.clickbutton(pressedButton.getPos());
 			
-			
-			/*int gameState = model.testConditions(button.getPos());
-			childrens = grid.getChildren(); */
-			
-			if (cell==0) {
+			//check if button got flag
+			if (!(pressedButton.flag)) {
 				
-				ArrayList<MinesweeperButton> temp = pressedButton.getneighbours();
-				while (temp.size()>0) {
-					buttonPressed(temp.remove(0));
+				//Changes button to picture
+				grid.getChildren().remove(pressedButton);
+				int cell = getNext(pressedButton.getPos());
+				grid.add(new ImageView(view.getPicture(cell)), pressedButton.getPos().x, pressedButton.getPos().y);
+				
+				//recursive function. run if no neighbours got bombs.
+				if (cell==0) {
+					
+					ArrayList<MinesweeperButton> temp = pressedButton.getneighbours();
+					while (temp.size()>0) {
+						buttonPressed(temp.remove(0));
+					}
+				}
+			}
+				// test if game is finished, if not, test if game is won/lost.
+				if (!(model.isGameStopped())){
+					checkEndCondition(model, pressedButton.getPos());
 				}
 			}
 		}
-		
-			if (!(model.isGameStopped())){
-				checkEndCondition(model, pressedButton.getPos());
-			}
-	}
 		
 	
 	

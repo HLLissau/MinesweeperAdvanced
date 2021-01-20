@@ -6,14 +6,15 @@ public class MinesweeperModel{
 	public char[][] knownGameState;
 	private char[][] gameState;
 	private Boolean isGameStarted;
-	public  int[][] clickedFields;
+	private  Boolean[][] clickedFields;
 	private ArrayList<Point> availableFields;
 	private int endCondition;
 	private int m;
 	private int bombAmount;
 	private int n;
 	private final int MINGRIDSIZE = 4;
-	private final int MAXGRIDSIZE = 30;
+	private final int MAXGRIDSIZE = 100;
+	private final int MAXGRIDHEIGHT = 50;
 	private int flagsplaced;
 	private boolean gameStopped;
 	
@@ -30,7 +31,7 @@ public class MinesweeperModel{
 		
 		if (m > MAXGRIDSIZE) m = MAXGRIDSIZE;
 		else if (m < MINGRIDSIZE) m = MINGRIDSIZE;
-		if (n > MAXGRIDSIZE) n = MAXGRIDSIZE;
+		if (n > MAXGRIDHEIGHT) n = MAXGRIDHEIGHT;
 		else if (n < MINGRIDSIZE) n = MINGRIDSIZE;
 		if (bombAmount >= m*n) bombAmount = m*n-1;
 		else if (bombAmount < 1) bombAmount = 1;
@@ -39,14 +40,22 @@ public class MinesweeperModel{
 		this.gameState = new char[m][n];
 		this.m=m;
 		this.n=n;
-		this.clickedFields = new int[m][n];
+		this.clickedFields = new Boolean[m][n];
 		this.bombAmount= bombAmount;
 		this.flagsplaced=0;
 		isGameStarted= false;
 		gameStopped = false;
+		setClickedFields();
 		
 	}
-	
+	public void setClickedFields() {
+		for (int i=0;i<this.n;i++) {
+			for (int j=0;j<this.m;j++) {
+				this.clickedFields[j][i]=false;
+			}
+					
+		}
+	}
 	/*
 	 * transfer given [x,y] set from gamestate to knowngamestate.
 	 * Input: Point position to update
@@ -55,13 +64,13 @@ public class MinesweeperModel{
 	public int getPos( Point nextPos) {
 		if (!isGameStarted) {
 			isGameStarted = true;
+			
 			randomBombGenerator(bombAmount, nextPos );
 			nearBombs();
 			
 		}
 		
 		this.knownGameState[nextPos.x][nextPos.y]=(char) this.gameState[nextPos.x][nextPos.y];
-		clickedFields[nextPos.x][nextPos.y]=1;
 		int cell = this.knownGameState[nextPos.x][nextPos.y];
 		
 		testConditions(nextPos);
@@ -169,8 +178,9 @@ public class MinesweeperModel{
 		int clicked =0;
 		for (int i=0; i<this.n;i++) {
 			for (int j=0; j<this.m;j++) {
-				if (this.clickedFields[j][i]==1) {
+				if (this.clickedFields[j][i]==true) {
 					clicked++;
+					
 				}
 			}
 		}
@@ -198,5 +208,11 @@ public class MinesweeperModel{
 	}
 	public void stopGame() {
 		this.gameStopped=true;
+	}
+	public void clickbutton(Point pos) {
+		this.clickedFields[pos.x][pos.y]=true;
+	}
+	public Boolean buttonclicked(Point pos) {
+		return this.clickedFields[pos.x][pos.y];
 	}
 }

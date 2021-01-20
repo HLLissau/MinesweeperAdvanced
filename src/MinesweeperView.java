@@ -160,7 +160,6 @@ public class MinesweeperView {
 		
 		VBox layout = new VBox(5);
 		layout.getChildren().addAll(easyButton, mediumButton, hardButton,customButton, backButton);
-		
 		layout.setPadding(new Insets(300,300,300,400));
 		layout.setBackground(background);
 		
@@ -299,12 +298,32 @@ public class MinesweeperView {
 		
 		this.stage.setTitle("Minesweeper (Custom Game)");
 		
+		
+		//input fields
 		IntegerField n = new IntegerField();
 		n.setValue(10);
 		IntegerField m = new IntegerField();
 		m.setValue(10);
 		IntegerField bombs = new IntegerField();
 		bombs.setValue(10);
+		
+		//Information labels
+		Label nLabel = new Label();
+		nLabel.setGraphic(getstringHBox("width"));
+		Label mLabel = new Label();
+		mLabel.setGraphic(getstringHBox("height"));
+		Label bLabel = new Label();
+		bLabel.setGraphic(getstringHBox("Bombs"));
+		
+		
+		//Hbox for labels and fields
+		HBox width = new HBox();
+		width.getChildren().addAll(nLabel,n);
+		HBox height = new HBox();
+		height.getChildren().addAll(mLabel,m);
+		HBox bombsHBox = new HBox();
+		bombsHBox.getChildren().addAll(bLabel,bombs);
+		bombsHBox.setPadding(new Insets(0,0,30,00));
 		
 		//New game button
 		Button newGameButton = new Button();
@@ -319,9 +338,9 @@ public class MinesweeperView {
 		leaveButton.setOnAction(e -> mainSetup());
 									
 		
-		VBox layout = new VBox();
-		layout.getChildren().addAll(n,m,bombs,newGameButton, leaveButton);
-		layout.setPadding(new Insets(200,400,300,300));
+		VBox layout = new VBox(20);
+		layout.getChildren().addAll(width,height,bombsHBox,newGameButton, leaveButton);
+		layout.setPadding(new Insets(300,400,300,300));
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		layout.setBackground(background);
@@ -484,10 +503,16 @@ public class MinesweeperView {
 			}		
 		});
 	
+		// highscore message
+		Label highsco = new Label();
+		highsco.setGraphic(getstringHBox("New Highscore"));
+		highsco.setPadding(new Insets(5,50,50,50));
 		// insert name
 		Label message = new Label();
 		message.setGraphic(getstringHBox("Type name"));
-		message.setPadding(new Insets(50,50,50,50));
+		message.setPadding(new Insets(5,50,50,50));
+		
+		
 		
 		// user input
 		Label label = new Label();
@@ -498,7 +523,7 @@ public class MinesweeperView {
 		Button button = new Button();
 		button.setGraphic(getstringHBox("save"));
 		button.setStyle("-fx-background-color: transparent;");
-		button.setPadding(new Insets(50,50,50,50));
+		button.setPadding(new Insets(5,50,50,50));
 		button.setOnAction(e -> {
 			
 			//catch error(File not found)
@@ -516,7 +541,7 @@ public class MinesweeperView {
 		
 		//Layout
 		VBox layout = new VBox(50);
-		layout.getChildren().addAll(message,label, button);
+		layout.getChildren().addAll(highsco,message,label, button);
 		layout.setMinWidth(200);
 		layout.setAlignment(Pos.CENTER);
 		layout.setBackground(background);
