@@ -12,9 +12,9 @@ public class MinesweeperModel{
 	private int m;
 	private int bombAmount;
 	private int n;
-	private final int MINGRIDSIZE = 4;
-	private final int MAXGRIDSIZE = 100;
-	private final int MAXGRIDHEIGHT = 50;
+	public final int MINGRIDSIZE = 4;
+	public final int MAXGRIDSIZE = 100;
+	public final int MAXGRIDHEIGHT = 50;
 	private int flagsplaced;
 	private boolean gameStopped;
 	

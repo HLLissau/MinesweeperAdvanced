@@ -281,7 +281,34 @@ public class MinesweeperController  {
 		}
 	}
 	
-	 
+	public void checkAmount() {
+		System.out.println("test "+ view.bombAmount+" "+view.nAmount+" "+view.mAmount);
+		if (view.bombAmount<=0) {
+			view.bombAmount=1;
+		}
+		if (view.bombAmount>=99 ) {
+			view.bombAmount=99;
+		}
+		if (view.bombAmount>=(view.mAmount*view.nAmount)) {
+			view.bombAmount=(view.mAmount*view.nAmount)-1;
+		}
+		
+		if (view.mAmount<=model.MINGRIDSIZE){
+			view.mAmount=model.MINGRIDSIZE;
+		}
+		if (view.mAmount>=model.MAXGRIDSIZE) {
+			view.mAmount=model.MAXGRIDSIZE;
+		}
+		if (view.nAmount<=model.MINGRIDSIZE){
+			view.nAmount=model.MINGRIDSIZE;
+		}
+		if (view.nAmount>=model.MAXGRIDHEIGHT) {
+			view.nAmount=model.MAXGRIDHEIGHT;
+		}
+		
+			
+			
+	}
 		 
 		 
 	 

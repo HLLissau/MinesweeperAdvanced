@@ -303,9 +303,18 @@ public class MinesweeperView {
 		//input fields
 		Label n = new Label();
 		n.setGraphic(getIntHBox(nAmount));
+		n.setScaleX(1.5);
+		n.setScaleY(1.5);
+		n.setPadding(new Insets(17,0,0,0));
 		Label m = new Label();
+		m.setScaleX(1.5);
+		m.setScaleY(1.5);
+		m.setPadding(new Insets(17,0,0,0));
 		m.setGraphic(getIntHBox(mAmount));
 		Label bombs = new Label();
+		bombs.setScaleX(1.5);
+		bombs.setScaleY(1.5);
+		bombs.setPadding(new Insets(17,0,0,0));
 		bombs.setGraphic(getIntHBox(nAmount));
 		
 		this.stage.setTitle("Minesweeper (Custom Game)");
@@ -318,6 +327,7 @@ public class MinesweeperView {
 		plusn.setBackground(null);
 		plusn.setOnAction(e -> {
 			nAmount++;
+			controller.checkAmount();
 			n.setGraphic(getIntHBox(nAmount));
 			
 		});
@@ -326,6 +336,7 @@ public class MinesweeperView {
 		plusm.setBackground(null);
 		plusm.setOnAction(e -> {
 			mAmount++;
+			controller.checkAmount();
 			m.setGraphic(getIntHBox(mAmount));
 			
 		});
@@ -334,6 +345,7 @@ public class MinesweeperView {
 		plusb.setBackground(null);
 		plusb.setOnAction(e -> {
 			bombAmount++;
+			controller.checkAmount();
 			bombs.setGraphic(getIntHBox(bombAmount));
 		
 			
@@ -344,6 +356,7 @@ public class MinesweeperView {
 		minusn.setGraphic(getstringHBox("M"));
 		minusn.setOnAction(e -> {
 			nAmount--;
+			controller.checkAmount();
 			n.setGraphic(getIntHBox(nAmount));
 			
 		});
@@ -352,6 +365,7 @@ public class MinesweeperView {
 		minusm.setGraphic(getstringHBox("M"));
 		minusm.setOnAction(e -> {
 			mAmount--;
+			controller.checkAmount();
 			m.setGraphic(getIntHBox(mAmount));
 			
 		});
@@ -360,6 +374,7 @@ public class MinesweeperView {
 		minusb.setGraphic(getstringHBox("M"));
 		minusb.setOnAction(e -> {
 			bombAmount--;
+			controller.checkAmount();
 			bombs.setGraphic(getIntHBox(bombAmount));
 			
 		});
@@ -525,13 +540,16 @@ public class MinesweeperView {
 		return new Image("images/space.png"); 
 	}
 	public VBox getScoreVBox(int x) {
-		VBox temp = new VBox();
-		temp.setPadding(new Insets(0,50,50,50));
+		VBox temp = new VBox(10);
+		temp.setPadding(new Insets(0,5,25,50));
 		
 		for (int i=0+x; i<5+x;i++) {
 			//gets number as graphic
 			int number = Integer.parseInt(controller.highscore.get(i));
 			HBox numbers = getIntHBox(number);
+			numbers.setPadding(new Insets(15,20,1,1));
+			numbers.setScaleX(2);
+			numbers.setScaleY(2);
 			
 			
 			//gets name
