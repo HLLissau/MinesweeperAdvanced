@@ -1,8 +1,8 @@
 import java.util.ArrayList;
-import java.awt.Button;
+
 import java.util.Scanner;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -222,7 +222,7 @@ public class MinesweeperController  {
 	 
 	 public ArrayList<String> loadHighscore() throws FileNotFoundException {
 		 ArrayList<String> loadedhighscore= new ArrayList<String>();
-		 Scanner file = new Scanner(new File("src/highscore.txt"));
+		 Scanner file = new Scanner(new File("highscore.mwp"));
 		 for (int i=0; i<30;i++) {
 			 loadedhighscore.add(file.next());
 	     }
@@ -231,7 +231,7 @@ public class MinesweeperController  {
 	 } 
 	 public void saveHighScore() throws FileNotFoundException {
 		 
-		 PrintWriter pw = new PrintWriter("src/highscore.txt");
+		 PrintWriter pw = new PrintWriter("highscore.mwp");
 		 for(int i=0; i<30; i++ ) {
 			 pw.write(highscore.get(i)+" ");
 		 }

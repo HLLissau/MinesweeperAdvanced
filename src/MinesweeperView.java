@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
-import com.sun.javafx.scene.control.IntegerField;
+
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -34,6 +34,9 @@ public class MinesweeperView {
 	HBox highscore;
 	Label bombs;
 	Label time;
+	int nAmount;
+	int mAmount;
+	int bombAmount;
 
 	
 	//MinesweeperView initiates constructor to make view
@@ -293,19 +296,85 @@ public class MinesweeperView {
 
 	public void customizeGame() {
 		this.stage.setTitle("Minesweeper");
+		nAmount=10;
+		mAmount=10;
+		bombAmount=10;
 		
-		
+		//input fields
+		Label n = new Label();
+		n.setGraphic(getIntHBox(nAmount));
+		Label m = new Label();
+		m.setGraphic(getIntHBox(mAmount));
+		Label bombs = new Label();
+		bombs.setGraphic(getIntHBox(nAmount));
 		
 		this.stage.setTitle("Minesweeper (Custom Game)");
 		
 		
-		//input fields
-		IntegerField n = new IntegerField();
-		n.setValue(10);
-		IntegerField m = new IntegerField();
-		m.setValue(10);
-		IntegerField bombs = new IntegerField();
-		bombs.setValue(10);
+		//plus button
+		Button plusn = new Button();
+		plusn.setGraphic(getstringHBox("P"));
+		
+		plusn.setBackground(null);
+		plusn.setOnAction(e -> {
+			nAmount++;
+			n.setGraphic(getIntHBox(nAmount));
+			
+		});
+		Button plusm = new Button();
+		plusm.setGraphic(getstringHBox("P"));
+		plusm.setBackground(null);
+		plusm.setOnAction(e -> {
+			mAmount++;
+			m.setGraphic(getIntHBox(mAmount));
+			
+		});
+		Button plusb = new Button();
+		plusb.setGraphic(getstringHBox("P"));
+		plusb.setBackground(null);
+		plusb.setOnAction(e -> {
+			bombAmount++;
+			bombs.setGraphic(getIntHBox(bombAmount));
+		
+			
+		});
+		//minus button
+		Button minusn = new Button();
+		minusn.setBackground(null);
+		minusn.setGraphic(getstringHBox("M"));
+		minusn.setOnAction(e -> {
+			nAmount--;
+			n.setGraphic(getIntHBox(nAmount));
+			
+		});
+		Button minusm = new Button();
+		minusm.setBackground(null);
+		minusm.setGraphic(getstringHBox("M"));
+		minusm.setOnAction(e -> {
+			mAmount--;
+			m.setGraphic(getIntHBox(mAmount));
+			
+		});
+		Button minusb = new Button();
+		minusb.setBackground(null);
+		minusb.setGraphic(getstringHBox("M"));
+		minusb.setOnAction(e -> {
+			bombAmount--;
+			bombs.setGraphic(getIntHBox(bombAmount));
+			
+		});
+		
+		//HBox input fields
+		HBox widthfield = new HBox(10);
+		widthfield.getChildren().addAll(minusn,n,plusn);
+		widthfield.setPadding(new Insets(0,0,0,100));
+		HBox heightfield = new HBox(10);
+		heightfield.getChildren().addAll(minusm,m,plusm);
+		heightfield.setPadding(new Insets(0,0,0,58));
+		HBox bombsHBoxfield = new HBox(10);
+		bombsHBoxfield.getChildren().addAll(minusb,bombs,plusb);
+		bombsHBoxfield.setPadding(new Insets(0,0,0,100));
+		
 		
 		//Information labels
 		Label nLabel = new Label();
@@ -317,12 +386,12 @@ public class MinesweeperView {
 		
 		
 		//Hbox for labels and fields
-		HBox width = new HBox();
-		width.getChildren().addAll(nLabel,n);
-		HBox height = new HBox();
-		height.getChildren().addAll(mLabel,m);
-		HBox bombsHBox = new HBox();
-		bombsHBox.getChildren().addAll(bLabel,bombs);
+		HBox width = new HBox(10);
+		width.getChildren().addAll(nLabel,widthfield);
+		HBox height = new HBox(10);
+		height.getChildren().addAll(mLabel,heightfield);
+		HBox bombsHBox = new HBox(10);
+		bombsHBox.getChildren().addAll(bLabel,bombsHBoxfield);
 		bombsHBox.setPadding(new Insets(0,0,30,00));
 		
 		//New game button
@@ -330,7 +399,7 @@ public class MinesweeperView {
 		newGameButton.setText("Start game");
 		newGameButton.setGraphic(new ImageView(new Image("images/startgame.png")));
 		newGameButton.setStyle("-fx-background-color: transparent;");
-		newGameButton.setOnAction(e ->  controller.gotoNewGame(n.getValue(),m.getValue(),bombs.getValue(),3));
+		newGameButton.setOnAction(e ->  controller.gotoNewGame(nAmount,mAmount,bombAmount,3));
 		
 		Button leaveButton = new Button();
 		leaveButton.setGraphic(new ImageView(new Image("images/back.png")));
