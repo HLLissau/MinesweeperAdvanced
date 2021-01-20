@@ -110,18 +110,20 @@ public class MinesweeperController  {
 						buttonPressed(button);
 						
 					} else if (event.getButton()== MouseButton.SECONDARY) {
-						button.changeFlag();
-						
-						if (button.flag) {
-                            button.setGraphic(new ImageView(view.images[10]));
-                            model.placeflag();
-                        } else {
-                            button.setGraphic(new ImageView(view.images[12]));
-                            model.removeflag();
-                        }
-						updateViewflags();
+						if (model.isGAmeStarted()) {
+							button.changeFlag();
+							
+							if (button.flag) {
+								button.setGraphic(new ImageView(view.images[10]));
+								model.placeflag();
+							} else {
+                        	
+								button.setGraphic(new ImageView(view.images[12]));
+								model.removeflag();
+							}
+							updateViewflags();
+						}
 					}
-					
 				});
 				
 				grid.add(button, j, i);
