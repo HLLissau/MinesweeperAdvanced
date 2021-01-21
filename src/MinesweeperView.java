@@ -42,23 +42,27 @@ public class MinesweeperView {
 	public int bombAmount;
 
 	
-	//MinesweeperView initiates constructor to make view
+	/*
+	 * Construct new view.
+	 	 */
 	public MinesweeperView() {
-		setPictures();
 	}
 	
 	/*
 	 * Set view options 
-	 * 
+	 * Import pictures to internal Image[]
 	 */
 	public void SetOptions(Stage topLevelStage, MinesweeperController controller, String title) {
+		setPictures();
 		this.stage = topLevelStage;
 		this.controller = controller;
 		this.title = title;
 		
 	}
 	
-	//Load pictures to images array
+	/*
+	 * Import pictures to internal Image Array.
+	 */
 	public void setPictures() {
 		this.images = new Image[13];
 		
@@ -83,95 +87,91 @@ public class MinesweeperView {
 		return images[x];
 	}
 	
-	//Main menu Stage
+	
+	/*
+	 * Main menu window.
+	 */
 	public Stage mainMenu() {
+		//Title and background
 		this.stage.setTitle("Minesweeper");
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		
-		
+		////Buttons
 		//New game button
 		Button newGameButton = new Button();
 		newGameButton.setStyle("-fx-background-color: transparent;");
 		newGameButton.setGraphic(new ImageView(new Image("images/newgame.png")));
 		newGameButton.setOnAction(e -> mainSetup());
-		
+		//Highscorebutton
 		Button highScoreButton = new Button();
 		highScoreButton.setStyle("-fx-background-color: transparent;");
 		highScoreButton.setGraphic(new ImageView(new Image("images/highscore.png")));
 		highScoreButton.setOnAction(e ->highScore());
-		
-
-		
 		//Exit button
 		Button exitButton = new Button();
 		exitButton.setGraphic(new ImageView(new Image("images/exit.png")));
 		exitButton.setStyle("-fx-background-color: transparent;");
 		exitButton.setOnAction(e -> Platform.exit());
 		
-			
-		
+		//Button layoutbox		
 		VBox layout = new VBox();
-
-		
-
 		layout.getChildren().addAll(newGameButton, highScoreButton, exitButton);
-
 		layout.setPadding(new Insets(300,400,300,300));
 		layout.setBackground(background);
-		Scene scene = new Scene(layout, 1000, 750);
 		
+		//scene set to size and with buttons.
+		Scene scene = new Scene(layout, 1000, 750);
 		stage.setScene(scene);
 		return stage;
 	}
+	
+	
+	/*
+	 * Game setup window.
+	 */
+	
 	public void mainSetup() {
+		//Title and background
 		this.stage.setTitle("Minesweeper (Setup Game)");
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		
+		
+		////Buttons
 		//Easy button
 		Button easyButton = new Button();
 		easyButton.setGraphic(new ImageView(new Image("images/easy.png")));
 		easyButton.setStyle("-fx-background-color: transparent;");
 		easyButton.setOnAction(e -> controller.gotoNewGame(10,10,10,0));
-		
-	   
 		//Medium button
 		Button mediumButton = new Button();
-		
 		mediumButton.setGraphic(new ImageView(new Image("images/medium.png")));
 		mediumButton.setStyle("-fx-background-color: transparent;");
 		mediumButton.setOnAction(e -> controller.gotoNewGame(16,16,40,1));
-	   
-		
-		//Hard button
+	   //Hard button
 		Button hardButton = new Button();
-		
 		hardButton.setGraphic(new ImageView(new Image("images/hard.png")));
 		hardButton.setStyle("-fx-background-color: transparent;");
 		hardButton.setOnAction(e -> controller.gotoNewGame(30,16,99,2));
-	   
-		
-		//Custom button
+	   //Custom button
 		Button customButton = new Button();
-		
 		customButton.setGraphic(new ImageView(new Image("images/custom.png")));
 		customButton.setStyle("-fx-background-color: transparent;");
 		customButton.setOnAction(e -> customizeGame());
-		
 		//Back button
 		Button backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image("images/back.png")));
 		backButton.setStyle("-fx-background-color: transparent;");
 		backButton.setOnAction(e -> mainMenu());
 		
-									
-		
+		//Buttons Layoutbox
 		VBox layout = new VBox(5);
 		layout.getChildren().addAll(easyButton, mediumButton, hardButton,customButton, backButton);
 		layout.setPadding(new Insets(300,300,300,400));
 		layout.setBackground(background);
 		
+		//Scene set to size and with Buttons
 		Scene scene = new Scene(layout, 1000, 750);
 		stage.setScene(scene);
 		
@@ -180,79 +180,86 @@ public class MinesweeperView {
 	
 	
 	
-	//Sets the stage
+	/*
+	 * Game window.
+	 */
 
 	public void gameWindow() {
-			
+		
+		//Set background and Title
+		this.stage.setTitle(title);	
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		
-		this.stage.setTitle(title);
 		
+		//////Top menu bar.
 		
+		////highscore
+		// Label for highscore text
+		Label highscoreLabel = new Label();
+		highscoreLabel.setGraphic(getstringHBox("Highscore"));
+		//Label with highscore name
+		Label name = new Label();	
+		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
+		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
+		name.setPadding(new Insets(0,20,20,20));
+		//Label with time of highscore
+		Label score = new Label();
+		score.setGraphic(getIntHBox(Integer.parseInt(controller.highscore.get(5*controller.getDificulty()))));
+		score.setScaleX(1.5);
+		score.setScaleY(1.5);
+		score.setPadding(new Insets(10,0,0,0));
+		//Hbox to set name and score together.
+		HBox player = new HBox();
+		player.getChildren().addAll(score,name);
+		player.setPadding(new Insets(20,0,0,100));
+		// completed highscore box
+		VBox highscore = new VBox();
+		highscore.getChildren().addAll(highscoreLabel,player);
 		
-		//bomb counter
+		////bomb counter
+		//Bomb label
 		HBox counterLabel = getstringHBox("Bombs");
+		//Bomb counter
 		this.bombs = new Label();
 		this.bombs.setGraphic(getIntHBox(0));
 		this.bombs.setScaleX(1.5);
 		this.bombs.setScaleY(1.5);
 		this.bombs.setPadding(new Insets(20,0,0,70));
+		//Completed graphic
 		VBox bombsBox = new VBox();
 		bombsBox.getChildren().addAll(counterLabel,bombs);
-		
-			
-		//highscore
-		VBox highscore = new VBox();
-		Label highscoreLabel = new Label();
-		highscoreLabel.setGraphic(getstringHBox("Highscore"));
-		HBox player = new HBox();
-		Label score = new Label();
-		int record = 0;
-		Label name = new Label();
-		record = Integer.parseInt(controller.highscore.get(5*controller.getDificulty()));
-		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
-		score.setGraphic(getIntHBox(record));
-		score.setScaleX(1.5);
-		score.setScaleY(1.5);
-		score.setPadding(new Insets(10,0,0,0));
-		
-		name.setGraphic(getstringHBox(controller.highscore.get((5*controller.getDificulty())+15)));
-		name.setPadding(new Insets(0,20,20,20));
-		
-		player.getChildren().addAll(score,name);
-		player.setPadding(new Insets(20,0,0,100));
-		
-		highscore.getChildren().addAll(highscoreLabel,player);
-	
-		
-		
-		//timer
-		VBox timebox = new VBox();
+				
+		////Timer
+		//Timer label
 		HBox timer = getstringHBox("Time");
+		//Timer graphics
 		this.time= new Label();
 		this.time.setGraphic(getIntHBox(000));
 		this.time.setScaleX(1.5);
 		this.time.setScaleY(1.5);
 		this.time.setPadding(new Insets(20,0,0,70));
+		//Completed graphic
+		VBox timebox = new VBox();
 		timebox.getChildren().addAll(timer,time);
 		
-		//top Menu bar		
+		////top Menu bar
+		//Menubox with highscore,bombs and timer
 		HBox menuBar = new HBox(80);
 		menuBar.getChildren().addAll(highscore,bombsBox,timebox);
 		menuBar.setPadding(new Insets(10,0,0,0));
 				
-		//full game window
-		BorderPane layout = new BorderPane();
 		
+		//Grid with MinesweeperButtons
 		GridPane grid = controller.getGrid();
 		grid.setPadding(new Insets(300-(12*controller.model.getn()),0,0,500-(12*controller.model.getm())));
 		
+		//Game window
+		BorderPane layout = new BorderPane();
 		layout.setBackground(background);
 		layout.setTop(menuBar);
 		layout.setCenter(grid);
 		Scene scene = new Scene(layout, 1000, 750);
-		
 		stage.setScene(scene);
 		
 	}
@@ -263,16 +270,21 @@ public class MinesweeperView {
 	 * Output: new Stage with game over window. This window contains a button, if pressed begins a new game.
 	 */
 	
+	/*
+	 * Open a new window with alert box
+	 * This window is forced to stay on top of Game window, and game window is halted until this window is closed.
+	 * Input: Title of Alertbox, Text to output from Alertbox 
+	 */
 	public void alertBox(String title, String text) {
-		//controller.clearButtonAction();
+		//open a new window and set title
 		Stage window = new Stage();
 		window.setTitle(title);
-		
 		window.sizeToScene();
-		
+		//Force user to interact with window
+		window.initModality(Modality.APPLICATION_MODAL);
+		//Close action. Check if highscore is beaten and close window, and goes back to main menu.
 		window.setOnCloseRequest(e -> {
-			//check for highscore. catch exeption error.
-			if (controller.getDificulty()<3) {
+			if (controller.getDificulty()<3 && controller.model.getEndCondition()==8) {
 				try {
 					controller.checkHighScore();
 				} catch (FileNotFoundException e1) {
@@ -282,20 +294,19 @@ public class MinesweeperView {
 			controller.gotoMainMenu();
 		});
 		
-		//Force user to interact with window
-		window.initModality(Modality.APPLICATION_MODAL);
 		
-		//
+		
+		//Label with text for user
 		Label label = new Label();
 		label.setGraphic(getstringHBox(text));
 		label.setPadding(new Insets(50,50,50,50));
 		
-		//button (Begin new game)
+		//Button with return text.
 		Button button = new Button();
 		button.setGraphic(getstringHBox("return"));
-		
 		button.setStyle("-fx-background-color: transparent;");
 		button.setPadding(new Insets(50,50,50,50));
+		//Set 
 		button.setOnAction(e -> {
 			window.close();
 			//check if game is new,medium,hard and if game was won
