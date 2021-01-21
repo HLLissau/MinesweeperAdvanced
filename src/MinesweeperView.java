@@ -240,7 +240,7 @@ public class MinesweeperView {
 		BorderPane layout = new BorderPane();
 		
 		GridPane grid = controller.getGrid();
-		grid.setPadding(new Insets(200,200,200,200));
+		grid.setPadding(new Insets(300-(12*controller.model.getn()),0,0,500-(12*controller.model.getm())));
 		
 		layout.setBackground(background);
 		layout.setTop(menuBar);
@@ -673,7 +673,11 @@ public class MinesweeperView {
 		window.show();
 		// When window is closed. opens a new game.
 		
+		//following code handles user input and updates name
 		layout.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			
+			
+			
 				if (controller.newName=="TMP") {
 					controller.newName="";
 				}
