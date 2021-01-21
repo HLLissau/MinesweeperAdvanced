@@ -663,7 +663,7 @@ public class MinesweeperView {
 		Background background = new Background(backgroundfill);
 		
 		//Layout
-		VBox layout = new VBox(50);
+		VBox layout = new VBox(10);
 		layout.getChildren().addAll(highsco,message,label, button);
 		layout.setMinWidth(200);
 		layout.setAlignment(Pos.CENTER);
@@ -676,6 +676,9 @@ public class MinesweeperView {
 		//following code handles user input and updates name
 		layout.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
 			
+			String inputstring = key.getCode().getChar();
+			char input = inputstring.charAt(0);
+			if ((input >=65 && input <=90) || (input >=97 && input <=122 || input==8 )) {
 			
 			
 				if (controller.newName=="TMP") {
@@ -702,6 +705,7 @@ public class MinesweeperView {
 				
 				
 				}
+			}	
 		});
 		
 	}
