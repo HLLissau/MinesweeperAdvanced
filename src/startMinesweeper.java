@@ -3,12 +3,7 @@ import javafx.stage.Stage;
 
 
 public class startMinesweeper extends Application {
-	int m,n,bombs;
-	
-	MinesweeperView view;
-	MinesweeperModel model;
-	MinesweeperController controller;
-	
+		
 	// Main program file. Contains launch for JavaFX
 	public static void main(String[] args) {
 		launch(args);
@@ -26,18 +21,14 @@ public class startMinesweeper extends Application {
 	 * 	
 	 */
 	public void start(Stage topLevelStage) throws Exception {
-		m=10;
-		n=10;
-		bombs=10;
 		
-		view = new MinesweeperView();
-		model = new MinesweeperModel(m,n,bombs);
-		controller = new MinesweeperController(model, view, m,n,bombs);
 		
-		view.SetOptions(topLevelStage, controller, "Minesweeper");
-		topLevelStage = view.mainMenu();
 		
-		//topLevelStage = view.basicGame();
+		MinesweeperController game = new MinesweeperController();
+		
+		game.view.SetOptions(topLevelStage, game, "Minesweeper");
+		topLevelStage = game.view.mainMenu();
+		
 		topLevelStage.show();
 	}
 }

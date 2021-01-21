@@ -1,12 +1,9 @@
 import java.util.ArrayList;
-
 import java.util.Scanner;
 import java.awt.Point;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,33 +12,29 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
+//
 public class MinesweeperController  {
-	MinesweeperModel model;
-	MinesweeperView view;
-	//children is an array which contains a map of buttons and images for JavaFX
-	ObservableList<Node> children;
-	GridPane grid;
-	private int m;
-	private int bombAmount;
-	private int n;
-	Timeline timeline;
-	int time;
-	public ArrayList<String> highscore;
-	private int dificulty; // 0 is easy, 1 is advance, 2 is hard, 3 is custon.
+	public MinesweeperModel model;
+	public MinesweeperView view;
+	private ObservableList<Node> children; //children is an array which contains a map of buttons and images.
+	private GridPane grid;
+	private Timeline timeline;
+	private int time;
+	private int dificulty; // 0 is easy, 1 is advance, 2 is hard, 3 is custom.
 	public String newName;
-	//Import model and view to controller through constructor
-	public MinesweeperController(MinesweeperModel model, MinesweeperView view,
-								int m, int n, int bombAmount) throws FileNotFoundException{
-		this.view = view;
-		this.model = model;
-		this.m =m;
-		this.n = n;
-		this.bombAmount = bombAmount;
+	public ArrayList<String> highscore;
+	
+	/*
+	 * Import View and highscore into controller.
+	 */
+	public MinesweeperController() throws FileNotFoundException{
+		
+		
 		this.highscore = loadHighscore();
+		this.view = new MinesweeperView();
+		
 	}
 	
 	/*
@@ -95,14 +88,14 @@ public class MinesweeperController  {
 	
 	
 	/*
-	 * Creates GridPane and inserts buttons. Updates children, with list of buttons.
+	 * Creates GridPane and inserts buttons. Updates ObservableList, with MinesweeperButtons.
 	 * Output: New GridPane
 	 */
 	public GridPane getGrid() {
 		
 		grid = new GridPane();
-		for (int i =0; i<this.n; i++) {
-			for (int j =0; j<this.m; j++) {
+		for (int i =0; i<model.getn(); i++) {
+			for (int j =0; j<model.getm(); j++) {
 				MinesweeperButton button = new MinesweeperButton(j,i);
 				button.setGraphic(new ImageView(view.images[12]));
 				button.setOnMouseClicked(event -> {
@@ -136,47 +129,32 @@ public class MinesweeperController  {
 		
 		for (int i=0;i<children.size();i++) {
 			MinesweeperButton button = (MinesweeperButton) children.get(i);
-			button.setNeighbours(this.m,this.n,children);
+			button.setNeighbours(model.getm(),model.getn(),children);
 		}
 		
 		return grid;
 	}
 	
 	/*
-	 * Ask model for new game. lose input stage. View loads new game.
-	 * Input: Stage
+	 * Set model to new game with Input parameters.
+	 * Input: Width,Height,Bombs,difficulty
 	 */
-	public void gotoNewGame(Stage thisStage) {
-		this.time=0;
-		model = new MinesweeperModel(this.m,this.n,bombAmount);
-	}
-	
 	public void gotoNewGame(int m, int n, int bombAmount, int dificulty) {
 		model = new MinesweeperModel(m,n,bombAmount);
 		this.time=0;
-		this.n = model.getn();
-		this.m = model.getm();
-		this.bombAmount = model.getBombAmount();
+		
 		this.dificulty= dificulty;
 		view.gameWindow();
 	}
 
-	
+	/*
+	 * Set window to main menu
+	 */
 	public void gotoMainMenu() {
-		model = new MinesweeperModel(this.m,this.n,bombAmount);
 		view.mainMenu();
 	}
 	
-	/*
-	 * Remaining buttons are deactivated 
-	 */
-	public void clearButtonAction() {
-		for (int i =0; i< ((this.m*this.n)-model.getAmountClickedFields()); i++) {
-			MinesweeperButton temp =(MinesweeperButton) children.get(i);
-			temp.setOnAction(null);
-		}
-	}
-	
+		
 	/*
 	 * Checks for victory and defeat condition.
 	 * If endCondition value is 8, the user has won.
@@ -199,12 +177,17 @@ public class MinesweeperController  {
 		}
 	
 	}
+	
+	
+	
 	public void updateViewflags() {
 		int temp = model.getFlagPlaced();
 		view.updatebombs(temp);
 	}
 	
-	
+	/*
+	 * Begin Timeline object. Set time interval to 1 second.
+	 */
 	 public void startTimer() {
 	        timeline = new Timeline(
 	            new KeyFrame(Duration.seconds(0),
@@ -216,7 +199,7 @@ public class MinesweeperController  {
 	
 	 /*
 	  * action set to happen each second.
-	  * time variable updated and cannot exeed 999.
+	  * time variable updated and cannot exceed 999.
 	  * graphic for time label updated.
 	  */
 	 public void ticToc() {
@@ -228,16 +211,24 @@ public class MinesweeperController  {
 		 
 	 }
 	 
-	 
+	 /*
+	  * Load highscore from file("highscore.mwp") and store it internally in ArrayList
+	  * Output: ArrayList<String> with loaded highscore.
+	  * 
+	  */
 	 public ArrayList<String> loadHighscore() throws FileNotFoundException {
 		 ArrayList<String> loadedhighscore= new ArrayList<String>();
 		 Scanner file = new Scanner(new File("highscore.mwp"));
 		 for (int i=0; i<40;i++) {
 			 loadedhighscore.add(file.next());
 	     }
-		
 		 return loadedhighscore;
 	 } 
+	 
+	 /*
+	  * Save highscore to file. Run whenever a score is beaten by player.
+	  */
+	 
 	 public void saveHighScore() throws FileNotFoundException {
 		 
 		 PrintWriter pw = new PrintWriter("highscore.mwp");
@@ -246,9 +237,14 @@ public class MinesweeperController  {
 		 }
 		 pw.close();
 	 }
-	 public int getDificulty() {
-		 return this.dificulty;
-	 }
+	 
+	
+	 /*
+	  * Runs through Highscore and check if a player beat a previous score.
+	  * If score is beaten, a new window is opened, where player enters name.
+	  * 
+	  */
+	 
 	 public void checkHighScore() throws FileNotFoundException {
 		 int updated =0;
 		 int list= this.dificulty*5;
@@ -262,6 +258,11 @@ public class MinesweeperController  {
 		 }
 		 
 	 }	 
+	 
+	 /*
+	  * Player is entered into highscore.
+	  * Input: time it took to beat level(Highscore placement) 
+	  */
 		 
 	public void newHighscore(int place) throws FileNotFoundException {
 		this.highscore.add(place, Integer.toString(time));
@@ -273,7 +274,11 @@ public class MinesweeperController  {
 		;
 		saveHighScore();
 	}
-	//sets highscore to 999 and name "tmp"
+	
+	/*
+	 * Reset highscore to default parameters and saves the highscore to file.
+	 */
+	
 	public void resetHighScore() {
 		this.highscore.clear();
 		for (int i=0; i<20;i++) {
@@ -290,6 +295,10 @@ public class MinesweeperController  {
 		}
 	}
 	
+	/*
+	 * During Custom game setup, this function checks if given inputs will be accepted.
+	 * If any input exeeds usable values, they are set to the min or max settings.
+	 */
 	public void checkAmount() {
 		
 		
@@ -317,7 +326,15 @@ public class MinesweeperController  {
 		}
 			
 	}
-		 
+	
+	/*
+	 * Check which diffifulty game is started.
+	 * Output: game dificulty.
+	 */
+	 
+	 public int getDificulty() {
+		 return this.dificulty;
+	 }
 		 
 	 
 }	

@@ -25,18 +25,22 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
+//File containing all windows used in game.
+
+
 public class MinesweeperView {
-	MinesweeperController controller;
-	Stage stage;
-	String title;
-	Image[] images;
+	
+	private MinesweeperController controller;
+	private Stage stage;
+	private String title;
+	public Image[] images;
 	
 	
-	Label bombs;
-	Label time;
-	int nAmount;
-	int mAmount;
-	int bombAmount;
+	public Label bombs;
+	public Label time;
+	public int nAmount;
+	public int mAmount;
+	public int bombAmount;
 
 	
 	//MinesweeperView initiates constructor to make view
