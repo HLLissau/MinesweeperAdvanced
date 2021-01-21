@@ -21,6 +21,7 @@ public class MinesweeperModel{
 	
 	
 	/*
+	 *  (made by all)
 	 * Creates a standard (n x m) game where bombAmount specifies 
 	 * the amount of bombs to be generated later on
 	 * The constructor also makes sure that m,n is in the interval [4,100]
@@ -49,6 +50,7 @@ public class MinesweeperModel{
 		
 	}
 	/*
+	 * Erik
 	 * Set Array of clicked field to false. run at start of a new game.
 	 */
 	public void setClickedFields() {
@@ -60,6 +62,7 @@ public class MinesweeperModel{
 		}
 	}
 	/*
+	 * Erik
 	 * transfer given [x,y] set from gamestate to knowngamestate.
 	 * Input: Point position to update
 	 * Output: number of neighbors (9 = bombs).
@@ -78,6 +81,7 @@ public class MinesweeperModel{
 	}
 	
 	/*
+	 * Harald
 	 * Sets all elements in gameState[][] to 0, bombs are inserted hereafter randomly.
 	 * Creates list of unoccupied fields for placement of bombs.
 	 * For each iteration of the loop, puts a bomb on an unoccupied field, and removes field from list.
@@ -104,6 +108,7 @@ public class MinesweeperModel{
 	}
 	
 	/*
+	 * Erik
 	 * Iterates through gameState[][] looking for bombs.
 	 * For each bomb the neighbors value is increased by one, except if it is already a bomb.
 	 */
@@ -129,6 +134,7 @@ public class MinesweeperModel{
 	
 	
 	/*
+	 * Anton
 	 * Looks if gameover or victory conditions are met. 
 	 * input: Point of last pressed button
 	 * 
@@ -143,6 +149,7 @@ public class MinesweeperModel{
 	}
 	
 	/*
+	 * Anton
 	 * Victory condition are met, if all buttons, except bombs are pressed.
 	 *  
 	 * output: Boolean value.
@@ -151,6 +158,7 @@ public class MinesweeperModel{
 		return ((this.m*this.n)-this.bombAmount == getAmountClickedFields());
 	}
 	/*
+	 * Anton
 	 * Defeat condition are met, 
 	 * Input: Button pressed position
 	 * Output: Boolean value.
@@ -158,7 +166,12 @@ public class MinesweeperModel{
 	private boolean defeatCondition(Point nextTile) {
 		return gameState[nextTile.x][nextTile.y] == 9;
 	}
-
+	
+	/*
+	 * Harald
+	 * Return how many buttons have been pressed
+	 * Output : int with amount
+	 */
 	public int getAmountClickedFields() {
 		int clicked =0;
 		for (int i=0; i<this.n;i++) {
@@ -169,11 +182,11 @@ public class MinesweeperModel{
 				}
 			}
 		}
-		
 		return clicked;
 	}
 	
 	/*
+	 * (Made by group)
 	 * The remaining functions are used to get/set/check game parameters
 	 */
 	

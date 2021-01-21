@@ -43,12 +43,14 @@ public class MinesweeperView {
 
 	
 	/*
+	 * Anton
 	 * Construct new view.
 	 	 */
 	public MinesweeperView() {
 	}
 	
 	/*
+	 * Anton
 	 * Set view options 
 	 * Import pictures to internal Image[]
 	 */
@@ -61,6 +63,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Anton
 	 * Import pictures to internal Image Array.
 	 */
 	public void setPictures() {
@@ -75,6 +78,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Anton
 	 * Load pictures from view to game. If out of bounds, last index is returned.
 	 * Input: x (array index)
 	 * Output: Image from array index (x)
@@ -89,6 +93,7 @@ public class MinesweeperView {
 	
 	
 	/*
+	 * Anton
 	 * Main menu window.
 	 */
 	public Stage mainMenu() {
@@ -128,6 +133,7 @@ public class MinesweeperView {
 	
 	
 	/*
+	 * Anton
 	 * Game setup window.
 	 */
 	
@@ -181,6 +187,7 @@ public class MinesweeperView {
 	
 	
 	/*
+	 * Harald
 	 * Game window.
 	 */
 
@@ -264,13 +271,9 @@ public class MinesweeperView {
 		
 	}
 	
+		
 	/*
-	 * Open game over window.
-	 * Input: Title and message to display.
-	 * Output: new Stage with game over window. This window contains a button, if pressed begins a new game.
-	 */
-	
-	/*
+	 * Erik
 	 * Open a new window with alert box
 	 * This window is forced to stay on top of Game window, and game window is halted until this window is closed.
 	 * Input: Title of Alertbox, Text to output from Alertbox 
@@ -333,6 +336,7 @@ public class MinesweeperView {
 	}
 
 	/*
+	 * Harald
 	 * Custom game menu
 	 * User can define width and height and bomb amount.
 	 * 
@@ -492,6 +496,7 @@ public class MinesweeperView {
 		
 	}
 	/*
+	 * Erik
 	 * Highscore Screen.
 	 * Show current highest scores and button to reset.
 	 */
@@ -556,6 +561,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Harald
 	 * takes a number between 0-999 and returns it an Array
 	 * Input: integer
 	 * Output: int[]
@@ -572,6 +578,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Harald
 	 * fetches image representing the number from file.
 	 * Input: Number
 	 * Output: Image of the number
@@ -583,6 +590,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Harald
 	 * Function for Graphical representation of numbers 
 	 * Input: integer between 0-999
 	 * Output: HBox with three images, showing same number
@@ -595,6 +603,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Harald
 	 * Function for Graphical representation of letters 
 	 * Input: String
 	 * Output: HBox with images representing the string input.
@@ -608,6 +617,7 @@ public class MinesweeperView {
 	}
 	
 	/*
+	 * Harald
 	 * Function for Graphical representation of letter
 	 * Input: char
 	 * Output: Image of the char, or blank image.
@@ -622,7 +632,9 @@ public class MinesweeperView {
 		}
 	}
 	
-	/* Makes the scorebox for Highscore screen.
+	/*
+	 * Erik
+	 *  Makes the scorebox for Highscore screen.
 	 * Input: int. Used to fetch the correct input from highscore list
 	 * Output: VBox with names and numbers
 	 */
@@ -649,7 +661,9 @@ public class MinesweeperView {
 	}
 	
 	
-	/*  Window pressented when Highscore is beaten.
+	/*  
+	 * 	Erik
+	 *  Window pressented when Highscore is beaten.
 	 *  input: Time used to win
 	 *  output: none.
 	 */
@@ -761,13 +775,16 @@ public class MinesweeperView {
 		});
 		
 	}
-	/*
+	
+	/* 
+	 * Harald
 	 * update timer
 	 */
 	public void updateTime(int update) {
 		this.time.setGraphic(getIntHBox(update));
 	}
 	/*
+	 * Harald
 	 * update bombs
 	 */
 	public void updatebombs(int update) {

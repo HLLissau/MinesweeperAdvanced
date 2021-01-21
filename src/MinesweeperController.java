@@ -27,6 +27,7 @@ public class MinesweeperController  {
 	public ArrayList<String> highscore;
 	
 	/*
+	 *Erik
 	 * Import View and highscore into controller.
 	 */
 	public MinesweeperController() throws FileNotFoundException{
@@ -38,6 +39,7 @@ public class MinesweeperController  {
 	}
 	
 	/*
+	 * Erik
 	 *Calls model for change in position.
 	 *Input: point from view.
 	 *Output: number of neighbors (9 = bombs).
@@ -48,6 +50,7 @@ public class MinesweeperController  {
 	}
 	
 	/*
+	 * Erik
 	 *Program is informed which button the user has pressed. Checks endCondition to see if game is still operational.
 	 *When button is pressed, function removes button and inserts image.
 	 *Input: MinesweeperButton.
@@ -88,6 +91,7 @@ public class MinesweeperController  {
 	
 	
 	/*
+	 * Harald
 	 * Creates GridPane and inserts buttons. Updates ObservableList, with MinesweeperButtons.
 	 * Output: New GridPane
 	 */
@@ -136,6 +140,7 @@ public class MinesweeperController  {
 	}
 	
 	/*
+	 * Erik
 	 * Set model to new game with Input parameters.
 	 * Input: Width,Height,Bombs,difficulty
 	 */
@@ -148,6 +153,7 @@ public class MinesweeperController  {
 	}
 
 	/*
+	 * Anton
 	 * Set window to main menu
 	 */
 	public void gotoMainMenu() {
@@ -156,6 +162,7 @@ public class MinesweeperController  {
 	
 		
 	/*
+	 * Anton
 	 * Checks for victory and defeat condition.
 	 * If endCondition value is 8, the user has won.
 	 * If endCondition value is 9, the user has lost.
@@ -179,13 +186,17 @@ public class MinesweeperController  {
 	}
 	
 	
-	
+	/*
+	 * Anton
+	 * Check how many flags are placed and updates view
+	 */
 	public void updateViewflags() {
 		int temp = model.getFlagPlaced();
 		view.updatebombs(temp);
 	}
 	
 	/*
+	 * Harald
 	 * Begin Timeline object. Set time interval to 1 second.
 	 */
 	 public void startTimer() {
@@ -198,6 +209,7 @@ public class MinesweeperController  {
 	    }
 	
 	 /*
+	  * Harald
 	  * action set to happen each second.
 	  * time variable updated and cannot exceed 999.
 	  * graphic for time label updated.
@@ -212,6 +224,7 @@ public class MinesweeperController  {
 	 }
 	 
 	 /*
+	  * Erik
 	  * Load highscore from file("highscore.mwp") and store it internally in ArrayList
 	  * Output: ArrayList<String> with loaded highscore.
 	  * 
@@ -226,6 +239,7 @@ public class MinesweeperController  {
 	 } 
 	 
 	 /*
+	  * Erik
 	  * Save highscore to file. Run whenever a score is beaten by player.
 	  */
 	 
@@ -240,6 +254,7 @@ public class MinesweeperController  {
 	 
 	
 	 /*
+	  * Erik
 	  * Runs through Highscore and check if a player beat a previous score.
 	  * If score is beaten, a new window is opened, where player enters name.
 	  * 
@@ -260,6 +275,7 @@ public class MinesweeperController  {
 	 }	 
 	 
 	 /*
+	  * Erik
 	  * Player is entered into highscore.
 	  * Input: time it took to beat level(Highscore placement) 
 	  */
@@ -276,6 +292,7 @@ public class MinesweeperController  {
 	}
 	
 	/*
+	 * Erik
 	 * Reset highscore to default parameters and saves the highscore to file.
 	 */
 	
@@ -296,6 +313,7 @@ public class MinesweeperController  {
 	}
 	
 	/*
+	 * Harald
 	 * During Custom game setup, this function checks if given inputs will be accepted.
 	 * If any input exeeds usable values, they are set to the min or max settings.
 	 */
@@ -328,10 +346,10 @@ public class MinesweeperController  {
 	}
 	
 	/*
+	 * Anton
 	 * Check which diffifulty game is started.
 	 * Output: game dificulty.
 	 */
-	 
 	 public int getDificulty() {
 		 return this.dificulty;
 	 }

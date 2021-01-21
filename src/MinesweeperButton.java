@@ -5,12 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
+
 public class MinesweeperButton extends Button{
 	private Point position;
 	private ArrayList<MinesweeperButton> neightbours;
 	public Boolean flag;
 	
 	/*
+	 * Harald & Anton
 	 * contructor. set button size, Point position and create Arraylist<>
 	 */
 	public MinesweeperButton(int x, int y) {
@@ -24,6 +26,7 @@ public class MinesweeperButton extends Button{
 	}
 	
 	/*
+	 * Harald
 	 * Output: Point position
 	 */
 	public Point getPos() {
@@ -31,6 +34,7 @@ public class MinesweeperButton extends Button{
 	}
 	
 	/*
+	 * Harald
 	 * Output ArrayList with neighbours
 	 */
 	public ArrayList<MinesweeperButton> getneighbours() {
@@ -38,6 +42,7 @@ public class MinesweeperButton extends Button{
 	}
     
 	/*
+	 * Erik
 	 * Changes flag boolean
 	 */
 	public void changeFlag() {
@@ -51,6 +56,7 @@ public class MinesweeperButton extends Button{
 	}
 	
 	/*
+	 * Harald
 	 * Sets ArrayList<MinesweeperButton> with neighbouring buttons. Used for autoclear.
 	 * Input:  m,n are game.model size, Observable list of all MinesweeperButtons 
 	 */
