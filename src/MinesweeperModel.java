@@ -48,6 +48,9 @@ public class MinesweeperModel{
 		setClickedFields();
 		
 	}
+	/*
+	 * Set Array of clicked field to false. run at start of a new game.
+	 */
 	public void setClickedFields() {
 		for (int i=0;i<this.n;i++) {
 			for (int j=0;j<this.m;j++) {
@@ -67,12 +70,9 @@ public class MinesweeperModel{
 			
 			randomBombGenerator(bombAmount, nextPos );
 			nearBombs();
-			
 		}
-		
 		this.knownGameState[nextPos.x][nextPos.y]=(char) this.gameState[nextPos.x][nextPos.y];
 		int cell = this.knownGameState[nextPos.x][nextPos.y];
-		
 		testConditions(nextPos);
 		return cell;
 	}
@@ -100,7 +100,6 @@ public class MinesweeperModel{
 			int nextBomb= (int) (Math.random()*(fieldAmount-i-1));
 			Point nextBombPlacement = availableFields.remove(nextBomb);
 			this.gameState[nextBombPlacement.x][nextBombPlacement.y]= 9;
-
 		}
 	}
 	
@@ -160,20 +159,6 @@ public class MinesweeperModel{
 		return gameState[nextTile.x][nextTile.y] == 9;
 	}
 
-	//The remaining functions are used to get game parameters
-	public int getm() {
-		return this.m;
-	}
-	
-	public int getn() {
-		return this.n;
-	}
-	
-	public int getBombAmount() {
-		return this.bombAmount;
-	}
-	
-	
 	public int getAmountClickedFields() {
 		int clicked =0;
 		for (int i=0; i<this.n;i++) {
@@ -187,6 +172,23 @@ public class MinesweeperModel{
 		
 		return clicked;
 	}
+	
+	/*
+	 * The remaining functions are used to get/set/check game parameters
+	 */
+	
+	public int getm() {
+		return this.m;
+	}
+	
+	public int getn() {
+		return this.n;
+	}
+	
+	public int getBombAmount() {
+		return this.bombAmount;
+	}
+	
 	public void placeflag() {
 		this.flagsplaced++;
 	}

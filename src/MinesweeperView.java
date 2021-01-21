@@ -35,8 +35,8 @@ public class MinesweeperView {
 	private String title;
 	
 	public Image[] images; //imported graphic
-	public Label bombs;
-	public Label time;
+	private Label bombs;
+	private Label time;
 	public int nAmount;
 	public int mAmount;
 	public int bombAmount;
@@ -276,8 +276,10 @@ public class MinesweeperView {
 	 * Input: Title of Alertbox, Text to output from Alertbox 
 	 */
 	public void alertBox(String title, String text) {
-		//open a new window and set title
+		//open a new window and set title and background
 		Stage window = new Stage();
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
 		window.setTitle(title);
 		window.sizeToScene();
 		//Force user to interact with window
@@ -292,21 +294,18 @@ public class MinesweeperView {
 				}
 			}
 			controller.gotoMainMenu();
-		});
-		
+		});  
 		
 		
 		//Label with text for user
 		Label label = new Label();
 		label.setGraphic(getstringHBox(text));
 		label.setPadding(new Insets(50,50,50,50));
-		
 		//Button with return text.
 		Button button = new Button();
 		button.setGraphic(getstringHBox("return"));
 		button.setStyle("-fx-background-color: transparent;");
 		button.setPadding(new Insets(50,50,50,50));
-		//Set 
 		button.setOnAction(e -> {
 			window.close();
 			//check if game is new,medium,hard and if game was won
@@ -318,13 +317,7 @@ public class MinesweeperView {
 				}
 			}		
 			controller.gotoMainMenu();
-			
 		});
-		
-		//background
-		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
-		Background background = new Background(backgroundfill);
-		
 		//Layout
 		VBox layout = new VBox(50);
 		layout.getChildren().addAll(label, button);
@@ -332,39 +325,55 @@ public class MinesweeperView {
 		layout.setAlignment(Pos.CENTER);
 		layout.setBackground(background);
 		Scene scene= new Scene(layout);
+		
 		window.setScene(scene);
 		window.show();
-		// When window is closed. opens a new game.
+		
 		
 	}
 
+	/*
+	 * Custom game menu
+	 * User can define width and height and bomb amount.
+	 * 
+	 */
 	public void customizeGame() {
-		this.stage.setTitle("Minesweeper");
+		
+		//Title and background
+		this.stage.setTitle("Minesweeper (Custom Game)");
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
+		
+		//Set local variables for game
 		nAmount=10;
 		mAmount=10;
 		bombAmount=10;
 		
-		//input fields
+		////Number labels 
+		//Label height
 		Label n = new Label();
 		n.setGraphic(getIntHBox(nAmount));
 		n.setScaleX(1.5);
 		n.setScaleY(1.5);
 		n.setPadding(new Insets(17,0,0,0));
+		//label width
 		Label m = new Label();
 		m.setScaleX(1.5);
 		m.setScaleY(1.5);
 		m.setPadding(new Insets(17,0,0,0));
 		m.setGraphic(getIntHBox(mAmount));
+		//label bombs
 		Label bombs = new Label();
 		bombs.setScaleX(1.5);
 		bombs.setScaleY(1.5);
 		bombs.setPadding(new Insets(17,0,0,0));
 		bombs.setGraphic(getIntHBox(nAmount));
 		
-		this.stage.setTitle("Minesweeper (Custom Game)");
-		
-		
-		//plus button
+		/*
+		 * Buttons for adding or subtracting amounts
+		 * setOnAction checks input is valid and update labels
+		 */
+		//plus button n
 		Button plusn = new Button();
 		plusn.setGraphic(new ImageView("images/plus.png"));
 		plusn.setPadding(new Insets(20,0,0,10));
@@ -374,8 +383,8 @@ public class MinesweeperView {
 			controller.checkAmount();
 			n.setGraphic(getIntHBox(nAmount));
 			bombs.setGraphic(getIntHBox(bombAmount));
-			
 		});
+		////plus button m
 		Button plusm = new Button();
 		plusm.setGraphic(new ImageView("images/plus.png"));
 		plusm.setPadding(new Insets(20,0,0,10));
@@ -385,8 +394,8 @@ public class MinesweeperView {
 			controller.checkAmount();
 			m.setGraphic(getIntHBox(mAmount));
 			bombs.setGraphic(getIntHBox(bombAmount));
-			
 		});
+		//plus button bombs
 		Button plusb = new Button();
 		plusb.setGraphic(new ImageView("images/plus.png"));
 		plusb.setPadding(new Insets(20,0,0,10));
@@ -395,10 +404,9 @@ public class MinesweeperView {
 			bombAmount++;
 			controller.checkAmount();
 			bombs.setGraphic(getIntHBox(bombAmount));
-		
-			
 		});
-		//minus button
+		
+		//minus button n
 		Button minusn = new Button();
 		minusn.setBackground(null);
 		minusn.setPadding(new Insets(20,10,0,0));
@@ -408,8 +416,8 @@ public class MinesweeperView {
 			controller.checkAmount();
 			n.setGraphic(getIntHBox(nAmount));
 			bombs.setGraphic(getIntHBox(bombAmount));
-			
 		});
+		//minus button m
 		Button minusm = new Button();
 		minusm.setBackground(null);
 		minusm.setGraphic(new ImageView("images/minus.png"));
@@ -419,8 +427,8 @@ public class MinesweeperView {
 			controller.checkAmount();
 			m.setGraphic(getIntHBox(mAmount));
 			bombs.setGraphic(getIntHBox(bombAmount));
-			
 		});
+		//minus button bombs
 		Button minusb = new Button();
 		minusb.setPadding(new Insets(20,10,0,0));
 		minusb.setBackground(null);
@@ -429,20 +437,20 @@ public class MinesweeperView {
 			bombAmount--;
 			controller.checkAmount();
 			bombs.setGraphic(getIntHBox(bombAmount));
-			
 		});
 		
-		//HBox input fields
+		//Input HBox for Height
 		HBox widthfield = new HBox(10);
 		widthfield.getChildren().addAll(minusn,n,plusn);
 		widthfield.setPadding(new Insets(0,0,0,100));
+		//Input HBox for width
 		HBox heightfield = new HBox(10);
 		heightfield.getChildren().addAll(minusm,m,plusm);
 		heightfield.setPadding(new Insets(0,0,0,58));
+		//Input HBox for Bombs
 		HBox bombsHBoxfield = new HBox(10);
 		bombsHBoxfield.getChildren().addAll(minusb,bombs,plusb);
 		bombsHBoxfield.setPadding(new Insets(0,0,0,100));
-		
 		
 		//Information labels
 		Label nLabel = new Label();
@@ -452,7 +460,7 @@ public class MinesweeperView {
 		Label bLabel = new Label();
 		bLabel.setGraphic(getstringHBox("Bombs"));
 		
-		
+		//// Labels and buttons combined
 		//Hbox for labels and fields
 		HBox width = new HBox(10);
 		width.getChildren().addAll(nLabel,widthfield);
@@ -468,53 +476,48 @@ public class MinesweeperView {
 		newGameButton.setGraphic(new ImageView(new Image("images/startgame.png")));
 		newGameButton.setStyle("-fx-background-color: transparent;");
 		newGameButton.setOnAction(e ->  controller.gotoNewGame(nAmount,mAmount,bombAmount,3));
-		
-		Button leaveButton = new Button();
-		leaveButton.setGraphic(new ImageView(new Image("images/back.png")));
-		leaveButton.setStyle("-fx-background-color: transparent;");
-		leaveButton.setOnAction(e -> mainSetup());
+		//back button
+		Button backButton = new Button();
+		backButton.setGraphic(new ImageView(new Image("images/back.png")));
+		backButton.setStyle("-fx-background-color: transparent;");
+		backButton.setOnAction(e -> mainSetup());
 									
-		
+		//Final layout combined
 		VBox layout = new VBox(20);
-		layout.getChildren().addAll(width,height,bombsHBox,newGameButton, leaveButton);
+		layout.getChildren().addAll(width,height,bombsHBox,newGameButton, backButton);
 		layout.setPadding(new Insets(300,400,300,300));
-		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
-		Background background = new Background(backgroundfill);
 		layout.setBackground(background);
-		
-		
 		Scene scene = new Scene(layout, 1000, 750);
 		stage.setScene(scene);
 		
 	}
-
+	/*
+	 * Highscore Screen.
+	 * Show current highest scores and button to reset.
+	 */
+	
 	public void highScore() {
-		this.stage.setTitle("Minesweeper");
+		//set title and background
+		this.stage.setTitle("Minesweeper (Highscore)");
 		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/background.png"), null, null, null, null);
 		Background background = new Background(backgroundfill);
 		
 		
-		//dificulty list
+		//Box with difficulty names 
 		HBox dificulty = new HBox(150);
 		dificulty.getChildren().add(new ImageView(new Image("images/easy.png")));
 		dificulty.getChildren().add(new ImageView(new Image("images/medium.png")));
 		dificulty.getChildren().add(new ImageView(new Image("images/hard.png")));
 		dificulty.setPadding(new Insets(100,50,30,100));
 		
-		//easy
+		//easy game highscores
 		VBox easy = getScoreVBox(0);
-		
-		//medium
+		//medium game highscores
 		VBox medium = getScoreVBox(5);
-		
-		
-		//hard
+		//hard game highscores
 		VBox hard = getScoreVBox(10);
-		//hard.setPadding(new Insets(0,0,0,120));
-		
-		
-		
-		// all scores
+				
+		// all scores combined into 1 HBox
 		HBox highscores = new HBox(50);
 		highscores.getChildren().addAll(easy,medium,hard);
 		highscores.setPadding(new Insets(0,0,0,50));
@@ -527,21 +530,22 @@ public class MinesweeperView {
 		returnButton.setOnAction(e -> mainMenu());
 		returnButton.setPadding(new Insets(0,110,200,100));
 		
-		//return button
+		//reset button
 		Button resetButton = new Button();
 		resetButton.setGraphic(getstringHBox("reset"));
 		resetButton.setStyle("-fx-background-color: transparent;");
 		resetButton.setOnAction(e ->{
-		controller.resetHighScore();	
-		mainMenu();
+			controller.resetHighScore();	
+			mainMenu();
 	    });
 		resetButton.setPadding(new Insets(0,300,300,400));
-				
+		
+		//Buttons HBox
 		HBox buttons = new HBox();
 		buttons.getChildren().addAll(returnButton,resetButton);
 		
 		
-		//all together now!
+		//Final layout 
 		VBox layout = new VBox();
 		layout.getChildren().addAll(dificulty,highscores,buttons);
 		layout.setPadding(new Insets(150,0,0,0));
@@ -551,6 +555,11 @@ public class MinesweeperView {
 		
 	}
 	
+	/*
+	 * takes a number between 0-999 and returns it an Array
+	 * Input: integer
+	 * Output: int[]
+	 */
 	public int[] getGrapicInt(int input) {
 		int[] image= new int[3];
 		int number= input;
@@ -562,11 +571,22 @@ public class MinesweeperView {
 		return image;
 	}
 	
+	/*
+	 * fetches image representing the number from file.
+	 * Input: Number
+	 * Output: Image of the number
+	 * *note: number have to be between 0-9
+	 */
 	public Image getNumberAsImage(int number) {
-	String name = "images/" + number + ".png";
-	return new Image(name);
+		String name = "images/" + number + ".png";
+		return new Image(name);
 	}
 	
+	/*
+	 * Function for Graphical representation of numbers 
+	 * Input: integer between 0-999
+	 * Output: HBox with three images, showing same number
+	 */
 	public HBox getIntHBox(int input) {
 		HBox numbers = new HBox();
 		int[] numAsImage = getGrapicInt(input);
@@ -574,24 +594,38 @@ public class MinesweeperView {
 		return numbers;
 	}
 	
-	
+	/*
+	 * Function for Graphical representation of letters 
+	 * Input: String
+	 * Output: HBox with images representing the string input.
+	 */
 	public HBox getstringHBox(String input) {
 		HBox temp = new HBox();
 		for(int i=0; i<input.length(); i++ ) {
-			temp.getChildren().add(new ImageView(getStringAsImages(input.charAt(i))));
+			temp.getChildren().add(new ImageView(getcharAsImages(input.charAt(i))));
 		}
-		
 		return temp;
 	}
 	
-	public Image getStringAsImages(char input) {
+	/*
+	 * Function for Graphical representation of letter
+	 * Input: char
+	 * Output: Image of the char, or blank image.
+	 */
+	public Image getcharAsImages(char input) {
 		
 		// Filter input. Only a-z and A-Z is allowed as input. Other input returns ' '.
 		if ((input >=65 && input <=90) || (input >=97 && input <=122)){
 			return new Image( "images/" + input + ".png"); 
+		} else {
+			return new Image("images/space.png"); 
 		}
-		return new Image("images/space.png"); 
 	}
+	
+	/* Makes the scorebox for Highscore screen.
+	 * Input: int. Used to fetch the correct input from highscore list
+	 * Output: VBox with names and numbers
+	 */
 	public VBox getScoreVBox(int x) {
 		VBox temp = new VBox(10);
 		temp.setPadding(new Insets(0,5,25,50));
@@ -603,12 +637,9 @@ public class MinesweeperView {
 			numbers.setPadding(new Insets(15,20,1,1));
 			numbers.setScaleX(2);
 			numbers.setScaleY(2);
-			
-			
 			//gets name
 			HBox letters = getstringHBox(controller.highscore.get(i+20));
 			letters.setPadding(new Insets(2,2,2,2));
-			
 			//boxed together
 			HBox player = new HBox();
 			player.getChildren().addAll(numbers,letters);
@@ -617,24 +648,25 @@ public class MinesweeperView {
 	return temp;
 	}
 	
+	
 	/*  Window pressented when Highscore is beaten.
 	 *  input: Time used to win
 	 *  output: none.
 	 */
 	
-	
 	public void newHighScoreName(int timeUsed) {
-		//controller.clearButtonAction();
-		
-		String text= "TMP";	
-		controller.newName=text;
+		//Set window title and background
 		Stage window = new Stage();
 		window.setTitle("New HighScore");
 		window.sizeToScene();
+		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
+		Background background = new Background(backgroundfill);
+		
+		
 		//Force user to interact with window
 		window.initModality(Modality.APPLICATION_MODAL);
-		window.setOnCloseRequest(e -> {
-			
+		//Close request. saves highscore.
+		window.setOnCloseRequest(e -> {	
 			//catch error(File not found)
 			try {
 				controller.newHighscore(timeUsed);
@@ -642,30 +674,32 @@ public class MinesweeperView {
 				e1.printStackTrace();
 			}		
 		});
+		
+		//String to show while waiting for user input.
+		String text= "TMP";	
+		controller.newName=text;
 	
-		// highscore message
+		//Label highscore message
 		Label highsco = new Label();
 		highsco.setGraphic(getstringHBox("New Highscore"));
 		highsco.setPadding(new Insets(5,50,50,50));
-		// insert name
+		
+		//Label insert name
 		Label message = new Label();
 		message.setGraphic(getstringHBox("Type name"));
 		message.setPadding(new Insets(5,50,50,50));
-		
-		
-		
-		// user input
+		//Label user input
 		Label label = new Label();
 		label.setGraphic(getstringHBox(text));
 		label.setPadding(new Insets(50,50,50,50));
 		
-		//button (save)
+		//button save
 		Button button = new Button();
 		button.setGraphic(getstringHBox("save"));
 		button.setStyle("-fx-background-color: transparent;");
 		button.setPadding(new Insets(5,50,50,50));
+		//saves highscore and close window.
 		button.setOnAction(e -> {
-			
 			//catch error(File not found)
 			try {
 				controller.newHighscore(timeUsed);
@@ -675,9 +709,6 @@ public class MinesweeperView {
 			window.close();	
 		});
 		
-		//background
-		BackgroundImage backgroundfill = new BackgroundImage(new Image("images/backgroundNoTitle.png"), null, null, null, null);
-		Background background = new Background(backgroundfill);
 		
 		//Layout
 		VBox layout = new VBox(10);
@@ -695,26 +726,30 @@ public class MinesweeperView {
 			
 			String inputstring = key.getCode().getChar();
 			char input = inputstring.charAt(0);
+			//If buttons is A-Z, a-z or 'backspace'
 			if ((input >=65 && input <=90) || (input >=97 && input <=122 || input==8 )) {
 			
-			
+				//if temporary name is entered, if true, removes it.
 				if (controller.newName=="TMP") {
 					controller.newName="";
 				}
-			
+				//removes last entered char if 'backspace' is pressed
 				if(key.getCode()== KeyCode.BACK_SPACE) {
 					String nameEntered = controller.newName;
 					int number =(nameEntered.length()-1);
+					//cannot go below 0 char entered
 					if (number<=0) {
 						number=0;
 					}
 					controller.newName= nameEntered.substring(0, number);
 					label.setGraphic(getstringHBox(controller.newName));
 				}else {
+					//Input next char
 					String nameEntered = "";
 					controller.newName +=key.getCode();
 					label.setGraphic(getstringHBox(controller.newName));
 					nameEntered= controller.newName;
+					//cannot exceed 3 chars
 					if (nameEntered.length()>=4) {
 						controller.newName= nameEntered.substring(0, 3);
 						label.setGraphic(getstringHBox(controller.newName));
@@ -726,10 +761,15 @@ public class MinesweeperView {
 		});
 		
 	}
-	
+	/*
+	 * update timer
+	 */
 	public void updateTime(int update) {
 		this.time.setGraphic(getIntHBox(update));
 	}
+	/*
+	 * update bombs
+	 */
 	public void updatebombs(int update) {
 		this.bombs.setGraphic(getIntHBox(update));
 	}
