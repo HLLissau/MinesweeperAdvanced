@@ -276,10 +276,10 @@ public class MinesweeperController  {
 	//sets highscore to 999 and name "tmp"
 	public void resetHighScore() {
 		this.highscore.clear();
-		for (int i=0; i<15;i++) {
+		for (int i=0; i<20;i++) {
 			this.highscore.add("999");
 		}
-		for (int i=0; i<15;i++) {
+		for (int i=0; i<20;i++) {
 			this.highscore.add("tmp");
 		}
 		//catch file not found
