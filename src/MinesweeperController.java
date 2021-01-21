@@ -31,7 +31,7 @@ public class MinesweeperController  {
 	 */
 	public MinesweeperController() throws FileNotFoundException{
 		
-		
+		this.model = new MinesweeperModel(10,10,10);
 		this.highscore = loadHighscore();
 		this.view = new MinesweeperView();
 		

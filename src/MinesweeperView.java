@@ -33,9 +33,8 @@ public class MinesweeperView {
 	private MinesweeperController controller;
 	private Stage stage;
 	private String title;
-	public Image[] images;
 	
-	
+	public Image[] images; //imported graphic
 	public Label bombs;
 	public Label time;
 	public int nAmount;
@@ -48,7 +47,10 @@ public class MinesweeperView {
 		setPictures();
 	}
 	
-	//Set game parameters
+	/*
+	 * Set view options 
+	 * 
+	 */
 	public void SetOptions(Stage topLevelStage, MinesweeperController controller, String title) {
 		this.stage = topLevelStage;
 		this.controller = controller;
