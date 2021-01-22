@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.awt.Point;
 import java.io.File;
@@ -56,14 +57,14 @@ public class MinesweeperController  {
 	 *Input: MinesweeperButton.
 	 */
 	public void buttonPressed(MinesweeperButton pressedButton) {
-		//basiscase
+		// recursive base case
 		if (!(model.buttonclicked(pressedButton.getPos()))) {
 			
 			
 			//check if button got flag
 			if (!(pressedButton.flag)) {
 				model.clickbutton(pressedButton.getPos());
-				
+				//First time game is started, start timer
 				if (!(model.isGAmeStarted())) {
 							startTimer();
 				}
@@ -71,6 +72,7 @@ public class MinesweeperController  {
 				grid.getChildren().remove(pressedButton);
 				int cell = getNext(pressedButton.getPos());
 				grid.add(new ImageView(view.getPicture(cell)), pressedButton.getPos().x, pressedButton.getPos().y);
+				
 				
 				//recursive function. run if no neighbours got bombs.
 				if (cell==0) {
@@ -225,16 +227,42 @@ public class MinesweeperController  {
 	 
 	 /*
 	  * Erik
-	  * Load highscore from file("highscore.mwp") and store it internally in ArrayList
+	  * Load highscore from file("highscore.mwp") and store it internally in ArrayList.
+	  * if File doesnt exits. create a new file.
 	  * Output: ArrayList<String> with loaded highscore.
 	  * 
 	  */
 	 public ArrayList<String> loadHighscore() throws FileNotFoundException {
+			 
 		 ArrayList<String> loadedhighscore= new ArrayList<String>();
-		 Scanner file = new Scanner(new File("highscore.mwp"));
-		 for (int i=0; i<40;i++) {
-			 loadedhighscore.add(file.next());
+		 
+		 File file =new File("highscore.mwp");
+		 if (file.exists()) {
+			 Scanner scanner = new Scanner(file);
+			 for (int i=0; i<40;i++) {
+				 loadedhighscore.add(scanner.next());
+			 }
+			 scanner.close();
+	     } else {
+	    	 File Fileright = new File("highscore.mwp");
+	    	 PrintWriter pw = new PrintWriter(Fileright);
+	    	 for(int i=0; i<20; i++ ) {
+				 pw.write("999 ");
+				 
+	    	 }
+	    	 for(int i=0; i<20; i++ ) {
+				 pw.write("TMP ");
+				 
+	    	 }
+	    	 pw.close();
+	    	 Scanner scanner = new Scanner(file);
+			 for (int i=0; i<40;i++) {
+				 loadedhighscore.add(scanner.next());
+			 }
+			 scanner.close();
+	    	 
 	     }
+		 
 		 return loadedhighscore;
 	 } 
 	 
@@ -244,7 +272,6 @@ public class MinesweeperController  {
 	  */
 	 
 	 public void saveHighScore() throws FileNotFoundException {
-		 
 		 PrintWriter pw = new PrintWriter("highscore.mwp");
 		 for(int i=0; i<40; i++ ) {
 			 pw.write(highscore.get(i)+" ");
@@ -320,17 +347,17 @@ public class MinesweeperController  {
 	public void checkAmount() {
 		
 		
-		if (view.mAmount<=model.MINGRIDSIZE){
-			view.mAmount=model.MINGRIDSIZE;
-		}
-		if (view.mAmount>=model.MAXGRIDSIZE) {
-			view.mAmount=model.MAXGRIDSIZE;
-		}
 		if (view.nAmount<=model.MINGRIDSIZE){
 			view.nAmount=model.MINGRIDSIZE;
 		}
-		if (view.nAmount>=model.MAXGRIDHEIGHT) {
-			view.nAmount=model.MAXGRIDHEIGHT;
+		if (view.nAmount>=model.MAXGRIDWIDTHSIZE) {
+			view.nAmount=model.MAXGRIDWIDTHSIZE;
+		}
+		if (view.mAmount<=model.MINGRIDSIZE){
+			view.mAmount=model.MINGRIDSIZE;
+		}
+		if (view.mAmount>=model.MAXGRIDHEIGHT) {
+			view.mAmount=model.MAXGRIDHEIGHT;
 		}
 		
 		if (view.bombAmount<=0) {
