@@ -457,19 +457,19 @@ public class MinesweeperView {
 		bombsHBoxfield.setPadding(new Insets(0,0,0,100));
 		
 		//Information labels
-		Label nLabel = new Label();
-		nLabel.setGraphic(getstringHBox("width"));
 		Label mLabel = new Label();
-		mLabel.setGraphic(getstringHBox("height"));
+		mLabel.setGraphic(getstringHBox("width"));
+		Label nLabel = new Label();
+		nLabel.setGraphic(getstringHBox("height"));
 		Label bLabel = new Label();
 		bLabel.setGraphic(getstringHBox("Bombs"));
 		
 		//// Labels and buttons combined
 		//Hbox for labels and fields
 		HBox width = new HBox(10);
-		width.getChildren().addAll(nLabel,widthfield);
+		width.getChildren().addAll(mLabel,widthfield);
 		HBox height = new HBox(10);
-		height.getChildren().addAll(mLabel,heightfield);
+		height.getChildren().addAll(nLabel,heightfield);
 		HBox bombsHBox = new HBox(10);
 		bombsHBox.getChildren().addAll(bLabel,bombsHBoxfield);
 		bombsHBox.setPadding(new Insets(0,0,30,00));

@@ -13,8 +13,8 @@ public class MinesweeperModel{
 	private int bombAmount;
 	private int n;
 	public final int MINGRIDSIZE = 4;
-	public final int MAXGRIDSIZE = 100;
-	public final int MAXGRIDHEIGHT = 50;
+	public final int MAXGRIDWIDTHSIZE = 40;
+	public final int MAXGRIDHEIGHT = 23;
 	private int flagsplaced;
 	private boolean gameStopped;
 	
@@ -30,7 +30,7 @@ public class MinesweeperModel{
 	 */
 	public MinesweeperModel(int m, int n, int bombAmount) {
 		
-		if (m > MAXGRIDSIZE) m = MAXGRIDSIZE;
+		if (m > MAXGRIDWIDTHSIZE) m = MAXGRIDWIDTHSIZE;
 		else if (m < MINGRIDSIZE) m = MINGRIDSIZE;
 		if (n > MAXGRIDHEIGHT) n = MAXGRIDHEIGHT;
 		else if (n < MINGRIDSIZE) n = MINGRIDSIZE;
