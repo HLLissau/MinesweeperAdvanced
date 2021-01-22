@@ -240,7 +240,6 @@ public class MinesweeperController  {
 			 Scanner scanner = new Scanner(file);
 			 for (int i=0; i<40;i++) {
 				 loadedhighscore.add(scanner.next());
-				 System.out.println(loadedhighscore.get(i));
 			 }
 			 scanner.close();
 	     } else {
