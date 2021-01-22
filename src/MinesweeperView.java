@@ -609,6 +609,7 @@ public class MinesweeperView {
 	 * Output: HBox with images representing the string input.
 	 */
 	public HBox getstringHBox(String input) {
+		input = input.toLowerCase();
 		HBox temp = new HBox();
 		for(int i=0; i<input.length(); i++ ) {
 			temp.getChildren().add(new ImageView(getcharAsImages(input.charAt(i))));
